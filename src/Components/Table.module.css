@@ -1,6 +1,6 @@
 table {
     border: 1px solid red;
-    min-width: 50rem;
+    min-width: 45rem;
 }
 
 thead tr th:first-child {
@@ -9,11 +9,16 @@ thead tr th:first-child {
 
 th, td{
     padding: 8px;
+    border: 1px solid red;
 }
 
 td{
     text-align: center;
 }
+
+/* .textLeft{
+    text-align: left;
+} */
 
 tbody input {
     font-size: 1rem;
@@ -23,13 +28,66 @@ tbody input {
 .playersName {
     display: flex;
     gap: 25px;
-    padding: 5px 0;
     /* border: 1px solid blue; */
 }
 
 .playersName input {
-    padding: 10px;
     margin-bottom: 2rem;
     height: 2rem;
     font-size: 1rem;
 }
+
+.pokemonSearch {
+    width: 10rem;
+}
+
+input {
+    padding: 6px;
+    border-radius: 12px;
+}
+
+input:focus::placeholder {
+    color: transparent;
+}
+
+.addPokemonBtns {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 15px;
+    border: none;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+svg {
+    display: flex;
+}
+
+.popupMenu{
+    width: 15rem;
+    border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* display: none; */
+}
+
+.popupMenu input {
+    width: 80%;
+    padding: 5px;
+    margin: 5px;
+}
+
+.popupMenuBtns {
+    display: flex;
+    gap: 25px;
+    padding: 5px;
+}
+/* 
+.pokemonDisplay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */

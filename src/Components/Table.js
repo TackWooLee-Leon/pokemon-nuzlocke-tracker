@@ -63,18 +63,78 @@ export default function Table() {
                     <th>Location</th>
                     <th>{playerOneName}</th>
                     <th>{playerTwoName}</th>
-                    <th>Nicknames</th>
+                    <th className={styles.textLeft}>Nicknames</th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
                     <td>
-                        <input type="text" name="Location" placeholder='e.g. route 101'></input>
+                        <input type="text" placeholder='e.g. route 101'></input>
                     </td>
-                    <td>Pokemon 1</td>
-                    <td>Pokemon 2</td>
-                    <td>Nick & Rick</td>
+                    <td className={styles.pokemonDisplay}>
+
+                        <div className={styles.popupMenu}>
+                            <input 
+                                type="text"
+                                placeholder='Search Pokemon'
+                            />
+                            <input 
+                                type="text"
+                                placeholder='Enter nicknames'
+                            />
+
+                            <div className={styles.popupMenuBtns}>
+                                <button>
+                                    Cancel
+                                </button>
+
+                                <button>
+                                    Add
+                                </button>
+                            </div>
+                            
+                        </div>
+
+                        <button className={styles.addPokemonBtns}>
+                            <svg viewBox="0 0 128 128" style={{ enableBackground: 'new 0 0 128 128' }}>
+                                <path style={{ fill: '#303030' }} d="M128 63.954c0 2.006-.797 3.821-2.136 5.127-1.308 1.337-3.125 2.133-5.166 2.133H71.302v49.356c0 4.012-3.284 7.292-7.302 7.292-2.009 0-3.827-.828-5.166-2.134-1.308-1.337-2.136-3.152-2.136-5.159V71.214H7.302c-4.05 0-7.302-3.248-7.302-7.26 0-2.006.797-3.853 2.136-5.159a7.279 7.279 0 0 1 5.166-2.134h49.395V7.306c0-4.012 3.284-7.26 7.302-7.26 2.009 0 3.827.828 5.166 2.133a7.238 7.238 0 0 1 2.136 5.127v49.356h49.395A7.276 7.276 0 0 1 128 63.954z"/>
+                            </svg>
+                        </button>
+
+                        
+                    </td>
+
+                    <td> 
+                        <div className={styles.popupMenu}>
+                            <input 
+                                type="text"
+                                placeholder='Search Pokemon'
+                            />
+                            <input 
+                                type="text"
+                                placeholder='Enter nicknames'
+                            />
+
+                        <div className={styles.popupMenuBtns}>
+                                <button>
+                                    Cancel
+                                </button>
+
+                                <button>
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <button className={styles.addPokemonBtns}>
+                            <svg viewBox="0 0 128 128" style={{ enableBackground: 'new 0 0 128 128' }}>
+                                <path style={{ fill: '#303030' }} d="M128 63.954c0 2.006-.797 3.821-2.136 5.127-1.308 1.337-3.125 2.133-5.166 2.133H71.302v49.356c0 4.012-3.284 7.292-7.302 7.292-2.009 0-3.827-.828-5.166-2.134-1.308-1.337-2.136-3.152-2.136-5.159V71.214H7.302c-4.05 0-7.302-3.248-7.302-7.26 0-2.006.797-3.853 2.136-5.159a7.279 7.279 0 0 1 5.166-2.134h49.395V7.306c0-4.012 3.284-7.26 7.302-7.26 2.009 0 3.827.828 5.166 2.133a7.238 7.238 0 0 1 2.136 5.127v49.356h49.395A7.276 7.276 0 0 1 128 63.954z"/>
+                            </svg>
+                        </button>
+                    </td>
+
+                    <td className={styles.textLeft}>Nick & Rick</td>
                 </tr>
             </tbody>
         
