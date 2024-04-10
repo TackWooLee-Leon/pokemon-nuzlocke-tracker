@@ -1,5 +1,6 @@
 import styles from './Table.module.css'
 import React, { useState } from 'react';
+import PokemonInfo from './PokemonData';
 
 export default function Table() {
     const [playerOneNameInput, setPlayerOneNameInput] = useState("");
@@ -111,6 +112,8 @@ export default function Table() {
                                 type="text"
                                 placeholder='Search Pokemon'
                             />
+
+                            <PokemonInfo />
                             <input 
                                 type="text"
                                 placeholder='Enter nicknames'
