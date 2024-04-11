@@ -1,34 +1,26 @@
-import { useState, useEffect } from 'react';
 
 const PokemonInfo = () => {
-    useEffect(() => {
-        // retrieving data from pokeAPI, data would be arrays of Pokemon with names and urls
-        // this won't give you the full list of data, we have to dig deeper into the urls
-        fetch("https://pokeapi.co/api/v2/pokemon/?limit=135&offset=251")
-        // parsing/converting the data (json format) to javascript object
-        .then(response => response.json())
-        .then(data => {
-            // inside each url contains all the data for each pokemon, such as name, sprites, types, etc
-            // we only need those three data, so we need to filter out other unnecessary information
-            const pokemonUrls = data.results.map(pokemon => pokemon.url);
-
-            const pokemonDataPromises = pokemonUrls.map(url => 
-                fetch(url)
-                .then(response => response.json())
-                .then(pokemonData => {
-                    const { name, sprites, types } = pokemonData;
-                    const spriteUrl = sprites?.front_default;
-                    const pokemonTypes = types.map(type => type.type.name);
-                    return { name, spriteUrl, pokemonTypes };
-                })
-                );
-
-            Promise.all(pokemonDataPromises)
-                .then(pokemonData => {
-                    console.log(pokemonData);
-                })
-        })
-            
+    return fetch("https://pokeapi.co/api/v2/pokemon/?limit=135&offset=251")
+    .then(response => response.json())
+    .then(data => {
+        // inside each url contains all the data for each pokemon, such as name, sprites, types, etc
+        const pokemonUrls = data.results.map(pokemon => pokemon.url);
+        // creating an array by map and store it inside pokemonDataPromises variable
+        const pokemonDataPromises = pokemonUrls.map(url => 
+            // fetching data from the urls
+            fetch(url)
+            .then(response => response.json())
+            // manually selecting necessary data
+            .then(pokemonData => {
+                // destructing properties from pokemonData (extract specific values)
+                const { name, sprites, types } = pokemonData;
+                const spriteUrl = sprites?.front_default;
+                const pokemonTypes = types.map(type => type.type.name);
+                return { name, spriteUrl, pokemonTypes };
+            })
+            );
+        // return a promise that can be resolved at another call site
+        return Promise.all(pokemonDataPromises)
     })
 }
 

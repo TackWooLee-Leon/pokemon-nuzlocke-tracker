@@ -1,12 +1,22 @@
 import styles from './Table.module.css'
 import React, { useState } from 'react';
 import PokemonInfo from './PokemonData';
+import Select from 'react-select';
+import { useEffect } from 'react';
 
 export default function Table() {
     const [playerOneNameInput, setPlayerOneNameInput] = useState("");
     const [playerTwoNameInput, setPlayerTwoNameInput] = useState("");
     const [playerOneName, setPlayerOneName] = useState("");
     const [playerTwoName, setPlayerTwoName] = useState("");
+    const [pokemonInfo, setPokemonInfo] = useState([])
+
+    useEffect(()=>{
+        PokemonInfo()
+            .then((data) => {
+                setPokemonInfo(data)
+            })
+    }, [])
 
     const handleChange = (event) => {
         // extracting name and value properties from event.target which is input
@@ -74,25 +84,27 @@ export default function Table() {
                         <input type="text" placeholder='e.g. route 101'></input>
                     </td>
                     <td className={styles.pokemonDisplay}>
-
+                        
                         <div className={styles.popupMenu}>
-                            <input 
-                                type="text"
-                                placeholder='Search Pokemon'
-                            />
-                            <input 
-                                type="text"
-                                placeholder='Enter nicknames'
-                            />
+                            <Select options={pokemonInfo?.map((item) => {
+                                console.log(item)
+                                return {value: item.name, label: item.name}
+                            })} />
+                            {/* <form>
+                                <input 
+                                    type="text"
+                                    placeholder='Search Pokemon'
+                                />
+                                <input 
+                                    type="text"
+                                    placeholder='Enter nicknames'
+                                />
+                            </form> */}
 
                             <div className={styles.popupMenuBtns}>
-                                <button>
-                                    Cancel
-                                </button>
+                                <button>Cancel</button>
 
-                                <button>
-                                    Add
-                                </button>
+                                <button type="submit" value="submit">Add</button>
                             </div>
                             
                         </div>
@@ -113,20 +125,15 @@ export default function Table() {
                                 placeholder='Search Pokemon'
                             />
 
-                            <PokemonInfo />
                             <input 
                                 type="text"
                                 placeholder='Enter nicknames'
                             />
 
-                        <div className={styles.popupMenuBtns}>
-                                <button>
-                                    Cancel
-                                </button>
+                            <div className={styles.popupMenuBtns}>
+                                <button>Cancel</button>
 
-                                <button>
-                                    Add
-                                </button>
+                                <button>Add</button>
                             </div>
                         </div>
 
@@ -137,7 +144,7 @@ export default function Table() {
                         </button>
                     </td>
 
-                    <td className={styles.textLeft}>Nick & Rick</td>
+                    <td className={styles.textLeft}></td>
                 </tr>
             </tbody>
         
