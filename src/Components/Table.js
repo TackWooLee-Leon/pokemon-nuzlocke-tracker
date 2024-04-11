@@ -1,8 +1,7 @@
 import styles from './Table.module.css'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PokemonInfo from './PokemonData';
 import Select from 'react-select';
-import { useEffect } from 'react';
 
 export default function Table() {
     const [playerOneNameInput, setPlayerOneNameInput] = useState("");
@@ -15,6 +14,7 @@ export default function Table() {
         PokemonInfo()
             .then((data) => {
                 setPokemonInfo(data)
+                console.log(pokemonInfo)
             })
     }, [])
 
@@ -40,10 +40,9 @@ export default function Table() {
                 setPlayerTwoName(playerTwoNameInput);
                 setPlayerTwoNameInput("");
             }
-            
-            
         }
     }
+
     return(
         <div>
             <div className={styles.playersName}>
@@ -55,7 +54,6 @@ export default function Table() {
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                 />
-
             
                 <input
                     type="text"
@@ -69,27 +67,38 @@ export default function Table() {
 
             {/* table to display players' data */}
             <table>
-            <thead>
-                <tr>
-                    <th>Location</th>
-                    <th>{playerOneName}</th>
-                    <th>{playerTwoName}</th>
-                    <th className={styles.textLeft}>Nicknames</th>
-                </tr>
-            </thead>
-
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>{playerOneName}</th>
+                        <th>{playerTwoName}</th>
+                        <th className={styles.textLeft}>Nicknames</th>
+                    </tr>
+                </thead>
+                
             <tbody>
                 <tr>
                     <td>
                         <input type="text" placeholder='e.g. route 101'></input>
                     </td>
                     <td className={styles.pokemonDisplay}>
-                        
                         <div className={styles.popupMenu}>
-                            <Select options={pokemonInfo?.map((item) => {
-                                console.log(item)
-                                return {value: item.name, label: item.name}
-                            })} />
+                            <Select 
+                                placeholder="Find Pokemon"
+                                formatOptionLabel={(pokemon) => {
+                                    return ( 
+                                    <div style={{ display: 'flex', alignItems: 'center'}}>
+                                        <img src={pokemon.spriteUrl} alt={pokemon.name} style={{ width: 30, marginRight: 5 }}></img>
+                                        <span>{pokemon.name}</span>
+
+                                    </div>)
+                                   
+                                }}
+                                options={pokemonInfo} 
+                                getOptionLabel={options => options.name}
+                                getOptionValue={options => options.name}
+                                
+                                />
                             {/* <form>
                                 <input 
                                     type="text"
