@@ -9,11 +9,16 @@ export default function Table() {
     const [playerOneName, setPlayerOneName] = useState("");
     const [playerTwoName, setPlayerTwoName] = useState("");
     const [pokemonInfo, setPokemonInfo] = useState([]);
-    const [showPopUp, setShowPopUp] = useState(false);
+    const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
 
-    function togglePopUp() {
-        setShowPopUp(!showPopUp);
-    }
+    // toggle popUpMenu individually
+    function togglePopUp(index) {
+        setShowPopUp((prevShowPopUp) => {
+            const newShowPopUp = [...prevShowPopUp];
+            newShowPopUp[index] = !newShowPopUp[index];
+            return newShowPopUp
+        });
+    };
 
 
     useEffect(()=>{
@@ -87,14 +92,15 @@ export default function Table() {
                     <td>
                         <input type="text" placeholder='e.g. route 101'></input>
                     </td>
-                    <td  className={styles.pokemonDisplay}>
-                        <div style={{display: showPopUp ? "flex" : "none"}} className={styles.popUpMenu}>
+
+                    <td className={styles.pokemonDisplay}>
+                        <div style={{ display: showPopUp[0] ? "flex" : "none" }} className={styles.popUpMenu}>
                             <div className={styles.selectWrapper}>
                                 <Select 
                                     placeholder="Find Pokemon"
                                     formatOptionLabel={(pokemon) => {
                                         return ( 
-                                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                                        <div style={{ display: "flex", alignItems: "center" }}>
                                             <img src={pokemon.spriteUrl} alt={pokemon.name} style={{ width: 30, marginRight: 5 }}></img>
                                             <span>{pokemon.name}</span>
 
@@ -114,14 +120,14 @@ export default function Table() {
                             />
 
                             <div className={styles.popUpMenuBtns}>
-                                <button>Cancel</button>
+                                <button onClick={() => {togglePopUp(0)}}>Cancel</button>
 
                                 <button type="submit" value="submit">Add</button>
                             </div>
                             
                         </div>
 
-                        <button className={styles.addPokemonBtns} onClick={togglePopUp}>
+                        <button className={styles.addPokemonBtns} onClick={() => {togglePopUp(0)}}>
                             <svg viewBox="0 0 128 128" style={{ enableBackground: 'new 0 0 128 128' }}>
                                 <path style={{ fill: '#303030' }} d="M128 63.954c0 2.006-.797 3.821-2.136 5.127-1.308 1.337-3.125 2.133-5.166 2.133H71.302v49.356c0 4.012-3.284 7.292-7.302 7.292-2.009 0-3.827-.828-5.166-2.134-1.308-1.337-2.136-3.152-2.136-5.159V71.214H7.302c-4.05 0-7.302-3.248-7.302-7.26 0-2.006.797-3.853 2.136-5.159a7.279 7.279 0 0 1 5.166-2.134h49.395V7.306c0-4.012 3.284-7.26 7.302-7.26 2.009 0 3.827.828 5.166 2.133a7.238 7.238 0 0 1 2.136 5.127v49.356h49.395A7.276 7.276 0 0 1 128 63.954z"/>
                             </svg>
@@ -131,7 +137,7 @@ export default function Table() {
                     </td>
 
                     <td> 
-                    <div style={{display: showPopUp ? "flex" : "none"}} className={styles.popUpMenu}>
+                        <div style={{display: showPopUp[1] ? "flex" : "none" }} className={styles.popUpMenu}>
                             <div className={styles.selectWrapper}>
                                 <Select 
                                     placeholder="Find Pokemon"
@@ -157,14 +163,14 @@ export default function Table() {
                             />
 
                             <div className={styles.popUpMenuBtns}>
-                                <button>Cancel</button>
+                                <button onClick={() => {togglePopUp(1)}}>Cancel</button>
 
                                 <button type="submit" value="submit">Add</button>
                             </div>
                             
                         </div>
 
-                        <button className={styles.addPokemonBtns} onClick={togglePopUp}>
+                        <button className={styles.addPokemonBtns} onClick={() => {togglePopUp(1)}}>
                             <svg viewBox="0 0 128 128" style={{ enableBackground: 'new 0 0 128 128' }}>
                                 <path style={{ fill: '#303030' }} d="M128 63.954c0 2.006-.797 3.821-2.136 5.127-1.308 1.337-3.125 2.133-5.166 2.133H71.302v49.356c0 4.012-3.284 7.292-7.302 7.292-2.009 0-3.827-.828-5.166-2.134-1.308-1.337-2.136-3.152-2.136-5.159V71.214H7.302c-4.05 0-7.302-3.248-7.302-7.26 0-2.006.797-3.853 2.136-5.159a7.279 7.279 0 0 1 5.166-2.134h49.395V7.306c0-4.012 3.284-7.26 7.302-7.26 2.009 0 3.827.828 5.166 2.133a7.238 7.238 0 0 1 2.136 5.127v49.356h49.395A7.276 7.276 0 0 1 128 63.954z"/>
                             </svg>
