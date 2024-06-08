@@ -1,5 +1,5 @@
 import styles from './Table.module.css'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PokemonInfo from './PokemonData';
 import Select from 'react-select';
 
@@ -10,6 +10,9 @@ export default function Table() {
     const [playerTwoName, setPlayerTwoName] = useState("");
     const [pokemonInfo, setPokemonInfo] = useState([]);
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
+    const [content, setContent] = useState("&");
+    const input1Ref = useRef(null);
+    const input2Ref = useRef(null);
 
     // toggle popUpMenu individually
     function togglePopUp(index) {
@@ -54,9 +57,19 @@ export default function Table() {
         }
     }
 
+    const displayFirstName = () => {
+        const input1Value = input1Ref.current.value;
+        setContent(input1Value + " " + content);
+    };
+
+    const displaySecondName = () => {
+        const input2Value = input2Ref.current.value;
+        setContent(content + " " + input2Value);
+    }
+
     return(
         <div>
-            <div className={styles.playersName}>
+            <div className={styles.playersNameInput}>
                 <input
                     type="text"
                     name="playerOne"
@@ -81,9 +94,9 @@ export default function Table() {
                 <thead>
                     <tr>
                         <th>Location</th>
-                        <th>{playerOneName}</th>
-                        <th>{playerTwoName}</th>
-                        <th className={styles.textLeft}>Nicknames</th>
+                        <th className={styles.playersNameDisplay}>{playerOneName}</th>
+                        <th className={styles.playersNameDisplay}>{playerTwoName}</th>
+                        <th className={styles.nicknames}>Nicknames</th>
                     </tr>
                 </thead>
                 
@@ -94,13 +107,13 @@ export default function Table() {
                     </td>
 
                     <td className={styles.pokemonDisplay}>
-                        <div style={{ display: showPopUp[0] ? "flex" : "none" }} className={styles.popUpMenu}>
+                        <div className={styles.popUpMenu} style={{ display: showPopUp[0] ? "flex" : "none", position: "absolute", top: "41%", left: "35%"}}>
                             <div className={styles.selectWrapper}>
                                 <Select 
                                     placeholder="Find Pokemon"
                                     formatOptionLabel={(pokemon) => {
                                         return ( 
-                                        <div style={{ display: "flex", alignItems: "center" }}>
+                                        <div style={{ display: "flex", alignItems: "center"}}>
                                             <img src={pokemon.spriteUrl} alt={pokemon.name} style={{ width: 30, marginRight: 5 }}></img>
                                             <span>{pokemon.name}</span>
 
@@ -117,27 +130,27 @@ export default function Table() {
                             <input 
                                 type="text" 
                                 placeholder='Enter nickname'
+                                ref={input1Ref}
                             />
 
                             <div className={styles.popUpMenuBtns}>
                                 <button onClick={() => {togglePopUp(0)}}>Cancel</button>
 
-                                <button type="submit" value="submit">Add</button>
+                                <button onClick={() => {togglePopUp(0); displayFirstName()}}>Add</button>
+                                
                             </div>
                             
                         </div>
-
+                                    
                         <button className={styles.addPokemonBtns} onClick={() => {togglePopUp(0)}}>
                             <svg viewBox="0 0 128 128" style={{ enableBackground: 'new 0 0 128 128' }}>
                                 <path style={{ fill: '#303030' }} d="M128 63.954c0 2.006-.797 3.821-2.136 5.127-1.308 1.337-3.125 2.133-5.166 2.133H71.302v49.356c0 4.012-3.284 7.292-7.302 7.292-2.009 0-3.827-.828-5.166-2.134-1.308-1.337-2.136-3.152-2.136-5.159V71.214H7.302c-4.05 0-7.302-3.248-7.302-7.26 0-2.006.797-3.853 2.136-5.159a7.279 7.279 0 0 1 5.166-2.134h49.395V7.306c0-4.012 3.284-7.26 7.302-7.26 2.009 0 3.827.828 5.166 2.133a7.238 7.238 0 0 1 2.136 5.127v49.356h49.395A7.276 7.276 0 0 1 128 63.954z"/>
                             </svg>
                         </button>
-
-                        
                     </td>
 
-                    <td> 
-                        <div style={{display: showPopUp[1] ? "flex" : "none" }} className={styles.popUpMenu}>
+                    <td className={styles.pokemonDisplay}> 
+                        <div className={styles.popUpMenu} style={{display: showPopUp[1] ? "flex" : "none", position: "absolute", top: "41%", left: "47%"}}>
                             <div className={styles.selectWrapper}>
                                 <Select 
                                     placeholder="Find Pokemon"
@@ -160,12 +173,13 @@ export default function Table() {
                             <input 
                                 type="text" 
                                 placeholder='Enter nickname'
+                                ref={input2Ref}
                             />
 
                             <div className={styles.popUpMenuBtns}>
                                 <button onClick={() => {togglePopUp(1)}}>Cancel</button>
 
-                                <button type="submit" value="submit">Add</button>
+                                <button onClick={() => {togglePopUp(1); displaySecondName()}}>Add</button>
                             </div>
                             
                         </div>
@@ -177,7 +191,7 @@ export default function Table() {
                         </button>
                     </td>
 
-                    <td className={styles.textLeft}></td>
+                    <td className={styles.nicknames}>{content}</td>
                 </tr>
             </tbody>
         
