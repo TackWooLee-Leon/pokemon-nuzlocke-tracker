@@ -4,15 +4,16 @@ import PokemonInfo from './PokemonData';
 import Select from 'react-select';
 
 export default function Table() {
-    const [playerOneNameInput, setPlayerOneNameInput] = useState("");
-    const [playerTwoNameInput, setPlayerTwoNameInput] = useState("");
-    const [playerOneName, setPlayerOneName] = useState("");
-    const [playerTwoName, setPlayerTwoName] = useState("");
+    const [player1NameInput, setplayer1NameInput] = useState("");
+    const [player2NameInput, setplayer2NameInput] = useState("");
+    const [player1Name, setplayer1Name] = useState("");
+    const [player2Name, setplayer2Name] = useState("");
     const [pokemonInfo, setPokemonInfo] = useState([]);
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
-    const [content, setContent] = useState("&");
     const input1Ref = useRef(null);
     const input2Ref = useRef(null);
+    const [player1Nickname, setplayer1Nickname] = useState("")
+    const [player2Nickname, setplayer2Nickname] = useState("")
     const [buttonBackgroundImage, setButtonBackgroundImage] = useState({
         0: '',
         1: ''
@@ -43,10 +44,10 @@ export default function Table() {
     const handleChange = (event) => {
         // extracting name and value properties from event.target which is input
         const { name, value } = event.target;
-        if (name === "playerOne") {
-            setPlayerOneNameInput(value);
-        } else if (name === "playerTwo") {
-            setPlayerTwoNameInput(value);
+        if (name === "player1") {
+            setplayer1NameInput(value);
+        } else if (name === "player2") {
+            setplayer2NameInput(value);
         }
     };
 
@@ -55,24 +56,24 @@ export default function Table() {
         if (event.key === "Enter") {
             // update th's value separately, if update together (without checking name prop) 
             // then one name will disappear as the other one gets updated
-            if (event.target.name === "playerOne") {
-                setPlayerOneName(playerOneNameInput);
-                setPlayerOneNameInput("");
-            } else if (event.target.name === "playerTwo") {
-                setPlayerTwoName(playerTwoNameInput);
-                setPlayerTwoNameInput("");
+            if (event.target.name === "player1") {
+                setplayer1Name(player1NameInput);
+                setplayer1NameInput("");
+            } else if (event.target.name === "player2") {
+                setplayer2Name(player2NameInput);
+                setplayer2NameInput("");
             }
         }
     }
 
     const displayFirstName = () => {
         const input1Value = input1Ref.current.value;
-        setContent(input1Value + " " + content);
+        setplayer1Nickname (input1Value);
     };
 
     const displaySecondName = () => {
         const input2Value = input2Ref.current.value;
-        setContent(content + " " + input2Value);
+        setplayer2Nickname (input2Value);
     }
 
     // optionIndex works as key aka where is the selected Pokemon coming from (player 1 or 2)
@@ -112,18 +113,18 @@ export default function Table() {
             <div className={styles.playersNameInput}>
                 <input
                     type="text"
-                    name="playerOne"
+                    name="player1"
                     placeholder="enter player 1's name"
-                    value={playerOneNameInput}
+                    value={player1NameInput}
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                 />
             
                 <input
                     type="text"
-                    name="playerTwo"
+                    name="player2"
                     placeholder="enter player 2's name"
-                    value={playerTwoNameInput}
+                    value={player2NameInput}
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                 />
@@ -134,8 +135,8 @@ export default function Table() {
                 <thead>
                     <tr>
                         <th>Location</th>
-                        <th className={styles.playersNameDisplay}>{playerOneName}</th>
-                        <th className={styles.playersNameDisplay}>{playerTwoName}</th>
+                        <th className={styles.playersNameDisplay}>{player1Name}</th>
+                        <th className={styles.playersNameDisplay}>{player2Name}</th>
                         <th className={styles.nicknames}>Nicknames</th>
                     </tr>
                 </thead>
@@ -250,7 +251,7 @@ export default function Table() {
                         +</button>
                     </td>
 
-                    <td className={styles.nicknames}>{content}</td>
+                    <td className={styles.nicknames}>{player1Nickname} & {player2Nickname}</td>
                 </tr>
             </tbody>
         
