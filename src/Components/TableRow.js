@@ -29,7 +29,11 @@ export default function TableRow () {
         0: {name: '', pokemonTypes: '', spriteUrl: ''},
         1: {name: '', pokemonTypes: '', spriteUrl: ''}
     });
-    
+
+    // useEffect(() => {
+    //     console.log('Selected Pokémon:', selectedPokemon);
+    //   }, [selectedPokemon]);
+
     const handleSelectChange = (optionIndex, selectedOption) => {
         const { name, pokemonTypes, spriteUrl } = selectedOption;
         setSelectedPokemon(prevState => ({
@@ -70,50 +74,55 @@ export default function TableRow () {
         
         return(
             <td className={styles.pokemonDisplay}>
-                    <div className={styles.popUpMenu} style={{ display: showPopUp[0] ? "flex" : "none", position: "absolute", top: "41%", left: "39%"}}>
-                        <div className={styles.selectWrapper}>
-                            <Select 
-                                placeholder="Find Pokemon"
-                                onChange={(selectedOption) => {handleSelectChange(0, selectedOption)}}
-                                formatOptionLabel={(pokemon) => {
-                                    return( 
-                                        <div style={{ display: "flex", alignItems: "center"}}>
-                                            <img src={pokemon.spriteUrl} alt={pokemon.name} style={{ width: 50, marginRight: 5 }}></img>
-                                            <span>{pokemon.name}</span>
-                                        </div>)
-                                }}
-                                options={pokemonInfo} 
-                                getOptionLabel={options => options.name}
-                                getOptionValue={options => options.name}
-                                value={selectedPokemon[0] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon[0].name)}
-                            />
-                        </div>
-
-                        <input 
-                            type="text" 
-                            placeholder='Enter nickname'
-                            ref={input1Ref}
+                <div className={styles.popUpMenu} style={{ 
+                    display: showPopUp[0] ? "flex" : "none", 
+                    position: "absolute", 
+                    bottom: "65px",
+                    right: "-40px"
+                }}>
+                    <div className={styles.selectWrapper}>
+                        <Select 
+                            placeholder="Find Pokemon"
+                            onChange={(selectedOption) => {handleSelectChange(0, selectedOption)}}
+                            formatOptionLabel={(pokemon) => {
+                                return( 
+                                    <div style={{ display: "flex", alignItems: "center"}}>
+                                        <img src={pokemon.spriteUrl} alt={pokemon.name} style={{ width: 50, marginRight: 5 }}></img>
+                                        <span>{pokemon.name}</span>
+                                    </div>)
+                            }}
+                            options={pokemonInfo} 
+                            getOptionLabel={options => options.name}
+                            getOptionValue={options => options.name}
+                            value={selectedPokemon[0] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon[0].name)}
                         />
-
-                        <div className={styles.popUpMenuBtns}>
-                            <button onClick={() => {togglePopUp(0)}}>Cancel</button>
-                            <button 
-                            onClick={() => {togglePopUp(0); displayFirstName(); handleAddButtonClick(0)}}>Add</button>
-                        </div>
                     </div>
 
-                    <button style={{  
-                        backgroundImage: `url(${buttonBackgroundImage[0]})`,
-                        backgroundSize: 'cover',
-                        backgroundRepeat: 'no-repeat',
-                        height: "3rem", 
-                        width: "3rem",
-                        borderRadius: '15px',
-                        border: 'none',
-                    }}
-                        onClick={() => {togglePopUp(0)}}>
-                    +</button>
-                </td>
+                    <input 
+                        type="text" 
+                        placeholder='Enter nickname'
+                        ref={input1Ref}
+                    />
+
+                    <div className={styles.popUpMenuBtns}>
+                        <button onClick={() => {togglePopUp(0)}}>Cancel</button>
+                        <button 
+                        onClick={() => {togglePopUp(0); displayFirstName(); handleAddButtonClick(0)}}>Add</button>
+                    </div>
+                </div>
+
+                <button style={{  
+                    backgroundImage: `url(${buttonBackgroundImage[0]})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    height: "3rem", 
+                    width: "3rem",
+                    borderRadius: '15px',
+                    border: 'none',
+                }}
+                    onClick={() => {togglePopUp(0)}}>
+                +</button>
+            </td>
         )
     }
 
@@ -125,7 +134,12 @@ export default function TableRow () {
         }
         return (
             <td className={styles.pokemonDisplay}> 
-                <div className={styles.popUpMenu} style={{display: showPopUp[1] ? "flex" : "none", position: "absolute", top: "41%", left: "47.5%"}}>
+                <div className={styles.popUpMenu} style={{
+                    display: showPopUp[1] ? "flex" : "none", 
+                    position: "absolute", 
+                    bottom: "65px", 
+                    left: "-40px"
+                }}>
                     <div className={styles.selectWrapper}>
                         <Select 
                             placeholder="Find Pokemon"
@@ -172,18 +186,16 @@ export default function TableRow () {
     }
 
     return(
-        <tbody>
-            <tr>
-                <td>
-                    <input type="text" placeholder='e.g. route 101'></input>
-                </td>
-                <Player1PokemonSelect />
-                <Player2PokemonSelect />
+        <tr>
+            <td>
+                <input type="text" placeholder='e.g. route 101'></input>
+            </td>
+            <Player1PokemonSelect />
+            <Player2PokemonSelect />
 
-                <td className={styles.nicknames}>{player1Nickname} & {player2Nickname}</td>
-            </tr>
-        </tbody>
-    )
-       
+            <td className={styles.nicknames}>{player1Nickname} & {player2Nickname}</td>
+        </tr>
+)
+    
 
 }
