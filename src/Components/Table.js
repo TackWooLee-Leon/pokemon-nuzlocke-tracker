@@ -36,6 +36,11 @@ export default function Table() {
         }
     }
 
+    const [rows, setRows] = useState([0]);
+    const addRow =() => {
+        setRows(prevRows => [...prevRows, prevRows.length]);
+    };
+
     return(
         <div>
             <div className={styles.playersNameInput}>
@@ -56,9 +61,12 @@ export default function Table() {
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                 />
+
+                <button className={styles.addRow}onClick={addRow}>Add A New Pair</button>  
             </div>
 
-            {/* table to display players' data */}
+            
+
             <table>
                 <thead>
                     <tr>
@@ -68,12 +76,16 @@ export default function Table() {
                         <th className={styles.nicknames}>Nicknames</th>
                     </tr>
                 </thead>
-                
-            {/* reuse this row, store it as another file */}
-            <TableRow />
+                    {rows.map(row => (
+                            <TableRow key={row} />
+                        ))}
+                <tbody>
+
+                </tbody>
+                {/* <TableRow /> */}
             
         
-        </table>
+            </table>
 
         </div>
         
