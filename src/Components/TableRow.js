@@ -42,7 +42,6 @@ export default function TableRow () {
         }));
     }
 
-    console.log(selectedPokemon);
     const handleAddButtonClick = (buttonIndex) => {
         if (selectedPokemon[buttonIndex]) {
             const spriteUrl = selectedPokemon[buttonIndex].spriteUrl;
@@ -65,23 +64,28 @@ export default function TableRow () {
             setplayer1Nickname (input1Value);
         };
 
+        // useEffect(() => {
+        //     console.log('Player1PokemonSelect mounted or updated', pokemonInfo);
+        // }, [pokemonInfo]);
+        
         return(
             <td className={styles.pokemonDisplay}>
-                    <div className={styles.popUpMenu} style={{ display: showPopUp[0] ? "flex" : "none", position: "absolute", top: "41%", left: "35%"}}>
+                    <div className={styles.popUpMenu} style={{ display: showPopUp[0] ? "flex" : "none", position: "absolute", top: "41%", left: "39%"}}>
                         <div className={styles.selectWrapper}>
                             <Select 
-                            placeholder="Find Pokemon"
-                            onChange={(selectedOption) => {handleSelectChange(0, selectedOption)}}
-                            formatOptionLabel={(pokemon) => {
-                                return( 
-                                    <div style={{ display: "flex", alignItems: "center"}}>
-                                        <img src={pokemon.spriteUrl} alt={pokemon.name} style={{ width: 50, marginRight: 5 }}></img>
-                                        <span>{pokemon.name}</span>
-                                    </div>)
-                            }}
-                            options={pokemonInfo} 
-                            getOptionLabel={options => options.name}
-                            getOptionValue={options => options.name}
+                                placeholder="Find Pokemon"
+                                onChange={(selectedOption) => {handleSelectChange(0, selectedOption)}}
+                                formatOptionLabel={(pokemon) => {
+                                    return( 
+                                        <div style={{ display: "flex", alignItems: "center"}}>
+                                            <img src={pokemon.spriteUrl} alt={pokemon.name} style={{ width: 50, marginRight: 5 }}></img>
+                                            <span>{pokemon.name}</span>
+                                        </div>)
+                                }}
+                                options={pokemonInfo} 
+                                getOptionLabel={options => options.name}
+                                getOptionValue={options => options.name}
+                                value={selectedPokemon[0] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon[0].name)}
                             />
                         </div>
 
@@ -121,7 +125,7 @@ export default function TableRow () {
         }
         return (
             <td className={styles.pokemonDisplay}> 
-                <div className={styles.popUpMenu} style={{display: showPopUp[1] ? "flex" : "none", position: "absolute", top: "41%", left: "47%"}}>
+                <div className={styles.popUpMenu} style={{display: showPopUp[1] ? "flex" : "none", position: "absolute", top: "41%", left: "47.5%"}}>
                     <div className={styles.selectWrapper}>
                         <Select 
                             placeholder="Find Pokemon"
@@ -136,6 +140,7 @@ export default function TableRow () {
                             options={pokemonInfo} 
                             getOptionLabel={options => options.name}
                             getOptionValue={options => options.name}
+                            value={selectedPokemon[1] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon[1].name)}
                             />
                     </div>
                     <input 
