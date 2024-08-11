@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PokemonInfo from './PokemonData';
 import Select from 'react-select';
 
-export default function TableRow () {
+export default function TableRow ( {player1Index, player2Index, selectedPokemon, handleSelectChange, handleAddButtonClick, buttonBackgroundImage}) {
     useEffect(()=>{
         PokemonInfo()
             .then((data) => {
@@ -25,41 +25,41 @@ export default function TableRow () {
 
     const [pokemonInfo, setPokemonInfo] = useState([]); 
 
-    const [selectedPokemon, setSelectedPokemon] = useState({
-        0: {name: '', pokemonTypes: '', spriteUrl: ''},
-        1: {name: '', pokemonTypes: '', spriteUrl: ''}
-    });
+    // const [selectedPokemon, setSelectedPokemon] = useState({
+    //     0: {name: '', pokemonTypes: '', spriteUrl: ''},
+    //     1: {name: '', pokemonTypes: '', spriteUrl: ''}
+    // });
 
-    // useEffect(() => {
-    //     console.log('Selected Pokémon:', selectedPokemon);
-    //   }, [selectedPokemon]);
+    useEffect(() => {
+        console.log('Selected Pokémon:', selectedPokemon);
+      }, [selectedPokemon]);
 
-    const handleSelectChange = (optionIndex, selectedOption) => {
-        const { name, pokemonTypes, spriteUrl } = selectedOption;
-        setSelectedPokemon(prevState => ({
-            ...prevState,
-            [optionIndex]: {
-                name: name,
-                pokemonTypes: pokemonTypes,
-                spriteUrl: spriteUrl
-            }
-        }));
-    }
+    // const handleSelectChange = (optionIndex, selectedOption) => {
+    //     const { name, pokemonTypes, spriteUrl } = selectedOption;
+    //     setSelectedPokemon(prevState => ({
+    //         ...prevState,
+    //         [optionIndex]: {
+    //             name: name,
+    //             pokemonTypes: pokemonTypes,
+    //             spriteUrl: spriteUrl
+    //         }
+    //     }));
+    // }
 
-    const handleAddButtonClick = (buttonIndex) => {
-        if (selectedPokemon[buttonIndex]) {
-            const spriteUrl = selectedPokemon[buttonIndex].spriteUrl;
-            setButtonBackgroundImage(prevState => ({
-                ...prevState,
-                [buttonIndex]: spriteUrl
-            }));
-        }
-    }
+    // const handleAddButtonClick = (buttonIndex) => {
+    //     if (selectedPokemon[buttonIndex]) {
+    //         const spriteUrl = selectedPokemon[buttonIndex].spriteUrl;
+    //         setButtonBackgroundImage(prevState => ({
+    //             ...prevState,
+    //             [buttonIndex]: spriteUrl
+    //         }));
+    //     }
+    // }
 
-    const [buttonBackgroundImage, setButtonBackgroundImage] = useState({
-        0: '',
-        1: ''
-    });
+    // const [buttonBackgroundImage, setButtonBackgroundImage] = useState({
+    //     0: '',
+    //     1: ''
+    // });
 
     function Player1PokemonSelect() {
         const input1Ref = useRef(null);
@@ -83,7 +83,7 @@ export default function TableRow () {
                     <div className={styles.selectWrapper}>
                         <Select 
                             placeholder="Find Pokemon"
-                            onChange={(selectedOption) => {handleSelectChange(0, selectedOption)}}
+                            onChange={(selectedOption) => {handleSelectChange(player1Index, selectedOption)}}
                             formatOptionLabel={(pokemon) => {
                                 return( 
                                     <div style={{ display: "flex", alignItems: "center"}}>
@@ -94,7 +94,7 @@ export default function TableRow () {
                             options={pokemonInfo} 
                             getOptionLabel={options => options.name}
                             getOptionValue={options => options.name}
-                            value={selectedPokemon[0] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon[0].name)}
+                            value={selectedPokemon[player1Index] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon[player1Index].name)}
                         />
                     </div>
 
@@ -107,12 +107,12 @@ export default function TableRow () {
                     <div className={styles.popUpMenuBtns}>
                         <button onClick={() => {togglePopUp(0)}}>Cancel</button>
                         <button 
-                        onClick={() => {togglePopUp(0); displayFirstName(); handleAddButtonClick(0)}}>Add</button>
+                        onClick={() => {togglePopUp(0); displayFirstName(); handleAddButtonClick(player1Index)}}>Add</button>
                     </div>
                 </div>
 
                 <button style={{  
-                    backgroundImage: `url(${buttonBackgroundImage[0]})`,
+                    backgroundImage: `url(${buttonBackgroundImage[player1Index]})`,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
                     height: "3rem", 
@@ -143,7 +143,7 @@ export default function TableRow () {
                     <div className={styles.selectWrapper}>
                         <Select 
                             placeholder="Find Pokemon"
-                            onChange={(selectedOption) => {handleSelectChange(1, selectedOption)}}
+                            onChange={(selectedOption) => {handleSelectChange(player2Index, selectedOption)}}
                             formatOptionLabel={(pokemon) => {
                                 return ( 
                                     <div style={{ display: 'flex', alignItems: 'center'}}>
@@ -154,7 +154,7 @@ export default function TableRow () {
                             options={pokemonInfo} 
                             getOptionLabel={options => options.name}
                             getOptionValue={options => options.name}
-                            value={selectedPokemon[1] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon[1].name)}
+                            value={selectedPokemon[player2Index] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon[player2Index].name)}
                             />
                     </div>
                     <input 
@@ -166,12 +166,12 @@ export default function TableRow () {
                     <div className={styles.popUpMenuBtns}>
                         <button onClick={() => {togglePopUp(1)}}>Cancel</button>
                         <button 
-                        onClick={() => {togglePopUp(1); displaySecondName(); handleAddButtonClick(1)}}>Add</button>
+                        onClick={() => {togglePopUp(1); displaySecondName(); handleAddButtonClick(player2Index)}}>Add</button>
                     </div>
                 </div>
 
                 <button style={{  
-                    backgroundImage: `url(${buttonBackgroundImage[1]})`,
+                    backgroundImage: `url(${buttonBackgroundImage[player2Index]})`,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
                     height: "3rem", 
