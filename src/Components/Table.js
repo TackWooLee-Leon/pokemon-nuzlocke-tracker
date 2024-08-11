@@ -41,6 +41,38 @@ export default function Table() {
         setRows(prevRows => [...prevRows, prevRows.length]);
     };
 
+    const [selectedPokemon, setSelectedPokemon] = useState({
+        0: {name: '', pokemonTypes: '', spriteUrl: ''},
+        1: {name: '', pokemonTypes: '', spriteUrl: ''}
+    });
+
+    const handleSelectChange = (optionIndex, selectedOption) => {
+        const { name, pokemonTypes, spriteUrl } = selectedOption;
+        setSelectedPokemon(prevState => ({
+            ...prevState,
+            [optionIndex]: {
+                name: name,
+                pokemonTypes: pokemonTypes,
+                spriteUrl: spriteUrl
+            }
+        }));
+    }
+
+    const [buttonBackgroundImage, setButtonBackgroundImage] = useState({
+        0: '',
+        1: ''
+    });
+
+    const handleAddButtonClick = (buttonIndex) => {
+        if (selectedPokemon[buttonIndex]) {
+            const spriteUrl = selectedPokemon[buttonIndex].spriteUrl;
+            setButtonBackgroundImage(prevState => ({
+                ...prevState,
+                [buttonIndex]: spriteUrl
+            }));
+        }
+    }
+
     return(
         <div>
             <div className={styles.playersNameInput}>
@@ -76,11 +108,26 @@ export default function Table() {
                         <th className={styles.nicknames}>Nicknames</th>
                     </tr>
                 </thead>
-                    {rows.map(row => (
-                            <TableRow key={row} />
-                        ))}
+                    
                 <tbody>
+                    {rows.map((row, rowIndex) => {
+                        const player1Index = rowIndex * 2; // Even index for Player 1
+                        const player2Index = player1Index + 1; // Odd index for Player 2
 
+                        return (
+                            <TableRow
+                                key={rowIndex}
+                                player1Index={player1Index}
+                                player2Index={player2Index}
+                                onSelectChange={handleSelectChange}
+                                selectedPokemon={selectedPokemon}
+                                handleSelectChange={handleSelectChange}
+                                handleAddButtonClick={handleAddButtonClick}
+                                buttonBackgroundImage={buttonBackgroundImage}
+                            />
+                        );
+                    })}
+                        
                 </tbody>
                 {/* <TableRow /> */}
             
