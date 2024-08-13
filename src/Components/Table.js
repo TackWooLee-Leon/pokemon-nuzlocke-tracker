@@ -1,7 +1,5 @@
 import styles from './Table.module.css'
 import React, { useState, useEffect, useRef } from 'react';
-// import PokemonInfo from './PokemonData';
-// import Select from 'react-select';
 import TableRow from './TableRow';
 
 export default function Table() {
@@ -97,8 +95,6 @@ export default function Table() {
                 <button className={styles.addRow}onClick={addRow}>Add A New Pair</button>  
             </div>
 
-            
-
             <table>
                 <thead>
                     <tr>
@@ -111,31 +107,32 @@ export default function Table() {
                     
                 <tbody>
                     {rows.map((row, rowIndex) => {
-                        const player1Index = rowIndex * 2; // Even index for Player 1
-                        const player2Index = player1Index + 1; // Odd index for Player 2
+                        const player1Index = rowIndex * 2;
+                        const player2Index = player1Index + 1;
+                        
+                        const playerProps ={
+                            player1Index,
+                            player2Index,
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        };
+                        
+                        const selectProps ={
+                            handleSelectChange,
+                            handleAddButtonClick
+                        };
 
                         return (
                             <TableRow
                                 key={rowIndex}
-                                player1Index={player1Index}
-                                player2Index={player2Index}
-                                onSelectChange={handleSelectChange}
-                                selectedPokemon={selectedPokemon}
-                                handleSelectChange={handleSelectChange}
-                                handleAddButtonClick={handleAddButtonClick}
-                                buttonBackgroundImage={buttonBackgroundImage}
+                                playerProps={playerProps}
+                                selectProps={selectProps}
                             />
                         );
                     })}
                         
                 </tbody>
-                {/* <TableRow /> */}
-            
-        
             </table>
-
         </div>
-        
-       
     )
 }

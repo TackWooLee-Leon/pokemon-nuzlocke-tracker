@@ -3,7 +3,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import PokemonInfo from './PokemonData';
 import Select from 'react-select';
 
-export default function TableRow ( {player1Index, player2Index, selectedPokemon, handleSelectChange, handleAddButtonClick, buttonBackgroundImage}) {
+export default function TableRow ( { playerProps, selectProps }) {
+    const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage } = playerProps;
+    const { handleSelectChange, handleAddButtonClick } = selectProps;
     useEffect(()=>{
         PokemonInfo()
             .then((data) => {
@@ -25,41 +27,11 @@ export default function TableRow ( {player1Index, player2Index, selectedPokemon,
 
     const [pokemonInfo, setPokemonInfo] = useState([]); 
 
-    // const [selectedPokemon, setSelectedPokemon] = useState({
-    //     0: {name: '', pokemonTypes: '', spriteUrl: ''},
-    //     1: {name: '', pokemonTypes: '', spriteUrl: ''}
-    // });
 
     useEffect(() => {
         console.log('Selected Pokémon:', selectedPokemon);
       }, [selectedPokemon]);
 
-    // const handleSelectChange = (optionIndex, selectedOption) => {
-    //     const { name, pokemonTypes, spriteUrl } = selectedOption;
-    //     setSelectedPokemon(prevState => ({
-    //         ...prevState,
-    //         [optionIndex]: {
-    //             name: name,
-    //             pokemonTypes: pokemonTypes,
-    //             spriteUrl: spriteUrl
-    //         }
-    //     }));
-    // }
-
-    // const handleAddButtonClick = (buttonIndex) => {
-    //     if (selectedPokemon[buttonIndex]) {
-    //         const spriteUrl = selectedPokemon[buttonIndex].spriteUrl;
-    //         setButtonBackgroundImage(prevState => ({
-    //             ...prevState,
-    //             [buttonIndex]: spriteUrl
-    //         }));
-    //     }
-    // }
-
-    // const [buttonBackgroundImage, setButtonBackgroundImage] = useState({
-    //     0: '',
-    //     1: ''
-    // });
 
     function Player1PokemonSelect() {
         const input1Ref = useRef(null);
@@ -67,10 +39,6 @@ export default function TableRow ( {player1Index, player2Index, selectedPokemon,
             const input1Value = input1Ref.current.value;
             setplayer1Nickname (input1Value);
         };
-
-        // useEffect(() => {
-        //     console.log('Player1PokemonSelect mounted or updated', pokemonInfo);
-        // }, [pokemonInfo]);
         
         return(
             <td className={styles.pokemonDisplay}>
