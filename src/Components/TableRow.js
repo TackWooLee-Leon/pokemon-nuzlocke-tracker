@@ -32,13 +32,42 @@ export default function TableRow ( { playerProps, selectProps }) {
         console.log('Selected Pokémon:', selectedPokemon);
       }, [selectedPokemon]);
 
+    
+    function checkForDuplicatingTypes() {
+        const typeCounts = {};
 
+        for (let key in selectedPokemon) {
+            if (selectedPokemon.hasOwnProperty(key)) {
+                const pokemon = selectedPokemon[key];
+                const type = pokemon.pokemonTypes[0];
+
+                if (!typeCounts[type]) {
+                    typeCounts[type] = {count: 0, names: [] };
+                }
+
+                typeCounts[type].count += 1;
+                typeCounts[type].names.push(pokemon.name);
+            }
+        }
+
+        for (const type in typeCounts) {
+            if (typeCounts.hasOwnProperty(type)) {
+                const entry = typeCounts[type];
+                if (entry.count > 1) {
+                    alert(`Duplicates found for type: ${type}. Pokemon: ${entry.names.join(', ')}`);
+                }
+            }
+        }
+    }
+
+    
     function Player1PokemonSelect() {
         const input1Ref = useRef(null);
         const displayFirstName = () => {
             const input1Value = input1Ref.current.value;
             setplayer1Nickname (input1Value);
         };
+
         
         return(
             <td className={styles.pokemonDisplay}>
@@ -75,7 +104,7 @@ export default function TableRow ( { playerProps, selectProps }) {
                     <div className={styles.popUpMenuBtns}>
                         <button onClick={() => {togglePopUp(0)}}>Cancel</button>
                         <button 
-                        onClick={() => {togglePopUp(0); displayFirstName(); handleAddButtonClick(player1Index)}}>Add</button>
+                        onClick={() => {togglePopUp(0); displayFirstName(); handleAddButtonClick(player1Index); checkForDuplicatingTypes()}}>Add</button>
                     </div>
                 </div>
 
@@ -134,7 +163,7 @@ export default function TableRow ( { playerProps, selectProps }) {
                     <div className={styles.popUpMenuBtns}>
                         <button onClick={() => {togglePopUp(1)}}>Cancel</button>
                         <button 
-                        onClick={() => {togglePopUp(1); displaySecondName(); handleAddButtonClick(player2Index)}}>Add</button>
+                        onClick={() => {togglePopUp(1); displaySecondName(); handleAddButtonClick(player2Index); checkForDuplicatingTypes()}}>Add</button>
                     </div>
                 </div>
 
