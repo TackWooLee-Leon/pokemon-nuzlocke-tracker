@@ -71,6 +71,10 @@ export default function Table() {
         }
     }
 
+    // iterate state to check repeating types
+
+
+
     return(
         <div>
             <div className={styles.playersNameInput}>
@@ -116,7 +120,7 @@ export default function Table() {
                             selectedPokemon,
                             buttonBackgroundImage
                         };
-                        
+
                         const selectProps ={
                             handleSelectChange,
                             handleAddButtonClick
