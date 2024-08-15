@@ -1,6 +1,7 @@
 import styles from './Table.module.css'
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import TableRow from './TableRow';
+import PokemonStorage from './PokemonStorage';
 
 export default function Table() {
     const [player1NameInput, setplayer1NameInput] = useState("");
@@ -41,7 +42,17 @@ export default function Table() {
 
     const [selectedPokemon, setSelectedPokemon] = useState({
         0: {name: '', pokemonTypes: '', spriteUrl: ''},
-        1: {name: '', pokemonTypes: '', spriteUrl: ''}
+        1: {name: '', pokemonTypes: '', spriteUrl: ''},
+        2: {name: '', pokemonTypes: '', spriteUrl: ''},
+        3: {name: '', pokemonTypes: '', spriteUrl: ''},
+        4: {name: '', pokemonTypes: '', spriteUrl: ''},
+        5: {name: '', pokemonTypes: '', spriteUrl: ''},
+        6: {name: '', pokemonTypes: '', spriteUrl: ''},
+        7: {name: '', pokemonTypes: '', spriteUrl: ''},
+        8: {name: '', pokemonTypes: '', spriteUrl: ''},
+        9: {name: '', pokemonTypes: '', spriteUrl: ''},
+        10: {name: '', pokemonTypes: '', spriteUrl: ''},
+        11: {name: '', pokemonTypes: '', spriteUrl: ''},
     });
 
     const handleSelectChange = (optionIndex, selectedOption) => {
@@ -58,7 +69,17 @@ export default function Table() {
 
     const [buttonBackgroundImage, setButtonBackgroundImage] = useState({
         0: '',
-        1: ''
+        1: '',
+        2: '',
+        3: '',
+        4: '',
+        5: '',
+        6: '',
+        7: '',
+        8: '',
+        9: '',
+        10: '',
+        11: '',
     });
 
     const handleAddButtonClick = (buttonIndex) => {
@@ -71,70 +92,134 @@ export default function Table() {
         }
     }
 
-    // iterate state to check repeating types
-
-
-
     return(
-        <div>
-            <div className={styles.playersNameInput}>
-                <input
-                    type="text"
-                    name="player1"
-                    placeholder="enter player 1's name"
-                    value={player1NameInput}
-                    onChange={handleChange}
-                    onKeyPress={handleKeyPress}
-                />
-            
-                <input
-                    type="text"
-                    name="player2"
-                    placeholder="enter player 2's name"
-                    value={player2NameInput}
-                    onChange={handleChange}
-                    onKeyPress={handleKeyPress}
-                />
+        <div className={styles.tableContainer}>
+            <div className={styles.teamLayout}>
+                <div className={styles.playersNameInput}>
+                    <input
+                        type="text"
+                        name="player1"
+                        placeholder="enter player 1's name"
+                        value={player1NameInput}
+                        onChange={handleChange}
+                        onKeyPress={handleKeyPress}
+                    />
+                
+                    <input
+                        type="text"
+                        name="player2"
+                        placeholder="enter player 2's name"
+                        value={player2NameInput}
+                        onChange={handleChange}
+                        onKeyPress={handleKeyPress}
+                    />
 
-                <button className={styles.addRow}onClick={addRow}>Add A New Pair</button>  
-            </div>
+                    <button className={styles.addRow}onClick={addRow}>Add A New Pair</button>  
+                </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Location</th>
-                        <th className={styles.playersNameDisplay}>{player1Name}</th>
-                        <th className={styles.playersNameDisplay}>{player2Name}</th>
-                        <th className={styles.nicknames}>Nicknames</th>
-                    </tr>
-                </thead>
-                    
-                <tbody>
-                    {rows.map((row, rowIndex) => {
-                        const player1Index = rowIndex * 2;
-                        const player2Index = player1Index + 1;
+                <table>
+                    <thead>
+                        <tr>
+                            <th className={styles.location}>Location</th>
+                            <th className={styles.playersNameDisplay}>{player1Name}</th>
+                            <th className={styles.playersNameDisplay}>{player2Name}</th>
+                            <th className={styles.nicknames}>Nicknames</th>
+                        </tr>
+                    </thead>
                         
-                        const playerProps ={
-                            player1Index,
-                            player2Index,
+                    <tbody>
+                    
+                    <TableRow
+                        key={0}
+                        playerProps={{
+                            player1Index: 0,
+                            player2Index: 1,
                             selectedPokemon,
                             buttonBackgroundImage
-                        };
-
-                        const selectProps ={
+                        }}
+                        selectProps={{
                             handleSelectChange,
                             handleAddButtonClick
-                        };
+                        }}
+                    />
 
-                        return (
-                            <TableRow
-                                key={rowIndex}
-                                playerProps={playerProps}
-                                selectProps={selectProps}
-                            />
-                        );
-                    })}
+                    <TableRow
+                        key={1}
+                        playerProps={{
+                            player1Index: 2,
+                            player2Index: 3,
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectProps={{
+                            handleSelectChange,
+                            handleAddButtonClick
+                        }}
+                    />
+
+                    <TableRow
+                        key={2}
+                        playerProps={{
+                            player1Index: 4,
+                            player2Index: 5,
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectProps={{
+                            handleSelectChange,
+                            handleAddButtonClick
+                        }}
+                    />
+
+                    <TableRow
+                        key={3}
+                        playerProps={{
+                            player1Index: 6,
+                            player2Index: 7,
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectProps={{
+                            handleSelectChange,
+                            handleAddButtonClick
+                        }}
+                    />
+
+                    <TableRow
+                        key={4}
+                        playerProps={{
+                            player1Index: 8,
+                            player2Index: 9,
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectProps={{
+                            handleSelectChange,
+                            handleAddButtonClick
+                        }}
+                    />
+
+                    <TableRow
+                        key={5}
+                        playerProps={{
+                            player1Index: 10,
+                            player2Index: 11,
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectProps={{
+                            handleSelectChange,
+                            handleAddButtonClick
+                        }}
+                    />            
+                    </tbody>
+                </table>
+            </div>
+
+            <table className={styles.storage}>
+                <tbody>
                         
+                            
                 </tbody>
             </table>
         </div>

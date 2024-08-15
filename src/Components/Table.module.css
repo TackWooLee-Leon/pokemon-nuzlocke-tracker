@@ -2,16 +2,34 @@ table {
     border: 1px solid red;
 }
 
-/* thead tr th:first-child {
-    width: 13rem;
-} */
+.tableContainer {
+    /* border: 1px solid green; */
+    display: flex;
+    gap: 3rem;
+}
+
+.teamLayout {
+    display: flex;
+    flex-direction: column;
+}
+
+.storage {
+    border: 1px solid blue;
+}
 
 th, td{
     padding: 8px;
     /* border: 1px solid red; */
 }
 
+.locationInput {
+    font-size: 1rem;
+}
 .playersNameDisplay {
+    width: 10rem;
+}
+
+.location {
     width: 10rem;
 }
 
@@ -30,9 +48,9 @@ tbody input {
 }
 
 .playersNameInput {
-    display: flex;
+    /* display: flex; */
     gap: 25px;
-    /* border: 1px solid blue; */
+    border: 1px solid red;
 }
 
 .playersNameInput input {
@@ -91,7 +109,7 @@ svg {
 }
 
 .pokemonDisplay {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     position: relative;
     /* display: flex;
     flex-direction: column;
