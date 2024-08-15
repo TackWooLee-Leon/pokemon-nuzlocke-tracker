@@ -28,11 +28,14 @@ export default function TableRow ( { playerProps, selectProps }) {
     const [pokemonInfo, setPokemonInfo] = useState([]); 
 
 
-    useEffect(() => {
-        console.log('Selected Pokémon:', selectedPokemon);
-      }, [selectedPokemon]);
+    // useEffect(() => {
+    //     console.log('Selected Pokémon:', selectedPokemon);
+    //   }, [selectedPokemon]);
 
-    
+    // useEffect(() => {
+    //     console.log('plyaerIndex', player1Index);
+    // }, [player1Index])
+
     function checkForDuplicatingTypes() {
         const typeCounts = {};
 
@@ -40,6 +43,8 @@ export default function TableRow ( { playerProps, selectProps }) {
             if (selectedPokemon.hasOwnProperty(key)) {
                 const pokemon = selectedPokemon[key];
                 const type = pokemon.pokemonTypes[0];
+
+                if (!type) continue;
 
                 if (!typeCounts[type]) {
                     typeCounts[type] = {count: 0, names: [] };
@@ -50,13 +55,22 @@ export default function TableRow ( { playerProps, selectProps }) {
             }
         }
 
+        console.log('Type counts:', typeCounts);
+
+        let duplicatedFound = false;
+
         for (const type in typeCounts) {
             if (typeCounts.hasOwnProperty(type)) {
                 const entry = typeCounts[type];
                 if (entry.count > 1) {
-                    alert(`Duplicates found for type: ${type}. Pokemon: ${entry.names.join(', ')}`);
+                    duplicatedFound = true;
+                    console.log(`Duplicates found for type: ${type}. Pokemon: ${entry.names.join(', ')}`);
                 }
             }
+        }
+
+        if (!duplicatedFound) {
+            console.log('no duplicated found');
         }
     }
 
@@ -72,7 +86,7 @@ export default function TableRow ( { playerProps, selectProps }) {
         return(
             <td className={styles.pokemonDisplay}>
                 <div className={styles.popUpMenu} style={{ 
-                    display: showPopUp[0] ? "flex" : "none", 
+                    display: showPopUp[player1Index] ? "flex" : "none", 
                     position: "absolute", 
                     bottom: "65px",
                     right: "-40px"
@@ -102,9 +116,9 @@ export default function TableRow ( { playerProps, selectProps }) {
                     />
 
                     <div className={styles.popUpMenuBtns}>
-                        <button onClick={() => {togglePopUp(0)}}>Cancel</button>
+                        <button onClick={() => {togglePopUp(player1Index)}}>Cancel</button>
                         <button 
-                        onClick={() => {togglePopUp(0); displayFirstName(); handleAddButtonClick(player1Index); checkForDuplicatingTypes()}}>Add</button>
+                        onClick={() => {togglePopUp(player1Index); displayFirstName(); handleAddButtonClick(player1Index); checkForDuplicatingTypes()}}>Add</button>
                     </div>
                 </div>
 
@@ -112,12 +126,12 @@ export default function TableRow ( { playerProps, selectProps }) {
                     backgroundImage: `url(${buttonBackgroundImage[player1Index]})`,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
-                    height: "3rem", 
-                    width: "3rem",
+                    height: "4rem", 
+                    width: "4rem",
                     borderRadius: '15px',
                     border: 'none',
                 }}
-                    onClick={() => {togglePopUp(0)}}>
+                    onClick={() => {togglePopUp(player1Index)}}>
                 +</button>
             </td>
         )
@@ -132,7 +146,7 @@ export default function TableRow ( { playerProps, selectProps }) {
         return (
             <td className={styles.pokemonDisplay}> 
                 <div className={styles.popUpMenu} style={{
-                    display: showPopUp[1] ? "flex" : "none", 
+                    display: showPopUp[player2Index] ? "flex" : "none", 
                     position: "absolute", 
                     bottom: "65px", 
                     left: "-40px"
@@ -161,9 +175,9 @@ export default function TableRow ( { playerProps, selectProps }) {
                     />
 
                     <div className={styles.popUpMenuBtns}>
-                        <button onClick={() => {togglePopUp(1)}}>Cancel</button>
+                        <button onClick={() => {togglePopUp(player2Index)}}>Cancel</button>
                         <button 
-                        onClick={() => {togglePopUp(1); displaySecondName(); handleAddButtonClick(player2Index); checkForDuplicatingTypes()}}>Add</button>
+                        onClick={() => {togglePopUp(player2Index); displaySecondName(); handleAddButtonClick(player2Index); checkForDuplicatingTypes()}}>Add</button>
                     </div>
                 </div>
 
@@ -171,27 +185,35 @@ export default function TableRow ( { playerProps, selectProps }) {
                     backgroundImage: `url(${buttonBackgroundImage[player2Index]})`,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
-                    height: "3rem", 
-                    width: "3rem",
+                    height: "4rem", 
+                    width: "4rem",
                     borderRadius: '15px',
                     border: 'none',
                 }}
-                    onClick={() => {togglePopUp(1)}}>
+                    onClick={() => {togglePopUp(player2Index)}}>
                 +</button>
             </td>
         )
     }
 
     return(
-        <tr>
+            <tr>
             <td>
-                <input type="text" placeholder='e.g. route 101'></input>
+                <input 
+                    type="text" 
+                    placeholder='e.g. route 101' 
+                    style={{
+                    fontSize: '0.9rem'
+                }}></input>
             </td>
-            <Player1PokemonSelect />
-            <Player2PokemonSelect />
+            <Player1PokemonSelect player1Index={0}/>
+            <Player2PokemonSelect player2Index={1}/>
 
             <td className={styles.nicknames}>{player1Nickname} & {player2Nickname}</td>
         </tr>
+
+    
+        
 )
     
 
