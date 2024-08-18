@@ -8,7 +8,7 @@ table {
     gap: 3rem;
 }
 
-.teamLayout {
+.team {
     display: flex;
     flex-direction: column;
 }

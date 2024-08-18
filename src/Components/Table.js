@@ -1,14 +1,24 @@
-import styles from './Table.module.css'
-import React, { useState } from 'react';
+import styles from './Table.module.css';
+import React, { useState, useEffect } from 'react';
 import TableRow from './TableRow';
 import PokemonStorage from './PokemonStorage';
+import PokemonInfo from './PokemonData';
+
 
 export default function Table() {
     const [player1NameInput, setplayer1NameInput] = useState("");
     const [player2NameInput, setplayer2NameInput] = useState("");
     const [player1Name, setplayer1Name] = useState("");
     const [player2Name, setplayer2Name] = useState("");
+    const [pokemonInfo, setPokemonInfo] = useState([]); 
 
+
+    useEffect(()=>{
+        PokemonInfo()
+            .then((data) => {
+                setPokemonInfo(data)
+            })
+    }, [])
 
     const handleChange = (event) => {
         // extracting name and value properties from event.target which is input
@@ -41,60 +51,51 @@ export default function Table() {
     };
 
     const [selectedPokemon, setSelectedPokemon] = useState({
-        0: {name: '', pokemonTypes: '', spriteUrl: ''},
-        1: {name: '', pokemonTypes: '', spriteUrl: ''},
-        2: {name: '', pokemonTypes: '', spriteUrl: ''},
-        3: {name: '', pokemonTypes: '', spriteUrl: ''},
-        4: {name: '', pokemonTypes: '', spriteUrl: ''},
-        5: {name: '', pokemonTypes: '', spriteUrl: ''},
-        6: {name: '', pokemonTypes: '', spriteUrl: ''},
-        7: {name: '', pokemonTypes: '', spriteUrl: ''},
-        8: {name: '', pokemonTypes: '', spriteUrl: ''},
-        9: {name: '', pokemonTypes: '', spriteUrl: ''},
-        10: {name: '', pokemonTypes: '', spriteUrl: ''},
-        11: {name: '', pokemonTypes: '', spriteUrl: ''},
+        team: Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: ''}),
+        storage: Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: ''})
     });
+    
+    console.log(selectedPokemon)
 
     const handleSelectChange = (optionIndex, selectedOption) => {
         const { name, pokemonTypes, spriteUrl } = selectedOption;
         setSelectedPokemon(prevState => ({
             ...prevState,
-            [optionIndex]: {
-                name: name,
-                pokemonTypes: pokemonTypes,
-                spriteUrl: spriteUrl
-            }
+            team: prevState.team.map((pokemon, index) =>
+                index === optionIndex 
+                    ? { name, pokemonTypes, spriteUrl }
+                    : pokemon
+            )
         }));
+        
     }
 
     const [buttonBackgroundImage, setButtonBackgroundImage] = useState({
-        0: '',
-        1: '',
-        2: '',
-        3: '',
-        4: '',
-        5: '',
-        6: '',
-        7: '',
-        8: '',
-        9: '',
-        10: '',
-        11: '',
+        team: Array(12).fill(''),
+        storage: Array(12).fill('')
     });
+    console.log(buttonBackgroundImage)
 
-    const handleAddButtonClick = (buttonIndex) => {
-        if (selectedPokemon[buttonIndex]) {
-            const spriteUrl = selectedPokemon[buttonIndex].spriteUrl;
+
+    const handleAddButtonClick = (playerIndex) => {
+        if (selectedPokemon.team[playerIndex]) {
+            const spriteUrl = selectedPokemon.team[playerIndex].spriteUrl;
+    
             setButtonBackgroundImage(prevState => ({
                 ...prevState,
-                [buttonIndex]: spriteUrl
+                team: prevState.team.map((image, index) => 
+                    index === playerIndex 
+                        ? spriteUrl 
+                        : image 
+                )
             }));
         }
-    }
+    };
+    
 
     return(
         <div className={styles.tableContainer}>
-            <div className={styles.teamLayout}>
+            <div className={styles.team}>
                 <div className={styles.playersNameInput}>
                     <input
                         type="text"
@@ -141,6 +142,7 @@ export default function Table() {
                             handleSelectChange,
                             handleAddButtonClick
                         }}
+                        pokemonInfo={pokemonInfo}
                     />
 
                     <TableRow
@@ -155,6 +157,7 @@ export default function Table() {
                             handleSelectChange,
                             handleAddButtonClick
                         }}
+                        pokemonInfo={pokemonInfo}
                     />
 
                     <TableRow
@@ -169,6 +172,7 @@ export default function Table() {
                             handleSelectChange,
                             handleAddButtonClick
                         }}
+                        pokemonInfo={pokemonInfo}
                     />
 
                     <TableRow
@@ -183,6 +187,7 @@ export default function Table() {
                             handleSelectChange,
                             handleAddButtonClick
                         }}
+                        pokemonInfo={pokemonInfo}
                     />
 
                     <TableRow
@@ -197,6 +202,7 @@ export default function Table() {
                             handleSelectChange,
                             handleAddButtonClick
                         }}
+                        pokemonInfo={pokemonInfo}
                     />
 
                     <TableRow
@@ -211,15 +217,85 @@ export default function Table() {
                             handleSelectChange,
                             handleAddButtonClick
                         }}
+                        pokemonInfo={pokemonInfo}
                     />            
                     </tbody>
                 </table>
             </div>
 
             <table className={styles.storage}>
+
                 <tbody>
-                        
-                            
+                    <PokemonStorage
+                        playerProps={{
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectedProps={{
+                            handleSelectChange,
+                            handleAddButtonClick
+                        }}
+                        pokemonInfo={pokemonInfo}
+                        setSelectedPokemon={setSelectedPokemon}
+                    />
+
+                    <PokemonStorage
+                        playerProps={{
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectedProps={{
+                            handleSelectChange,
+                            handleAddButtonClick
+                        }}
+                        pokemonInfo={pokemonInfo}
+                    />
+                    <PokemonStorage
+                        playerProps={{
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectedProps={{
+                            handleSelectChange,
+                            handleAddButtonClick
+                        }}
+                        pokemonInfo={pokemonInfo}
+                    />
+
+                    <PokemonStorage
+                        playerProps={{
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectedProps={{
+                            handleSelectChange,
+                            handleAddButtonClick
+                        }}
+                        pokemonInfo={pokemonInfo}
+                    />
+                    <PokemonStorage
+                        playerProps={{
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectedProps={{
+                            handleSelectChange,
+                            handleAddButtonClick
+                        }}
+                        pokemonInfo={pokemonInfo}
+                    />
+
+                    <PokemonStorage
+                        playerProps={{
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectedProps={{
+                            handleSelectChange,
+                            handleAddButtonClick
+                        }}
+                        pokemonInfo={pokemonInfo}
+                    />
                 </tbody>
             </table>
         </div>
