@@ -1,17 +1,12 @@
 import styles from './Table.module.css'
 import React, { useState, useEffect, useRef } from 'react';
-import PokemonInfo from './PokemonData';
+
 import Select from 'react-select';
 
-export default function TableRow ( { playerProps, selectProps }) {
+export default function TableRow ( { playerProps, selectProps, pokemonInfo }) {
     const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
-    useEffect(()=>{
-        PokemonInfo()
-            .then((data) => {
-                setPokemonInfo(data)
-            })
-    }, [])
+
 
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
     function togglePopUp(index) {
@@ -25,7 +20,6 @@ export default function TableRow ( { playerProps, selectProps }) {
     const [player1Nickname, setplayer1Nickname] = useState("")
     const [player2Nickname, setplayer2Nickname] = useState("")
 
-    const [pokemonInfo, setPokemonInfo] = useState([]); 
 
 
     // useEffect(() => {
@@ -39,9 +33,9 @@ export default function TableRow ( { playerProps, selectProps }) {
     function checkForDuplicatingTypes() {
         const typeCounts = {};
 
-        for (let key in selectedPokemon) {
-            if (selectedPokemon.hasOwnProperty(key)) {
-                const pokemon = selectedPokemon[key];
+        for (let i in selectedPokemon.team) {
+            if (selectedPokemon.team.hasOwnProperty(i)) {
+                const pokemon = selectedPokemon.team[i];
                 const type = pokemon.pokemonTypes[0];
 
                 if (!type) continue;
@@ -56,7 +50,7 @@ export default function TableRow ( { playerProps, selectProps }) {
         }
 
         console.log('Type counts:', typeCounts);
-
+        
         let duplicatedFound = false;
 
         for (const type in typeCounts) {
@@ -123,7 +117,7 @@ export default function TableRow ( { playerProps, selectProps }) {
                 </div>
 
                 <button style={{  
-                    backgroundImage: `url(${buttonBackgroundImage[player1Index]})`,
+                    backgroundImage: `url(${buttonBackgroundImage.team[player1Index]})`,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
                     height: "4rem", 
@@ -182,7 +176,7 @@ export default function TableRow ( { playerProps, selectProps }) {
                 </div>
 
                 <button style={{  
-                    backgroundImage: `url(${buttonBackgroundImage[player2Index]})`,
+                    backgroundImage: `url(${buttonBackgroundImage.team[player2Index]})`,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
                     height: "4rem", 
@@ -198,19 +192,19 @@ export default function TableRow ( { playerProps, selectProps }) {
 
     return(
             <tr>
-            <td>
-                <input 
-                    type="text" 
-                    placeholder='e.g. route 101' 
-                    style={{
-                    fontSize: '0.9rem'
-                }}></input>
-            </td>
-            <Player1PokemonSelect player1Index={0}/>
-            <Player2PokemonSelect player2Index={1}/>
+                <td>
+                    <input 
+                        type="text" 
+                        placeholder='e.g. route 101' 
+                        style={{
+                        fontSize: '0.9rem'
+                    }}></input>
+                </td>
+                <Player1PokemonSelect player1Index={0}/>
+                <Player2PokemonSelect player2Index={1}/>
 
-            <td className={styles.nicknames}>{player1Nickname} & {player2Nickname}</td>
-        </tr>
+                <td className={styles.nicknames}>{player1Nickname} & {player2Nickname}</td>
+            </tr>
 
     
         
