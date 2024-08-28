@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import Select from 'react-select';
 
-export default function TableRow ( { playerProps, selectProps, pokemonInfo }) {
+export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo }) {
     const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
 
@@ -88,7 +88,7 @@ export default function TableRow ( { playerProps, selectProps, pokemonInfo }) {
                     <div className={styles.selectWrapper}>
                         <Select 
                             placeholder="Find Pokemon"
-                            onChange={(selectedOption) => {handleSelectChange(player1Index, selectedOption)}}
+                            onChange={(selectedOption) => {handleSelectChange(player1Index, selectedOption, 'team')}}
                             formatOptionLabel={(pokemon) => {
                                 return( 
                                     <div style={{ display: "flex", alignItems: "center"}}>
@@ -99,7 +99,7 @@ export default function TableRow ( { playerProps, selectProps, pokemonInfo }) {
                             options={pokemonInfo} 
                             getOptionLabel={options => options.name}
                             getOptionValue={options => options.name}
-                            value={selectedPokemon[player1Index] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon[player1Index].name)}
+                            value={selectedPokemon.team[player1Index] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon.team[player1Index].name)}
                         />
                     </div>
 
@@ -148,7 +148,7 @@ export default function TableRow ( { playerProps, selectProps, pokemonInfo }) {
                     <div className={styles.selectWrapper}>
                         <Select 
                             placeholder="Find Pokemon"
-                            onChange={(selectedOption) => {handleSelectChange(player2Index, selectedOption)}}
+                            onChange={(selectedOption) => {handleSelectChange(player2Index, selectedOption, 'team')}}
                             formatOptionLabel={(pokemon) => {
                                 return ( 
                                     <div style={{ display: 'flex', alignItems: 'center'}}>
@@ -159,7 +159,7 @@ export default function TableRow ( { playerProps, selectProps, pokemonInfo }) {
                             options={pokemonInfo} 
                             getOptionLabel={options => options.name}
                             getOptionValue={options => options.name}
-                            value={selectedPokemon[player2Index] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon[player2Index].name)}
+                            value={selectedPokemon.team[player2Index] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon.team[player2Index].name)}
                             />
                     </div>
                     <input 

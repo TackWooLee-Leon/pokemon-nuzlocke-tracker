@@ -1,6 +1,6 @@
 import styles from './Table.module.css';
 import React, { useState, useEffect } from 'react';
-import TableRow from './TableRow';
+import PokemonTeam from './PokemonTeam';
 import PokemonStorage from './PokemonStorage';
 import PokemonInfo from './PokemonData';
 
@@ -57,11 +57,11 @@ export default function Table() {
     
     console.log(selectedPokemon)
 
-    const handleSelectChange = (optionIndex, selectedOption) => {
+    const handleSelectChange = (optionIndex, selectedOption, type) => {
         const { name, pokemonTypes, spriteUrl } = selectedOption;
         setSelectedPokemon(prevState => ({
             ...prevState,
-            team: prevState.team.map((pokemon, index) =>
+            [type]: prevState[type].map((pokemon, index) =>
                 index === optionIndex 
                     ? { name, pokemonTypes, spriteUrl }
                     : pokemon
@@ -77,13 +77,13 @@ export default function Table() {
     console.log(buttonBackgroundImage)
 
 
-    const handleAddButtonClick = (playerIndex) => {
-        if (selectedPokemon.team[playerIndex]) {
-            const spriteUrl = selectedPokemon.team[playerIndex].spriteUrl;
+    const handleAddButtonClick = (playerIndex, type) => {
+        if (selectedPokemon[type][playerIndex]) {
+            const spriteUrl = selectedPokemon[type][playerIndex].spriteUrl;
     
             setButtonBackgroundImage(prevState => ({
                 ...prevState,
-                team: prevState.team.map((image, index) => 
+                [type]: prevState[type].map((image, index) => 
                     index === playerIndex 
                         ? spriteUrl 
                         : image 
@@ -130,7 +130,7 @@ export default function Table() {
                         
                     <tbody>
                     
-                    <TableRow
+                    <PokemonTeam
                         key={0}
                         playerProps={{
                             player1Index: 0,
@@ -140,12 +140,12 @@ export default function Table() {
                         }}
                         selectProps={{
                             handleSelectChange,
-                            handleAddButtonClick
+                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
                         }}
                         pokemonInfo={pokemonInfo}
                     />
 
-                    <TableRow
+                    <PokemonTeam
                         key={1}
                         playerProps={{
                             player1Index: 2,
@@ -155,12 +155,12 @@ export default function Table() {
                         }}
                         selectProps={{
                             handleSelectChange,
-                            handleAddButtonClick
+                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
                         }}
                         pokemonInfo={pokemonInfo}
                     />
 
-                    <TableRow
+                    <PokemonTeam
                         key={2}
                         playerProps={{
                             player1Index: 4,
@@ -170,12 +170,13 @@ export default function Table() {
                         }}
                         selectProps={{
                             handleSelectChange,
-                            handleAddButtonClick
+                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
+
                         }}
                         pokemonInfo={pokemonInfo}
                     />
 
-                    <TableRow
+                    <PokemonTeam
                         key={3}
                         playerProps={{
                             player1Index: 6,
@@ -185,12 +186,13 @@ export default function Table() {
                         }}
                         selectProps={{
                             handleSelectChange,
-                            handleAddButtonClick
+                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
+
                         }}
                         pokemonInfo={pokemonInfo}
                     />
 
-                    <TableRow
+                    <PokemonTeam
                         key={4}
                         playerProps={{
                             player1Index: 8,
@@ -200,12 +202,13 @@ export default function Table() {
                         }}
                         selectProps={{
                             handleSelectChange,
-                            handleAddButtonClick
+                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
+
                         }}
                         pokemonInfo={pokemonInfo}
                     />
 
-                    <TableRow
+                    <PokemonTeam
                         key={5}
                         playerProps={{
                             player1Index: 10,
@@ -215,7 +218,8 @@ export default function Table() {
                         }}
                         selectProps={{
                             handleSelectChange,
-                            handleAddButtonClick
+                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
+
                         }}
                         pokemonInfo={pokemonInfo}
                     />            
@@ -227,72 +231,90 @@ export default function Table() {
 
                 <tbody>
                     <PokemonStorage
+                        key={0}
                         playerProps={{
+                            player1Index: 0,
+                            player2Index: 1,
                             selectedPokemon,
                             buttonBackgroundImage
                         }}
-                        selectedProps={{
+                        selectProps={{
                             handleSelectChange,
-                            handleAddButtonClick
+                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
                         }}
                         pokemonInfo={pokemonInfo}
                         setSelectedPokemon={setSelectedPokemon}
                     />
 
                     <PokemonStorage
+                        key={1}
                         playerProps={{
+                            player1Index: 2,
+                            player2Index: 3,
                             selectedPokemon,
                             buttonBackgroundImage
                         }}
-                        selectedProps={{
+                        selectProps={{
                             handleSelectChange,
-                            handleAddButtonClick
+                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
                         }}
                         pokemonInfo={pokemonInfo}
                     />
                     <PokemonStorage
+                        key={2}
                         playerProps={{
+                            player1Index: 4,
+                            player2Index: 5,
                             selectedPokemon,
                             buttonBackgroundImage
                         }}
-                        selectedProps={{
+                        selectProps={{
                             handleSelectChange,
-                            handleAddButtonClick
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />
-
-                    <PokemonStorage
-                        playerProps={{
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectedProps={{
-                            handleSelectChange,
-                            handleAddButtonClick
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />
-                    <PokemonStorage
-                        playerProps={{
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectedProps={{
-                            handleSelectChange,
-                            handleAddButtonClick
+                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
                         }}
                         pokemonInfo={pokemonInfo}
                     />
 
                     <PokemonStorage
+                        key={3}
                         playerProps={{
+                            player1Index: 6,
+                            player2Index: 7,
                             selectedPokemon,
                             buttonBackgroundImage
                         }}
-                        selectedProps={{
+                        selectProps={{
                             handleSelectChange,
-                            handleAddButtonClick
+                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
+                        }}
+                        pokemonInfo={pokemonInfo}
+                    />
+                    <PokemonStorage
+                        key={4}
+                        playerProps={{
+                            player1Index: 8,
+                            player2Index: 9,
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectProps={{
+                            handleSelectChange,
+                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
+                        }}
+                        pokemonInfo={pokemonInfo}
+                    />
+
+                    <PokemonStorage
+                        key={5}
+                        playerProps={{
+                            player1Index: 10,
+                            player2Index: 11,
+                            selectedPokemon,
+                            buttonBackgroundImage
+                        }}
+                        selectProps={{
+                            handleSelectChange,
+                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
                         }}
                         pokemonInfo={pokemonInfo}
                     />

@@ -3,9 +3,11 @@ import React, { useState, useRef } from 'react'
 import Select from 'react-select';
 
 
-export default function PokemonStorage ({ playerProps, selectedProps, pokemonInfo, setSelectedPokemon }) {
+export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo, setSelectedPokemon, setButtonBackgroundImage }) {
     const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage } = playerProps;
+    const { handleSelectChange, handleAddButtonClick } = selectProps;
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
+    const [storagePlayer1Nickname, setStoragePlayer1Nickname] = useState("")
     const [storagePlayer2Nickname, setStoragePlayer2Nickname] = useState("")
 
     function togglePopUp(index) {
@@ -15,46 +17,13 @@ export default function PokemonStorage ({ playerProps, selectedProps, pokemonInf
             return newShowPopUp
         });
     }
-
-    // const [storageSelectedPokemon, setStorageSelectedPokemon] = useState({
-    //     0: {name: '', pokemonTypes: '', spriteUrl: ''},
-    //     1: {name: '', pokemonTypes: '', spriteUrl: ''},
-    //     2: {name: '', pokemonTypes: '', spriteUrl: ''},
-    //     3: {name: '', pokemonTypes: '', spriteUrl: ''},
-    //     4: {name: '', pokemonTypes: '', spriteUrl: ''},
-    //     5: {name: '', pokemonTypes: '', spriteUrl: ''},
-    // });
-
-    const storageHandleSelectChange = (optionIndex, selectedOption) => {
-        const { name, pokemonTypes, spriteUrl } = selectedOption;
-        setSelectedPokemon(prevState => ({
-            ...prevState,
-            storage: prevState.storage.map((pokemon, index) =>
-                index === optionIndex 
-                    ? { name, pokemonTypes, spriteUrl }
-                    : pokemon
-            )
-        }));
-    };
     
-
-    const [storageButtonBackgroundImage, setStorageButtonBackgroundImage] = useState(Array(6).fill(''));
-
-    const storageHandleAddButtonClick = (buttonIndex) => {
-        if (selectedPokemon.storage[buttonIndex]) {
-            const spriteUrl = selectedPokemon.storage[buttonIndex].spriteUrl;
-            setStorageButtonBackgroundImage(prevState => ({
-                ...prevState,
-                [buttonIndex]: spriteUrl
-            }));
-        }
-    }
 
     function StoragePlayer1PokemonSelect() {
         const input1Ref = useRef(null);
         const displayFirstName = () => {
             const input1Value = input1Ref.current.value;
-            setStoragePlayer2Nickname (input1Value);
+            setStoragePlayer1Nickname (input1Value);
         }
 
     return (
@@ -68,7 +37,7 @@ export default function PokemonStorage ({ playerProps, selectedProps, pokemonInf
             <div className={styles.selectWrapper}>
                 <Select 
                     placeholder="Find Pokemon"
-                    onChange={(selectedOption) => {storageHandleSelectChange(player1Index, selectedOption)}}
+                    onChange={(selectedOption) => {handleSelectChange(player1Index, selectedOption, 'storage')}}
                     formatOptionLabel={(pokemon) => {
                         return ( 
                             <div style={{ display: 'flex', alignItems: 'center'}}>
@@ -79,7 +48,7 @@ export default function PokemonStorage ({ playerProps, selectedProps, pokemonInf
                     options={pokemonInfo} 
                     getOptionLabel={options => options.name}
                     getOptionValue={options => options.name}
-                    value={selectedPokemon[player1Index] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon[player1Index].name)}
+                    value={selectedPokemon.storage[player1Index] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon.storage[player1Index].name)}
                     />
             </div>
             <input 
@@ -91,12 +60,12 @@ export default function PokemonStorage ({ playerProps, selectedProps, pokemonInf
             <div className={styles.popUpMenuBtns}>
                 <button onClick={() => {togglePopUp(0)}}>Cancel</button>
                 <button 
-                onClick={() => {togglePopUp(0); displayFirstName(); storageHandleAddButtonClick(player1Index)}}>Add</button>
+                onClick={() => {togglePopUp(0); displayFirstName(); handleAddButtonClick(player1Index)}}>Add</button>
             </div>
         </div>
 
         <button style={{  
-            backgroundImage: `url(${storageButtonBackgroundImage[player1Index]})`,
+            backgroundImage: `url(${buttonBackgroundImage.storage[player1Index]})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             height: "4rem", 
@@ -117,7 +86,6 @@ export default function PokemonStorage ({ playerProps, selectedProps, pokemonInf
             setStoragePlayer2Nickname (input2Value);
         }
 
-    // console.log(storageButtonBackgroundImage);
 
     return (
         <td className={styles.pokemonDisplay}> 
@@ -130,7 +98,7 @@ export default function PokemonStorage ({ playerProps, selectedProps, pokemonInf
             <div className={styles.selectWrapper}>
                 <Select 
                     placeholder="Find Pokemon"
-                    onChange={(selectedOption) => {storageHandleSelectChange(player2Index, selectedOption)}}
+                    onChange={(selectedOption) => {handleSelectChange(player2Index, selectedOption, 'storage')}}
                     formatOptionLabel={(pokemon) => {
                         return ( 
                             <div style={{ display: 'flex', alignItems: 'center'}}>
@@ -141,7 +109,7 @@ export default function PokemonStorage ({ playerProps, selectedProps, pokemonInf
                     options={pokemonInfo} 
                     getOptionLabel={options => options.name}
                     getOptionValue={options => options.name}
-                    value={selectedPokemon[player2Index] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon[player2Index].name)}
+                    value={selectedPokemon.storage[player2Index] && pokemonInfo.find(pokemon => pokemon.name === selectedPokemon.storage[player2Index].name)}
                     />
             </div>
             <input 
@@ -153,12 +121,12 @@ export default function PokemonStorage ({ playerProps, selectedProps, pokemonInf
             <div className={styles.popUpMenuBtns}>
                 <button onClick={() => {togglePopUp(1)}}>Cancel</button>
                 <button 
-                onClick={() => {togglePopUp(1); displaySecondName(); storageHandleAddButtonClick(player2Index)}}>Add</button>
+                onClick={() => {togglePopUp(1); displaySecondName(); handleAddButtonClick(player2Index)}}>Add</button>
             </div>
         </div>
 
         <button style={{  
-            backgroundImage: `url(${storageButtonBackgroundImage[player2Index]})`,
+            backgroundImage: `url(${buttonBackgroundImage.storage[player2Index]})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             height: "4rem", 
@@ -184,7 +152,7 @@ export default function PokemonStorage ({ playerProps, selectedProps, pokemonInf
             <StoragePlayer1PokemonSelect player1Index={0}/>
             <StoragePlayer2PokemonSelect player2Index={1}/>
 
-            <td className={styles.nicknames}>123</td>
+            <td className={styles.nicknames}>{storagePlayer1Nickname} & {storagePlayer2Nickname}</td>
         </tr>
 
 
