@@ -11,6 +11,7 @@ export default function Table() {
     const [player1Name, setplayer1Name] = useState("");
     const [player2Name, setplayer2Name] = useState("");
     const [pokemonInfo, setPokemonInfo] = useState([]); 
+    const [currentPage, setCurrentPage] = useState(0);
 
 
     useEffect(()=>{
@@ -45,15 +46,12 @@ export default function Table() {
         }
     }
 
-    const [rows, setRows] = useState([0]);
-    const addRow =() => {
-        setRows(prevRows => [...prevRows, prevRows.length]);
-    };
 
     const [selectedPokemon, setSelectedPokemon] = useState({
-        team: Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: ''}),
-        storage: Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: ''})
-    });
+        team: Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: ''}),
+        storage: Array(5).fill().flatMap(() => Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: ''}))
+        })
+    ;
     
     console.log(selectedPokemon)
 
@@ -72,7 +70,7 @@ export default function Table() {
 
     const [buttonBackgroundImage, setButtonBackgroundImage] = useState({
         team: Array(12).fill(''),
-        storage: Array(12).fill('')
+        storage: Array(60).fill('')
     });
     console.log(buttonBackgroundImage)
 
@@ -91,7 +89,38 @@ export default function Table() {
             }));
         }
     };
-    
+
+    const handlePageChange = (pageIndex) => {
+        setCurrentPage(pageIndex);
+    }
+
+    const renderRows = () => {
+        return Array(6).fill().map((_, rowIndex) => {
+            const player1Index = currentPage * 12 + rowIndex * 2;
+            const player2Index = player1Index + 1;
+                return (
+                    <tr key={rowIndex}>
+                        <PokemonStorage 
+                            key={rowIndex}
+                            playerProps={{
+                                player1Index,
+                                player2Index,
+                                selectedPokemon,
+                                setSelectedPokemon,
+                                buttonBackgroundImage
+                        }}
+                            selectProps={{
+                                handleSelectChange: (optionIndex, selectedOption) => handleSelectChange(optionIndex, selectedOption, 'storage'),
+                                handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
+                        }}
+                        pokemonInfo={pokemonInfo}
+                    />
+                    </tr>
+                    
+                )
+        })
+    }
+
 
     return(
         <div className={styles.tableContainer}>
@@ -115,7 +144,6 @@ export default function Table() {
                         onKeyPress={handleKeyPress}
                     />
 
-                    <button className={styles.addRow}onClick={addRow}>Add A New Pair</button>  
                 </div>
 
                 <table>
@@ -227,99 +255,23 @@ export default function Table() {
                 </table>
             </div>
 
-            <table className={styles.storage}>
+            <div> 
+                <table className={styles.storage}>
+                    <thead><tr></tr></thead>
+                    
+                    <tbody>
+                        {renderRows()}
+                    </tbody>
+                </table>
 
-                <tbody>
-                    <PokemonStorage
-                        key={0}
-                        playerProps={{
-                            player1Index: 0,
-                            player2Index: 1,
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectProps={{
-                            handleSelectChange,
-                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
-                        }}
-                        pokemonInfo={pokemonInfo}
-                        setSelectedPokemon={setSelectedPokemon}
-                    />
-
-                    <PokemonStorage
-                        key={1}
-                        playerProps={{
-                            player1Index: 2,
-                            player2Index: 3,
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectProps={{
-                            handleSelectChange,
-                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />
-                    <PokemonStorage
-                        key={2}
-                        playerProps={{
-                            player1Index: 4,
-                            player2Index: 5,
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectProps={{
-                            handleSelectChange,
-                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />
-
-                    <PokemonStorage
-                        key={3}
-                        playerProps={{
-                            player1Index: 6,
-                            player2Index: 7,
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectProps={{
-                            handleSelectChange,
-                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />
-                    <PokemonStorage
-                        key={4}
-                        playerProps={{
-                            player1Index: 8,
-                            player2Index: 9,
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectProps={{
-                            handleSelectChange,
-                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />
-
-                    <PokemonStorage
-                        key={5}
-                        playerProps={{
-                            player1Index: 10,
-                            player2Index: 11,
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectProps={{
-                            handleSelectChange,
-                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />
-                </tbody>
-            </table>
+                <div>
+                    {Array.from({ length: 5}, (_, i) => (
+                        <button key={i} onClick={() => handlePageChange(i)}>
+                            Page {i +1}
+                        </button>
+                    ))}
+                </div>
+            </div>
         </div>
     )
 }
