@@ -200,8 +200,8 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo })
                         fontSize: '0.9rem'
                     }}></input>
                 </td>
-                <Player1PokemonSelect player1Index={0}/>
-                <Player2PokemonSelect player2Index={1}/>
+                <Player1PokemonSelect/>
+                <Player2PokemonSelect/>
 
                 <td className={styles.nicknames}>{player1Nickname} & {player2Nickname}</td>
             </tr>
