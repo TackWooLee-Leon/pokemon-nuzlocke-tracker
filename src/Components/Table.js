@@ -200,6 +200,7 @@ export default function Table() {
                         
                     <tbody>
                         {teamRenderRows()}
+
                     </tbody>
                 </table>
             </div>
