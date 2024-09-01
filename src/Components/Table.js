@@ -92,7 +92,7 @@ export default function Table() {
 
     const teamRenderRows = () => {
         return Array(6).fill().map((_, rowIndex) => {
-            const player1Index = currentPage * 12 + rowIndex * 2;
+            const player1Index = rowIndex * 2;
             const player2Index = player1Index + 1;
                 return (
                     <tr key={rowIndex}>
@@ -200,100 +200,7 @@ export default function Table() {
                         
                     <tbody>
                         {teamRenderRows()}
-                    {/* <PokemonTeam
-                        key={0}
-                        playerProps={{
-                            player1Index: 0,
-                            player2Index: 1,
-                            selectedPokemon,
-                            buttonBackgroundImage,
-                            handleNicknameChange
-                        }}
-                        selectProps={{
-                            handleSelectChange,
-                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />
 
-                    <PokemonTeam
-                        key={1}
-                        playerProps={{
-                            player1Index: 2,
-                            player2Index: 3,
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectProps={{
-                            handleSelectChange,
-                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />
-
-                    <PokemonTeam
-                        key={2}
-                        playerProps={{
-                            player1Index: 4,
-                            player2Index: 5,
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectProps={{
-                            handleSelectChange,
-                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
-
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />
-
-                    <PokemonTeam
-                        key={3}
-                        playerProps={{
-                            player1Index: 6,
-                            player2Index: 7,
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectProps={{
-                            handleSelectChange,
-                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
-
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />
-
-                    <PokemonTeam
-                        key={4}
-                        playerProps={{
-                            player1Index: 8,
-                            player2Index: 9,
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectProps={{
-                            handleSelectChange,
-                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
-
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />
-
-                    <PokemonTeam
-                        key={5}
-                        playerProps={{
-                            player1Index: 10,
-                            player2Index: 11,
-                            selectedPokemon,
-                            buttonBackgroundImage
-                        }}
-                        selectProps={{
-                            handleSelectChange,
-                            handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
-
-                        }}
-                        pokemonInfo={pokemonInfo}
-                    />             */}
                     </tbody>
                 </table>
             </div>
