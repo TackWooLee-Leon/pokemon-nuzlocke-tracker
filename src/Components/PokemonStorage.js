@@ -145,7 +145,7 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo 
                 <StoragePlayer1PokemonSelect player1Index={0}/>
                 <StoragePlayer2PokemonSelect player2Index={1}/>
 
-                <td className={styles.nicknames}>{selectedPokemon.storage[player1Index].nickname} & {selectedPokemon.storage[player2Index].nickname}</td>
+                <td className={styles.nicknames}>{selectedPokemon.storage[player1Index].nickname} &123 {selectedPokemon.storage[player2Index].nickname}</td>
             </tr> 
             
         )
