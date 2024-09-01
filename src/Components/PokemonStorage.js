@@ -4,7 +4,7 @@ import Select from 'react-select';
 
 
 export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo }) {
-    const { player1Index, player2Index, selectedPokemon, setSelectedPokemon, buttonBackgroundImage } = playerProps;
+    const { player1Index, player2Index, selectedPokemon, setSelectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
 
@@ -15,20 +15,6 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo 
             return newShowPopUp
         });
     }
-    
-    const handleNicknameChange = (index, nickname) => {
-        setSelectedPokemon((prevSelectedPokemon) => {
-            const updatedStorage = [...prevSelectedPokemon.storage];
-            updatedStorage[index] = {
-                ...updatedStorage[index],
-                nickname: nickname
-            };
-            return {
-                ...prevSelectedPokemon,
-                storage: updatedStorage
-            };
-        });
-    };
     
 
     const input1Ref = useRef(null);
@@ -71,7 +57,7 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo 
                 <div className={styles.popUpMenuBtns}>
                     <button onClick={() => {togglePopUp(0)}}>Cancel</button>
                     <button 
-                    onClick={() => {togglePopUp(0); handleNicknameChange(player1Index, input1Ref.current.value); handleAddButtonClick(player1Index)}}>Add</button>
+                    onClick={() => {togglePopUp(0); handleNicknameChange(player1Index, input1Ref.current.value, 'storage'); handleAddButtonClick(player1Index)}}>Add</button>
                 </div>
             </div>
 
@@ -127,7 +113,7 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo 
                 <div className={styles.popUpMenuBtns}>
                     <button onClick={() => {togglePopUp(1)}}>Cancel</button>
                     <button 
-                    onClick={() => {togglePopUp(1); handleNicknameChange(player2Index, input2Ref.current.value); handleAddButtonClick(player2Index)}}>Add</button>
+                    onClick={() => {togglePopUp(1); handleNicknameChange(player2Index, input2Ref.current.value, 'storage'); handleAddButtonClick(player2Index)}}>Add</button>
                 </div>
             </div>
 
