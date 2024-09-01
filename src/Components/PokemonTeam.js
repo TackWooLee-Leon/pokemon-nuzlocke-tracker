@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Select from 'react-select';
 
 export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo }) {
-    const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage } = playerProps;
+    const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
 
 
@@ -68,13 +68,10 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo })
         }
     }
 
+    const input1Ref = useRef(null);
+    const input2Ref = useRef(null);
     
     function Player1PokemonSelect() {
-        const input1Ref = useRef(null);
-        const displayFirstName = () => {
-            const input1Value = input1Ref.current.value;
-            setplayer1Nickname (input1Value);
-        };
 
         
         return(
@@ -112,7 +109,7 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo })
                     <div className={styles.popUpMenuBtns}>
                         <button onClick={() => {togglePopUp(player1Index)}}>Cancel</button>
                         <button 
-                        onClick={() => {togglePopUp(player1Index); displayFirstName(); handleAddButtonClick(player1Index); checkForDuplicatingTypes()}}>Add</button>
+                        onClick={() => {togglePopUp(player1Index); handleNicknameChange(player1Index, input1Ref.current.value, 'team'); handleAddButtonClick(player1Index); checkForDuplicatingTypes()}}>Add</button>
                     </div>
                 </div>
 
@@ -132,11 +129,7 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo })
     }
 
     function Player2PokemonSelect () {
-        const input2Ref = useRef(null);
-        const displaySecondName = () => {
-            const input2Value = input2Ref.current.value;
-            setplayer2Nickname (input2Value);
-        }
+        
         return (
             <td className={styles.pokemonDisplay}> 
                 <div className={styles.popUpMenu} style={{
@@ -171,7 +164,7 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo })
                     <div className={styles.popUpMenuBtns}>
                         <button onClick={() => {togglePopUp(player2Index)}}>Cancel</button>
                         <button 
-                        onClick={() => {togglePopUp(player2Index); displaySecondName(); handleAddButtonClick(player2Index); checkForDuplicatingTypes()}}>Add</button>
+                        onClick={() => {togglePopUp(player2Index); handleNicknameChange(player2Index, input2Ref.current.value, 'team'); handleAddButtonClick(player2Index); checkForDuplicatingTypes()}}>Add</button>
                     </div>
                 </div>
 
@@ -203,7 +196,7 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo })
                 <Player1PokemonSelect/>
                 <Player2PokemonSelect/>
 
-                <td className={styles.nicknames}>{player1Nickname} & {player2Nickname}</td>
+                <td className={styles.nicknames}>{selectedPokemon.team[player1Index].nickname} & {selectedPokemon.team[player2Index].nickname}</td>
             </tr>
 
     

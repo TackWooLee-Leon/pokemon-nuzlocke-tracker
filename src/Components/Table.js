@@ -90,11 +90,39 @@ export default function Table() {
         }
     };
 
+    const teamRenderRows = () => {
+        return Array(6).fill().map((_, rowIndex) => {
+            const player1Index = currentPage * 12 + rowIndex * 2;
+            const player2Index = player1Index + 1;
+                return (
+                    <tr key={rowIndex}>
+                        <PokemonTeam 
+                            key={rowIndex}
+                            playerProps={{
+                                player1Index,
+                                player2Index,
+                                selectedPokemon,
+                                setSelectedPokemon,
+                                buttonBackgroundImage,
+                                handleNicknameChange
+                        }}
+                            selectProps={{
+                                handleSelectChange: (optionIndex, selectedOption) => handleSelectChange(optionIndex, selectedOption, 'team'),
+                                handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
+                        }}
+                        pokemonInfo={pokemonInfo}
+                    />
+                    </tr>
+                    
+                )
+        })
+    }
+
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     }
 
-    const renderRows = () => {
+    const storageRenderRows = () => {
         return Array(6).fill().map((_, rowIndex) => {
             const player1Index = currentPage * 12 + rowIndex * 2;
             const player2Index = player1Index + 1;
@@ -107,7 +135,8 @@ export default function Table() {
                                 player2Index,
                                 selectedPokemon,
                                 setSelectedPokemon,
-                                buttonBackgroundImage
+                                buttonBackgroundImage,
+                                handleNicknameChange
                         }}
                             selectProps={{
                                 handleSelectChange: (optionIndex, selectedOption) => handleSelectChange(optionIndex, selectedOption, 'storage'),
@@ -121,6 +150,19 @@ export default function Table() {
         })
     }
 
+    const handleNicknameChange = (index, nickname, type) => {
+        setSelectedPokemon((prevSelectedPokemon) => {
+            const updatedSelectedPokemon = [...prevSelectedPokemon[type]];
+            updatedSelectedPokemon[index] = {
+                ...updatedSelectedPokemon[index],
+                nickname: nickname
+            };
+            return {
+                ...prevSelectedPokemon,
+                [type]: updatedSelectedPokemon
+            };
+        });
+    };
 
     return(
         <div className={styles.tableContainer}>
@@ -157,14 +199,15 @@ export default function Table() {
                     </thead>
                         
                     <tbody>
-                    
-                    <PokemonTeam
+                        {teamRenderRows()}
+                    {/* <PokemonTeam
                         key={0}
                         playerProps={{
                             player1Index: 0,
                             player2Index: 1,
                             selectedPokemon,
-                            buttonBackgroundImage
+                            buttonBackgroundImage,
+                            handleNicknameChange
                         }}
                         selectProps={{
                             handleSelectChange,
@@ -250,7 +293,7 @@ export default function Table() {
 
                         }}
                         pokemonInfo={pokemonInfo}
-                    />            
+                    />             */}
                     </tbody>
                 </table>
             </div>
@@ -260,7 +303,7 @@ export default function Table() {
                     <thead><tr></tr></thead>
                     
                     <tbody>
-                        {renderRows()}
+                        {storageRenderRows()}
                     </tbody>
                 </table>
 
