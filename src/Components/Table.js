@@ -96,7 +96,7 @@ export default function Table() {
             const player1Index = rowIndex * 2;
             const player2Index = player1Index + 1;
                 return (
-                    <tr key={rowIndex}>
+                    // <tr key={rowIndex}>
                         <PokemonTeam 
                             key={rowIndex}
                             playerProps={{
@@ -113,7 +113,7 @@ export default function Table() {
                         }}
                         pokemonInfo={pokemonInfo}
                     />
-                    </tr>
+                    // </tr>
                     
                 )
         })
@@ -207,7 +207,7 @@ export default function Table() {
 
             <div> 
                 <table className={styles.storage}>
-                    <thead><tr></tr></thead>
+                    {/* <thead><tr></tr></thead> */}
                     
                     <tbody>
                         {storageRenderRows()}
