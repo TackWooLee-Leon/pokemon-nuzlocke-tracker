@@ -72,6 +72,7 @@ export default function Table() {
         team: Array(12).fill(''),
         storage: Array(60).fill('')
     });
+    
     console.log(buttonBackgroundImage)
 
 
