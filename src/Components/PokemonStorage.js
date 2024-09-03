@@ -1,4 +1,4 @@
-import styles from './Table.module.css'
+import styles from './Storage.module.css'
 import React, { useState, useRef } from 'react'
 import Select from 'react-select';
 
@@ -24,14 +24,14 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo,
         
 
         return (
-            <td className={styles.pokemonDisplay}> 
+            <td className={styles.storagePokemonDisplay}> 
                 <div className={styles.popUpMenu} style={{
                     display: showPopUp[0] ? "flex" : "none", 
                     position: "absolute", 
                     bottom: "65px", 
                     left: "-40px"
                 }}>
-                <div className={styles.selectWrapper}>
+                <div className={styles.storageSelectWrapper}>
                     <Select 
                         placeholder="Find Pokemon"
                         onChange={(selectedOption) => {handleSelectChange(player1Index, selectedOption, 'storage')}}
@@ -54,7 +54,7 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo,
                     ref={input1Ref}
                 />
 
-                <div className={styles.popUpMenuBtns}>
+                <div className={styles.storagePopUpMenuBtns}>
                     <button onClick={() => {togglePopUp(0)}}>Cancel</button>
                     <button 
                     onClick={() => {togglePopUp(0); handleNicknameChange(player1Index, input1Ref.current.value, 'storage'); handleAddButtonClick(player1Index)}}>Add</button>
@@ -80,14 +80,14 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo,
 
 
         return (
-            <td className={styles.pokemonDisplay}> 
-            <div className={styles.popUpMenu} style={{
+            <td className={styles.storagePokemonDisplay}> 
+            <div className={styles.storagePopUpMenu} style={{
                 display: showPopUp[1] ? "flex" : "none", 
                 position: "absolute", 
                 bottom: "65px", 
                 left: "-40px"
             }}>
-                <div className={styles.selectWrapper}>
+                <div className={styles.storageSelectWrapper}>
                     <Select 
                         placeholder="Find Pokemon"
                         onChange={(selectedOption) => {handleSelectChange(player2Index, selectedOption, 'storage')}}
@@ -110,7 +110,7 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo,
                     ref={input2Ref}
                 />
 
-                <div className={styles.popUpMenuBtns}>
+                <div className={styles.storagePopUpMenuBtns}>
                     <button onClick={() => {togglePopUp(1)}}>Cancel</button>
                     <button 
                     onClick={() => {togglePopUp(1); handleNicknameChange(player2Index, input2Ref.current.value, 'storage'); handleAddButtonClick(player2Index)}}>Add</button>
@@ -146,7 +146,7 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo,
                 <StoragePlayer1PokemonSelect/>
                 <StoragePlayer2PokemonSelect/>
 
-                <td className={styles.nicknames}>{selectedPokemon.storage[player1Index].nickname} & {selectedPokemon.storage[player2Index].nickname}</td>
+                <td className={styles.storageNicknames}>{selectedPokemon.storage[player1Index].nickname} & {selectedPokemon.storage[player2Index].nickname}</td>
             </tr> 
             
         )

@@ -1,4 +1,4 @@
-import styles from './Table.module.css'
+import styles from './Team.module.css'
 import React, { useState, useEffect, useRef } from 'react';
 
 import Select from 'react-select';
@@ -75,14 +75,14 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
 
         
         return(
-            <td className={styles.pokemonDisplay}>
-                <div className={styles.popUpMenu} style={{ 
+            <td className={styles.teamPokemonDisplay}>
+                <div className={styles.teamPopUpMenu} style={{ 
                     display: showPopUp[player1Index] ? "flex" : "none", 
                     position: "absolute", 
                     bottom: "65px",
                     right: "-40px"
                 }}>
-                    <div className={styles.selectWrapper}>
+                    <div className={styles.teamSelectWrapper}>
                         <Select 
                             placeholder="Find Pokemon"
                             onChange={(selectedOption) => {handleSelectChange(player1Index, selectedOption, 'team')}}
@@ -106,7 +106,7 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
                         ref={input1Ref}
                     />
 
-                    <div className={styles.popUpMenuBtns}>
+                    <div className={styles.teamPopUpMenuBtns}>
                         <button onClick={() => {togglePopUp(player1Index)}}>Cancel</button>
                         <button 
                         onClick={() => {togglePopUp(player1Index); handleNicknameChange(player1Index, input1Ref.current.value, 'team'); handleAddButtonClick(player1Index); checkForDuplicatingTypes()}}>Add</button>
@@ -131,14 +131,14 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
     function Player2PokemonSelect () {
         
         return (
-            <td className={styles.pokemonDisplay}> 
-                <div className={styles.popUpMenu} style={{
+            <td className={styles.teamPokemonDisplay}> 
+                <div className={styles.teamPopUpMenu} style={{
                     display: showPopUp[player2Index] ? "flex" : "none", 
                     position: "absolute", 
                     bottom: "65px", 
                     left: "-40px"
                 }}>
-                    <div className={styles.selectWrapper}>
+                    <div className={styles.teamSelectWrapper}>
                         <Select 
                             placeholder="Find Pokemon"
                             onChange={(selectedOption) => {handleSelectChange(player2Index, selectedOption, 'team')}}
@@ -161,7 +161,7 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
                         ref={input2Ref}
                     />
 
-                    <div className={styles.popUpMenuBtns}>
+                    <div className={styles.teamPopUpMenuBtns}>
                         <button onClick={() => {togglePopUp(player2Index)}}>Cancel</button>
                         <button 
                         onClick={() => {togglePopUp(player2Index); handleNicknameChange(player2Index, input2Ref.current.value, 'team'); handleAddButtonClick(player2Index); checkForDuplicatingTypes()}}>Add</button>
@@ -198,7 +198,7 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
                 <Player1PokemonSelect/>
                 <Player2PokemonSelect/>
 
-                <td className={styles.nicknames}>{selectedPokemon.team[player1Index].nickname} & {selectedPokemon.team[player2Index].nickname}</td>
+                <td className={styles.teamNicknames}>{selectedPokemon.team[player1Index].nickname} & {selectedPokemon.team[player2Index].nickname}</td>
             </tr>
 
     

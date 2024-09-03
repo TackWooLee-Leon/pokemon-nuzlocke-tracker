@@ -1,0 +1,52 @@
+.teamPokemonDisplay {
+    /* border: 1px solid blue; */
+    position: relative;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+}
+
+.teamPopUpMenu{
+    width: 15rem;
+    border-radius: 7px;
+    background-color: #5171ca;
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+}
+
+.teamPopUpMenu input {
+    width: 80%;
+    padding: 5px;
+    margin: 5px;
+}
+
+.teamPopUpMenuBtns {
+    display: flex;
+    gap: 25px;
+    padding: 5px;
+}
+
+.teamSelectWrapper {
+    width: 12em;
+    margin-top: 10px;
+}
+
+input {
+    padding: 6px;
+    border-radius: 12px;
+}
+
+input:focus::placeholder {
+    color: transparent;
+}
+
+
+button:hover {
+    cursor: pointer;
+}
+
+.teamNicknames {
+    text-align: left;
+    min-width: 13rem;
+}

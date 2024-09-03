@@ -37,11 +37,6 @@ td{
     text-align: center;
 }
 
-.nicknames {
-    text-align: left;
-    min-width: 13rem;
-}
-
 tbody input {
     font-size: 1rem;
     width: 100%;
@@ -59,71 +54,6 @@ tbody input {
     font-size: 1rem;
 }
 
-.pokemonSearch {
+/* .pokemonSearch {
     width: 10rem;
-}
-
-input {
-    padding: 6px;
-    border-radius: 12px;
-}
-
-input:focus::placeholder {
-    color: transparent;
-}
-
-.addPokemonBtns {
-    height: 2rem;
-    width: 2rem;
-    border-radius: 15px;
-    border: none;
-}
-
-button:hover {
-    cursor: pointer;
-}
-
-svg {
-    display: flex;
-}
-
-.popUpMenu{
-    width: 15rem;
-    border-radius: 7px;
-    background-color: #5171ca;
-    /* display: flex; */
-    flex-direction: column;
-    align-items: center;
-}
-
-.popUpMenu input {
-    width: 80%;
-    padding: 5px;
-    margin: 5px;
-}
-
-.popUpMenuBtns {
-    display: flex;
-    gap: 25px;
-    padding: 5px;
-}
-
-.pokemonDisplay {
-    /* border: 1px solid blue; */
-    position: relative;
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
-}
-
-.selectWrapper {
-    width: 12em;
-    margin-top: 10px;
-}
-
-.addRow {
-    height: 2rem;
-    width: 10rem;
-    border-radius: 10px;
-    font-size: 1rem;
-}
+} */
