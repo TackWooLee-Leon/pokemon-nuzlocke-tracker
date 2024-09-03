@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import Select from 'react-select';
 
-export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo }) {
+export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, handleLocationChange }) {
     const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
 
@@ -188,6 +188,8 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo })
                 <td>
                     <input 
                         type="text" 
+                        
+                        onChange={(e) => handleLocationChange(player1Index, player2Index, 'team', e)}
                         placeholder='e.g. route 101' 
                         style={{
                         fontSize: '0.9rem'

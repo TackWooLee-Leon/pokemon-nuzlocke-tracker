@@ -48,8 +48,8 @@ export default function Table() {
 
 
     const [selectedPokemon, setSelectedPokemon] = useState({
-        team: Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: ''}),
-        storage: Array(5).fill().flatMap(() => Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: ''}))
+        team: Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''}),
+        storage: Array(5).fill().flatMap(() => Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''}))
         })
     ;
     
@@ -59,9 +59,9 @@ export default function Table() {
         const { name, pokemonTypes, spriteUrl } = selectedOption;
         setSelectedPokemon(prevState => ({
             ...prevState,
-            [type]: prevState[type].map((pokemon, index) =>
-                index === optionIndex 
-                    ? { name, pokemonTypes, spriteUrl }
+            [type]: prevState[type].map((pokemon, index) => 
+                index === optionIndex
+                    ? { ...pokemon, name, pokemonTypes, spriteUrl }
                     : pokemon
             )
         }));
@@ -73,7 +73,6 @@ export default function Table() {
         storage: Array(60).fill('')
     });
     
-    console.log(buttonBackgroundImage)
 
 
     const handleAddButtonClick = (playerIndex, type) => {
@@ -112,6 +111,8 @@ export default function Table() {
                                 handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'team')
                         }}
                         pokemonInfo={pokemonInfo}
+                        handleLocationChange={handleLocationChange}
+
                     />
                     // </tr>
                     
@@ -144,6 +145,7 @@ export default function Table() {
                                 handleAddButtonClick: (buttonIndex) => handleAddButtonClick(buttonIndex, 'storage')
                         }}
                         pokemonInfo={pokemonInfo}
+                        handleLocationChange={handleLocationChange}
                     />
                     </tr>
                     
@@ -164,6 +166,33 @@ export default function Table() {
             };
         });
     };
+
+    const handleLocationChange = (player1Index, player2Index, type, event) => {
+        const newLocation = event.target.value;
+    
+        setSelectedPokemon((prevSelectedPokemon) => {
+            // Create a copy of the array to update
+            const updatedArray = [...prevSelectedPokemon[type]];
+    
+            // Update the location for the specified indices
+            updatedArray.forEach((player, index) => {
+                if (index === player1Index || index === player2Index) {
+                    updatedArray[index] = {
+                        ...player,
+                        location: newLocation
+                    };
+                }
+            });
+    
+            // Return the new state object
+            return {
+                ...prevSelectedPokemon,
+                [type]: updatedArray
+            };
+        });
+    };
+    
+    // console.log(selectedPokemon.team[0].location);
 
     return(
         <div className={styles.tableContainer}>
