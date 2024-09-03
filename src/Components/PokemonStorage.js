@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react'
 import Select from 'react-select';
 
 
-export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo }) {
+export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo, handleLocationChange }) {
     const { player1Index, player2Index, selectedPokemon, setSelectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
@@ -137,13 +137,14 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo 
                 <td>
                     <input 
                         type="text" 
+                        onChange={(e) => handleLocationChange(player1Index, player2Index, 'storage', e)}
                         placeholder='e.g. route 101' 
                         style={{
                         fontSize: '0.9rem'
                     }}></input>
                 </td>
-                <StoragePlayer1PokemonSelect player1Index={0}/>
-                <StoragePlayer2PokemonSelect player2Index={1}/>
+                <StoragePlayer1PokemonSelect/>
+                <StoragePlayer2PokemonSelect/>
 
                 <td className={styles.nicknames}>{selectedPokemon.storage[player1Index].nickname} & {selectedPokemon.storage[player2Index].nickname}</td>
             </tr> 
