@@ -3,8 +3,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import Select from 'react-select';
 
 
-export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo, handleLocationChange }) {
-    const { player1Index, player2Index, selectedPokemon, setSelectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
+export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo, handleLocationChange, onSwap }) {
+    const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
 
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
@@ -166,6 +166,7 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo,
                 <StoragePlayer2PokemonSelect/>
 
                 <td className={styles.storageNicknames}>{selectedPokemon.storage[player1Index].nickname} & {selectedPokemon.storage[player2Index].nickname}</td>
+                {/* <td><button onClick={onSwap}>Swap</button></td> */}
             </tr> 
             
         )

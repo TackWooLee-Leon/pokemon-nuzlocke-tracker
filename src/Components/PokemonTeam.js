@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import Select from 'react-select';
 
-export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, handleLocationChange }) {
+export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, handleLocationChange, onSwap, onDragStart, onDrop, onDragOver }) {
     const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
 
@@ -73,7 +73,7 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
 
     const input1Ref = useRef(null);
     const input2Ref = useRef(null);
-    console.log(showPopUp)
+    // console.log(showPopUp)
 
     function Player1PokemonSelect() {
 
@@ -193,21 +193,38 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
     }
 
     return(
-            <tr>
+            <tr
+                draggable
+                onDragStart={onDragStart}
+                onDrop={onDrop}
+                onDragOver={onDragOver}
+            >
                 <td>
                     <input 
                         type="text" 
-                        
                         onChange={(e) => handleLocationChange(player1Index, player2Index, 'team', e)}
                         placeholder='e.g. route 101' 
                         style={{
                         fontSize: '0.9rem'
                     }}></input>
                 </td>
-                <Player1PokemonSelect/>
-                <Player2PokemonSelect/>
+                <Player1PokemonSelect
+                    player1Index={player1Index}
+                    tableType="team"
+                    selectedPokemon={selectedPokemon}
+                    handleSelectChange={selectProps.handleSelectChange}
+                    pokemonInfo={pokemonInfo}
+                />
+                <Player2PokemonSelect 
+                    player2Index={player2Index}
+                    tableType="team"
+                    selectedPokemon={selectedPokemon}
+                    handleSelectChange={selectProps.handleSelectChange}
+                    pokemonInfo={pokemonInfo}
+                />
 
                 <td className={styles.teamNicknames}>{selectedPokemon.team[player1Index].nickname} & {selectedPokemon.team[player2Index].nickname}</td>
+                {/* <td><button onClick={onSwap}>Swap</button></td> */}
             </tr>
 
     
