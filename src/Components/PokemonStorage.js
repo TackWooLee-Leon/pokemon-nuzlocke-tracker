@@ -1,4 +1,4 @@
-import styles from './Storage.module.css'
+import styles from './PokemonStorage.module.css'
 import React, { useState, useRef } from 'react'
 import Select from 'react-select';
 
@@ -25,11 +25,11 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo,
 
         return (
             <td className={styles.storagePokemonDisplay}> 
-                <div className={styles.popUpMenu} style={{
+                <div className={styles.storagePopUpMenu} style={{
                     display: showPopUp[0] ? "flex" : "none", 
                     position: "absolute", 
-                    bottom: "65px", 
-                    left: "-40px"
+                    bottom: "75px", 
+                    left: "-80px"
                 }}>
                 <div className={styles.storageSelectWrapper}>
                     <Select 
@@ -84,8 +84,8 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo,
             <div className={styles.storagePopUpMenu} style={{
                 display: showPopUp[1] ? "flex" : "none", 
                 position: "absolute", 
-                bottom: "65px", 
-                left: "-40px"
+                bottom: "75px", 
+                left: "-80px"
             }}>
                 <div className={styles.storageSelectWrapper}>
                     <Select 

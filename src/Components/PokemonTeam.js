@@ -1,4 +1,4 @@
-import styles from './Team.module.css'
+import styles from './PokemonTeam.module.css'
 import React, { useState, useEffect, useRef } from 'react';
 
 import Select from 'react-select';
@@ -9,26 +9,29 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
 
 
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
-    function togglePopUp(index) {
+    const popupRefs = useRef([]);
+
+    function togglePopUp(index, event) {
+
         setShowPopUp((prevShowPopUp) => {
-            const newShowPopUp = [...prevShowPopUp];
-            newShowPopUp[index] = !newShowPopUp[index];
-            return newShowPopUp
+            return prevShowPopUp.map((show, i) => 
+                i === index ? !show : show
+        );
         });
     };
 
-    const [player1Nickname, setplayer1Nickname] = useState("")
-    const [player2Nickname, setplayer2Nickname] = useState("")
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (popupRefs.current.every(ref => ref && !ref.contains(event.target))) {
+                setShowPopUp(Array(2).fill(false));
+            }
+        }
 
-
-
-    // useEffect(() => {
-    //     console.log('Selected Pokémon:', selectedPokemon);
-    //   }, [selectedPokemon]);
-
-    // useEffect(() => {
-    //     console.log('plyaerIndex', player1Index);
-    // }, [player1Index])
+        document.addEventListener('mousedown', handleClickOutside);
+        return() => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     function checkForDuplicatingTypes() {
         const typeCounts = {};
@@ -70,17 +73,20 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
 
     const input1Ref = useRef(null);
     const input2Ref = useRef(null);
+    console.log(showPopUp)
     
     function Player1PokemonSelect() {
 
         
         return(
             <td className={styles.teamPokemonDisplay}>
-                <div className={styles.teamPopUpMenu} style={{ 
-                    display: showPopUp[player1Index] ? "flex" : "none", 
-                    position: "absolute", 
-                    bottom: "65px",
-                    right: "-40px"
+                <div 
+                    className={styles.teamPopUpMenu} 
+                    style={{ 
+                        display: showPopUp[player1Index] ? "flex" : "none", 
+                        position: "absolute", 
+                        bottom: "75px",
+                        right: "-40px"
                 }}>
                     <div className={styles.teamSelectWrapper}>
                         <Select 
@@ -122,7 +128,9 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
                     borderRadius: '15px',
                     border: 'none',
                 }}
-                    onClick={() => {togglePopUp(player1Index)}}>
+                    ref={el => popupRefs.current[player1Index] = el}
+                    onClick={(event) => {togglePopUp(player1Index, event)}}>
+                    
                 +</button>
             </td>
         )
@@ -135,7 +143,7 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
                 <div className={styles.teamPopUpMenu} style={{
                     display: showPopUp[player2Index] ? "flex" : "none", 
                     position: "absolute", 
-                    bottom: "65px", 
+                    bottom: "75px", 
                     left: "-40px"
                 }}>
                     <div className={styles.teamSelectWrapper}>
@@ -177,7 +185,8 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
                     borderRadius: '15px',
                     border: 'none',
                 }}
-                    onClick={() => {togglePopUp(player2Index)}}>
+                    ref={el => popupRefs.current[player2Index] = el}
+                    onClick={(event) => {togglePopUp(player2Index, event)}}>
                 +</button>
             </td>
         )
