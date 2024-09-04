@@ -1,20 +1,37 @@
 import styles from './PokemonStorage.module.css'
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Select from 'react-select';
 
 
 export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo, handleLocationChange }) {
     const { player1Index, player2Index, selectedPokemon, setSelectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
+
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
+    // const popupRefs = useRef([]);
 
     function togglePopUp(index) {
+
         setShowPopUp((prevShowPopUp) => {
             const newShowPopUp = [...prevShowPopUp];
             newShowPopUp[index] = !newShowPopUp[index];
             return newShowPopUp
         });
-    }
+    };
+
+    // useEffect(() => {
+    //     function handleClickOutside(event) {
+    //         if (popupRefs.current.every(ref => ref && !ref.contains(event.target))) {
+    //             setShowPopUp(Array(2).fill(false));
+    //         }
+    //     }
+
+    //     document.addEventListener('mousedown', handleClickOutside);
+    //     return() => {
+    //         document.removeEventListener('mousedown', handleClickOutside);
+    //     };
+    // }, []);
+
     
 
     const input1Ref = useRef(null);
@@ -70,6 +87,7 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo,
                 borderRadius: '15px',
                 border: 'none',
             }}
+                // ref={el => popupRefs.current[player1Index] = el}
                 onClick={() => {togglePopUp(0)}}>
             +</button>
         </td>
@@ -126,6 +144,7 @@ export default function PokemonStorage ({ playerProps, selectProps, pokemonInfo,
                 borderRadius: '15px',
                 border: 'none',
             }}
+                // ref={el => popupRefs.current[player2Index] = el}
                 onClick={() => {togglePopUp(1)}}>
             +</button>
         </td>

@@ -9,29 +9,29 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
 
 
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
-    const popupRefs = useRef([]);
+    // const popupRefs = useRef([]);
 
-    function togglePopUp(index, event) {
+    function togglePopUp(index) {
 
         setShowPopUp((prevShowPopUp) => {
-            return prevShowPopUp.map((show, i) => 
-                i === index ? !show : show
-        );
+            const newShowPopUp = [...prevShowPopUp];
+            newShowPopUp[index] = !newShowPopUp[index];
+            return newShowPopUp
         });
     };
 
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (popupRefs.current.every(ref => ref && !ref.contains(event.target))) {
-                setShowPopUp(Array(2).fill(false));
-            }
-        }
+    // useEffect(() => {
+    //     function handleClickOutside(event) {
+    //         if (popupRefs.current.every(ref => ref && !ref.contains(event.target))) {
+    //             setShowPopUp(Array(2).fill(false));
+    //         }
+    //     }
 
-        document.addEventListener('mousedown', handleClickOutside);
-        return() => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
+    //     document.addEventListener('mousedown', handleClickOutside);
+    //     return() => {
+    //         document.removeEventListener('mousedown', handleClickOutside);
+    //     };
+    // }, []);
 
     function checkForDuplicatingTypes() {
         const typeCounts = {};
@@ -74,7 +74,7 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
     const input1Ref = useRef(null);
     const input2Ref = useRef(null);
     console.log(showPopUp)
-    
+
     function Player1PokemonSelect() {
 
         
@@ -82,6 +82,7 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
             <td className={styles.teamPokemonDisplay}>
                 <div 
                     className={styles.teamPopUpMenu} 
+                    // ref={el => popupRefs.current[player1Index] = el}
                     style={{ 
                         display: showPopUp[player1Index] ? "flex" : "none", 
                         position: "absolute", 
@@ -128,8 +129,7 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
                     borderRadius: '15px',
                     border: 'none',
                 }}
-                    ref={el => popupRefs.current[player1Index] = el}
-                    onClick={(event) => {togglePopUp(player1Index, event)}}>
+                    onClick={() => {togglePopUp(player1Index)}}>
                     
                 +</button>
             </td>
@@ -185,8 +185,8 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
                     borderRadius: '15px',
                     border: 'none',
                 }}
-                    ref={el => popupRefs.current[player2Index] = el}
-                    onClick={(event) => {togglePopUp(player2Index, event)}}>
+                    // ref={el => popupRefs.current[player2Index] = el}
+                    onClick={() => {togglePopUp(player2Index)}}>
                 +</button>
             </td>
         )

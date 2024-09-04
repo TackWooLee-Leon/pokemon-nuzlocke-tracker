@@ -105,6 +105,7 @@ export default function Table() {
                                 setSelectedPokemon,
                                 buttonBackgroundImage,
                                 handleNicknameChange
+                                
                         }}
                             selectProps={{
                                 handleSelectChange: (optionIndex, selectedOption) => handleSelectChange(optionIndex, selectedOption, 'team'),
