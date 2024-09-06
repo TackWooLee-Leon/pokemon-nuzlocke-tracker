@@ -52,6 +52,87 @@ export default function Table() {
         storage: Array(5).fill().flatMap(() => Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''}))
         })
     ;
+
+    // const handleSwap = (sourceTable, sourceIndices, targetTable, targetIndices) => {
+    //     setSelectedPokemon(prevState => {
+    //         // Extract the rows to be swapped
+    //         const sourceRow = {
+    //             player1: prevState[sourceTable][sourceIndices.player1],
+    //             player2: prevState[sourceTable][sourceIndices.player2]
+    //         };
+    //         const targetRow = {
+    //             player1: prevState[targetTable][targetIndices.player1],
+    //             player2: prevState[targetTable][targetIndices.player2]
+    //         };
+            
+    //         // Swap rows
+    //         const updatedSourceTable = [...prevState[sourceTable]];
+    //         const updatedTargetTable = [...prevState[targetTable]];
+            
+    //         updatedSourceTable[sourceIndices.player1] = targetRow.player1;
+    //         updatedSourceTable[sourceIndices.player2] = targetRow.player2;
+
+    //         updatedTargetTable[targetIndices.player1] = sourceRow.player1;
+    //         updatedTargetTable[targetIndices.player2] = sourceRow.player2;
+            
+    //         return {
+    //             ...prevState,
+    //             [sourceTable]: updatedSourceTable,
+    //             [targetTable]: updatedTargetTable
+    //         };
+    //     });
+    // };
+
+     // Function to start dragging
+    
+    const handleDragStart = (event, player1Index, player2Index, sourceTable) => {
+        // Save the dragged data: the pair of Pokémon from team or storage
+        const draggedData = {
+            player1: selectedPokemon[sourceTable][player1Index],
+            player2: selectedPokemon[sourceTable][player2Index],
+            sourceTable,
+            player1Index,
+            player2Index
+        };
+
+        // Store dragged data in dataTransfer object to access it during drop
+        event.dataTransfer.setData('application/json', JSON.stringify(draggedData));
+    };
+
+    // Function to handle drop
+    const handleDrop = (event, player1Index, player2Index, targetTable) => {
+        event.preventDefault();
+
+        // Retrieve the dragged data from dataTransfer object
+        const draggedData = JSON.parse(event.dataTransfer.getData('application/json'));
+
+        // Only perform drop if there's actual data to swap
+        if (draggedData.player1.name || draggedData.player2.name) {
+            setSelectedPokemon((prevState) => {
+                const updatedSource = [...prevState[draggedData.sourceTable]];
+                const updatedTarget = [...prevState[targetTable]];
+
+                // Swap the data between source (team/storage) and target
+                updatedSource[draggedData.player1Index] = { name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''};
+                updatedSource[draggedData.player2Index] = { name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''};
+                
+                updatedTarget[player1Index] = draggedData.player1;
+                updatedTarget[player2Index] = draggedData.player2;
+
+                return {
+                    ...prevState,
+                    [draggedData.sourceTable]: updatedSource,
+                    [targetTable]: updatedTarget
+                };
+            });
+        }
+    };
+
+    // Function to allow drop (prevent default behavior)
+    const allowDrop = (event) => {
+        event.preventDefault();
+    };
+    
     
     console.log(selectedPokemon)
 
@@ -105,7 +186,6 @@ export default function Table() {
                                 setSelectedPokemon,
                                 buttonBackgroundImage,
                                 handleNicknameChange
-                                
                         }}
                             selectProps={{
                                 handleSelectChange: (optionIndex, selectedOption) => handleSelectChange(optionIndex, selectedOption, 'team'),
@@ -113,6 +193,11 @@ export default function Table() {
                         }}
                         pokemonInfo={pokemonInfo}
                         handleLocationChange={handleLocationChange}
+
+                        onDragStart={(event) => handleDragStart(event, player1Index, player2Index, 'team')}
+                        onDrop={(event) => handleDrop(event, player1Index, player2Index, 'team')}
+                        onDragOver={allowDrop}
+                        // onSwap={(targetIndices) => handleSwap('team', { player1: player1Index, player2: player1Index + 1 }, 'storage', targetIndices)}
 
                     />
                     // </tr>
@@ -147,6 +232,12 @@ export default function Table() {
                         }}
                         pokemonInfo={pokemonInfo}
                         handleLocationChange={handleLocationChange}
+
+                        onDragStart={(event) => handleDragStart(event, player1Index, player2Index, 'storage')}
+                        onDrop={(event) => handleDrop(event, player1Index, player2Index, 'storage')}
+                        onDragOver={allowDrop}
+                        // onSwap={(targetIndices) => handleSwap('storage', { player1: player1Index, player2: player1Index + 1 }, 'team', targetIndices)}
+
                     />
                     </tr>
                     
