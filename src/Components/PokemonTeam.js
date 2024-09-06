@@ -3,7 +3,15 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import Select from 'react-select';
 
-export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, handleLocationChange, onSwap, onDragStart, onDrop, onDragOver }) {
+export default function PokemonTeam ( { 
+    playerProps, 
+    selectProps, 
+    pokemonInfo, 
+    handleLocationChange,
+    onDragStart, 
+    onDrop, 
+    onDragOver 
+    }) {
     const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
 
@@ -224,7 +232,6 @@ export default function PokemonTeam ( { playerProps, selectProps, pokemonInfo, h
                 />
 
                 <td className={styles.teamNicknames}>{selectedPokemon.team[player1Index].nickname} & {selectedPokemon.team[player2Index].nickname}</td>
-                {/* <td><button onClick={onSwap}>Swap</button></td> */}
             </tr>
 
     
