@@ -85,48 +85,68 @@ export default function Table() {
 
      // Function to start dragging
     
-    const handleDragStart = (event, player1Index, player2Index, sourceTable) => {
-        // Save the dragged data: the pair of Pokémon from team or storage
-        const draggedData = {
-            player1: selectedPokemon[sourceTable][player1Index],
-            player2: selectedPokemon[sourceTable][player2Index],
-            sourceTable,
-            player1Index,
-            player2Index
+     const handleDragStart = (event, player1Index, player2Index, sourceTable) => {
+        const dataToTransfer = {
+          player1: selectedPokemon[sourceTable][player1Index] || {},
+          player2: selectedPokemon[sourceTable][player2Index] || {},
+          player1Index,
+          player2Index,
+          sourceTable, // Either 'team' or 'storage'
         };
-
-        // Store dragged data in dataTransfer object to access it during drop
-        event.dataTransfer.setData('application/json', JSON.stringify(draggedData));
-    };
-
+        
+        event.dataTransfer.setData('application/json', JSON.stringify(dataToTransfer));
+      };
+      
     // Function to handle drop
     const handleDrop = (event, player1Index, player2Index, targetTable) => {
         event.preventDefault();
-
-        // Retrieve the dragged data from dataTransfer object
+      
+        // Retrieve the dragged data that was set in handleDragStart
         const draggedData = JSON.parse(event.dataTransfer.getData('application/json'));
-
-        // Only perform drop if there's actual data to swap
-        if (draggedData.player1.name || draggedData.player2.name) {
-            setSelectedPokemon((prevState) => {
-                const updatedSource = [...prevState[draggedData.sourceTable]];
-                const updatedTarget = [...prevState[targetTable]];
-
-                // Swap the data between source (team/storage) and target
-                updatedSource[draggedData.player1Index] = { name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''};
-                updatedSource[draggedData.player2Index] = { name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''};
-                
-                updatedTarget[player1Index] = draggedData.player1;
-                updatedTarget[player2Index] = draggedData.player2;
-
-                return {
-                    ...prevState,
-                    [draggedData.sourceTable]: updatedSource,
-                    [targetTable]: updatedTarget
-                };
-            });
-        }
-    };
+      
+        // Update the state for selectedPokemon
+        setSelectedPokemon((prevState) => {
+          // Create deep copies of the selectedPokemon arrays for both source and target tables
+          const updatedSource = [...prevState[draggedData.sourceTable]];
+          const updatedTarget = [...prevState[targetTable]];
+      
+          // Clear the source table indices
+          updatedSource[draggedData.player1Index] = { name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: '' };
+          updatedSource[draggedData.player2Index] = { name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: '' };
+      
+          // Assign the dragged Pokémon to the target table indices
+          updatedTarget[player1Index] = draggedData.player1;
+          updatedTarget[player2Index] = draggedData.player2;
+      
+          return {
+            ...prevState,
+            [draggedData.sourceTable]: updatedSource,
+            [targetTable]: updatedTarget,
+          };
+        });
+      
+        // Update the state for buttonBackgroundImage
+        setButtonBackgroundImage((prevState) => {
+          // Create deep copies of the button background images for both source and target tables
+          const updatedSourceBg = [...prevState[draggedData.sourceTable]];
+          const updatedTargetBg = [...prevState[targetTable]];
+      
+          // Clear the source background images
+          updatedSourceBg[draggedData.player1Index] = '';  // Clear image
+          updatedSourceBg[draggedData.player2Index] = '';  // Clear image
+      
+          // Move the button background images to the target table
+          updatedTargetBg[player1Index] = prevState[draggedData.sourceTable][draggedData.player1Index];
+          updatedTargetBg[player2Index] = prevState[draggedData.sourceTable][draggedData.player2Index];
+      
+          return {
+            ...prevState,
+            [draggedData.sourceTable]: updatedSourceBg,
+            [targetTable]: updatedTargetBg,
+          };
+        });
+      };
+      
 
     // Function to allow drop (prevent default behavior)
     const allowDrop = (event) => {
@@ -193,7 +213,7 @@ export default function Table() {
                         }}
                         pokemonInfo={pokemonInfo}
                         handleLocationChange={handleLocationChange}
-
+                        draggable={true}
                         onDragStart={(event) => handleDragStart(event, player1Index, player2Index, 'team')}
                         onDrop={(event) => handleDrop(event, player1Index, player2Index, 'team')}
                         onDragOver={allowDrop}
@@ -215,7 +235,7 @@ export default function Table() {
             const player1Index = currentPage * 12 + rowIndex * 2;
             const player2Index = player1Index + 1;
                 return (
-                    <tr key={rowIndex}>
+                    // <tr key={rowIndex}>
                         <PokemonStorage 
                             key={rowIndex}
                             playerProps={{
@@ -232,14 +252,14 @@ export default function Table() {
                         }}
                         pokemonInfo={pokemonInfo}
                         handleLocationChange={handleLocationChange}
-
+                        draggable={true}
                         onDragStart={(event) => handleDragStart(event, player1Index, player2Index, 'storage')}
                         onDrop={(event) => handleDrop(event, player1Index, player2Index, 'storage')}
                         onDragOver={allowDrop}
                         // onSwap={(targetIndices) => handleSwap('storage', { player1: player1Index, player2: player1Index + 1 }, 'team', targetIndices)}
 
                     />
-                    </tr>
+                    // </tr>
                     
                 )
         })
