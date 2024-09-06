@@ -85,7 +85,7 @@ export default function Table() {
 
      // Function to start dragging
     
-     const handleDragStart = (event, player1Index, player2Index, sourceTable) => {
+    const handleDragStart = (event, player1Index, player2Index, sourceTable) => {
         const dataToTransfer = {
           player1: selectedPokemon[sourceTable][player1Index] || {},
           player2: selectedPokemon[sourceTable][player2Index] || {},
@@ -100,52 +100,57 @@ export default function Table() {
     // Function to handle drop
     const handleDrop = (event, player1Index, player2Index, targetTable) => {
         event.preventDefault();
-      
+        
         // Retrieve the dragged data that was set in handleDragStart
         const draggedData = JSON.parse(event.dataTransfer.getData('application/json'));
-      
-        // Update the state for selectedPokemon
+
+        if (draggedData.sourceTable === targetTable) {
+            return;
+        }
+        
         setSelectedPokemon((prevState) => {
-          // Create deep copies of the selectedPokemon arrays for both source and target tables
-          const updatedSource = [...prevState[draggedData.sourceTable]];
-          const updatedTarget = [...prevState[targetTable]];
-      
-          // Clear the source table indices
-          updatedSource[draggedData.player1Index] = { name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: '' };
-          updatedSource[draggedData.player2Index] = { name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: '' };
-      
-          // Assign the dragged Pokémon to the target table indices
-          updatedTarget[player1Index] = draggedData.player1;
-          updatedTarget[player2Index] = draggedData.player2;
-      
-          return {
-            ...prevState,
-            [draggedData.sourceTable]: updatedSource,
-            [targetTable]: updatedTarget,
-          };
+            const updatedSource = [...prevState[draggedData.sourceTable]];
+            const updatedTarget = [...prevState[targetTable]];
+    
+            // Swap Pokémon data between the source and target rows
+            const tempPlayer1 = updatedSource[draggedData.player1Index];
+            const tempPlayer2 = updatedSource[draggedData.player2Index];
+    
+            updatedSource[draggedData.player1Index] = updatedTarget[player1Index];
+            updatedSource[draggedData.player2Index] = updatedTarget[player2Index];
+    
+            updatedTarget[player1Index] = tempPlayer1;
+            updatedTarget[player2Index] = tempPlayer2;
+    
+            return {
+                ...prevState,
+                [draggedData.sourceTable]: updatedSource,
+                [targetTable]: updatedTarget,
+            };
         });
-      
-        // Update the state for buttonBackgroundImage
+    
         setButtonBackgroundImage((prevState) => {
-          // Create deep copies of the button background images for both source and target tables
-          const updatedSourceBg = [...prevState[draggedData.sourceTable]];
-          const updatedTargetBg = [...prevState[targetTable]];
-      
-          // Clear the source background images
-          updatedSourceBg[draggedData.player1Index] = '';  // Clear image
-          updatedSourceBg[draggedData.player2Index] = '';  // Clear image
-      
-          // Move the button background images to the target table
-          updatedTargetBg[player1Index] = prevState[draggedData.sourceTable][draggedData.player1Index];
-          updatedTargetBg[player2Index] = prevState[draggedData.sourceTable][draggedData.player2Index];
-      
-          return {
-            ...prevState,
-            [draggedData.sourceTable]: updatedSourceBg,
-            [targetTable]: updatedTargetBg,
-          };
+            const updatedSourceBg = [...prevState[draggedData.sourceTable]];
+            const updatedTargetBg = [...prevState[targetTable]];
+    
+            // Swap button background images between the source and target rows
+            const tempBg1 = updatedSourceBg[draggedData.player1Index];
+            const tempBg2 = updatedSourceBg[draggedData.player2Index];
+    
+            updatedSourceBg[draggedData.player1Index] = updatedTargetBg[player1Index];
+            updatedSourceBg[draggedData.player2Index] = updatedTargetBg[player2Index];
+    
+            updatedTargetBg[player1Index] = tempBg1;
+            updatedTargetBg[player2Index] = tempBg2;
+    
+            return {
+                ...prevState,
+                [draggedData.sourceTable]: updatedSourceBg,
+                [targetTable]: updatedTargetBg,
+            };
         });
-      };
+    };
+    
       
 
     // Function to allow drop (prevent default behavior)
