@@ -166,6 +166,7 @@ export default function PokemonStorage ({
                 onDragStart={onDragStart}
                 onDrop={onDrop}
                 onDragOver={onDragOver}    
+                className={styles.storageRow}
             >
                 <td>
                     <input 

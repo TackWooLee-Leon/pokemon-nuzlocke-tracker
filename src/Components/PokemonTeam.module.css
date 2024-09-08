@@ -50,3 +50,8 @@ button:hover {
     text-align: left;
     min-width: 13rem;
 }
+
+.teamRow {
+    border: 2px solid rgb(30, 71, 119);
+}
+
