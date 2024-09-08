@@ -206,6 +206,7 @@ export default function PokemonTeam ( {
                 onDragStart={onDragStart}
                 onDrop={onDrop}
                 onDragOver={onDragOver}
+                className={styles.teamRow}
             >
                 <td>
                     <input 

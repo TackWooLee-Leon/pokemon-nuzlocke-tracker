@@ -1,5 +1,5 @@
 table {
-    border: 1px solid red;
+    border-collapse: collapse;
 }
 
 .tableContainer {
@@ -11,10 +11,16 @@ table {
 .team {
     display: flex;
     flex-direction: column;
+    background-color: rgb(51, 162, 177);
+    border: 3px solid rgb(156, 156, 156);
+    /* border-radius: 15px; */
+    /* border: 1px solid blue; */
+    /* border-radius: 15px; */
 }
 
 .storage {
-    border: 1px solid blue;
+    background-color: rgb(122, 209, 134);
+    border: 3px solid rgb(133, 110, 35);
 }
 
 th, td{
@@ -45,7 +51,7 @@ tbody input {
 .playersNameInput {
     /* display: flex; */
     gap: 25px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .playersNameInput input {
