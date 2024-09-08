@@ -19,7 +19,7 @@ table {
 }
 
 .storage {
-    background-color: #0090ba;
+    background-color: #00789d;
     border: 5px solid #003d82;
 }
 
@@ -37,18 +37,18 @@ th, td{
 .playersNameDisplay {
     width: 10rem;
     font-size: 1.5rem;
-    color: yellow;
+    color: #ffe604;
 }
 
 .location {
     width: 10rem;
     font-size: 1.5rem;
-    color: yellow;
+    color: #ffe604;
 }
 
 .nicknames {
     font-size: 1.5rem;
-    color: yellow;
+    color: #ffe604;
 }
 
 tbody input {
@@ -56,18 +56,27 @@ tbody input {
     width: 100%;
 }
 
-.playersNameInput input {
-    /* display: flex; */
-    margin: 10px 0 10px 10px;
-    /* border: 1px solid red; */
-}
 
 .playersNameInput input {
-    margin-bottom: 2rem;
+    margin: 2rem 0 2rem 1rem;
     height: 2rem;
     font-size: 1rem;
+    border: 2px solid #071452;
 }
 
+.playersNameInput input::placeholder {
+    color: #433e84;
+}
+
+.pageBtns button{
+    margin: 0.4rem;
+    padding: 0.4rem;
+    color: white;
+    background-color: #0090ba;
+    border: 2px solid #f4ecff;
+    border-radius: 5px;
+    
+}
 /* .pokemonSearch {
     width: 10rem;
 } */
