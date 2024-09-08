@@ -361,7 +361,7 @@ export default function Table() {
                     </tbody>
                 </table>
 
-                <div>
+                <div className={styles.pageBtns}>
                     {Array.from({ length: 5}, (_, i) => (
                         <button key={i} onClick={() => handlePageChange(i)}>
                             Page {i +1}

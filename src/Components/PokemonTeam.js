@@ -135,7 +135,7 @@ export default function PokemonTeam ( {
                     height: "4rem", 
                     width: "4rem",
                     borderRadius: '15px',
-                    border: 'none',
+                    border: '1px solid #071452'
                 }}
                     onClick={() => {togglePopUp(player1Index)}}>
                     
@@ -191,7 +191,7 @@ export default function PokemonTeam ( {
                     height: "4rem", 
                     width: "4rem",
                     borderRadius: '15px',
-                    border: 'none',
+                    border: '1px solid #071452'
                 }}
                     // ref={el => popupRefs.current[player2Index] = el}
                     onClick={() => {togglePopUp(player2Index)}}>
