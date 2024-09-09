@@ -28,18 +28,6 @@ export default function PokemonTeam ( {
         });
     };
 
-    // useEffect(() => {
-    //     function handleClickOutside(event) {
-    //         if (popupRefs.current.every(ref => ref && !ref.contains(event.target))) {
-    //             setShowPopUp(Array(2).fill(false));
-    //         }
-    //     }
-
-    //     document.addEventListener('mousedown', handleClickOutside);
-    //     return() => {
-    //         document.removeEventListener('mousedown', handleClickOutside);
-    //     };
-    // }, []);
 
     function checkForDuplicatingTypes() {
         const typeCounts = {};
@@ -210,6 +198,7 @@ export default function PokemonTeam ( {
                 <td>
                     <input 
                         type="text" 
+                        value={selectedPokemon.team[player1Index].location}
                         onChange={(e) => handleLocationChange(player1Index, player2Index, 'team', e)}
                         placeholder='e.g. route 101' 
                         style={{
