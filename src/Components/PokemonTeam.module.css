@@ -8,6 +8,7 @@
 
 .teamPopUpMenu{
     width: 15rem;
+    border: 2px solid #f4ecff;
     border-radius: 7px;
     background-color: #5171ca;
     /* display: flex; */

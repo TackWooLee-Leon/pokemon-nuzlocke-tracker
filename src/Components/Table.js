@@ -32,8 +32,9 @@ export default function Table() {
     };
 
 
-    const handleKeyPress = (event) => {
+    const handleKeyDown = (event) => {
         if (event.key === "Enter") {
+            if (event.target.name === 'player1' || 'player2') {}
             // update th's value separately, if update together (without checking name prop) 
             // then one name will disappear as the other one gets updated
             if (event.target.name === "player1") {
@@ -53,37 +54,8 @@ export default function Table() {
         })
     ;
 
-    // const handleSwap = (sourceTable, sourceIndices, targetTable, targetIndices) => {
-    //     setSelectedPokemon(prevState => {
-    //         // Extract the rows to be swapped
-    //         const sourceRow = {
-    //             player1: prevState[sourceTable][sourceIndices.player1],
-    //             player2: prevState[sourceTable][sourceIndices.player2]
-    //         };
-    //         const targetRow = {
-    //             player1: prevState[targetTable][targetIndices.player1],
-    //             player2: prevState[targetTable][targetIndices.player2]
-    //         };
-            
-    //         // Swap rows
-    //         const updatedSourceTable = [...prevState[sourceTable]];
-    //         const updatedTargetTable = [...prevState[targetTable]];
-            
-    //         updatedSourceTable[sourceIndices.player1] = targetRow.player1;
-    //         updatedSourceTable[sourceIndices.player2] = targetRow.player2;
-
-    //         updatedTargetTable[targetIndices.player1] = sourceRow.player1;
-    //         updatedTargetTable[targetIndices.player2] = sourceRow.player2;
-            
-    //         return {
-    //             ...prevState,
-    //             [sourceTable]: updatedSourceTable,
-    //             [targetTable]: updatedTargetTable
-    //         };
-    //     });
-    // };
-
-     // Function to start dragging
+    
+    //  Function to start dragging
     
     const handleDragStart = (event, player1Index, player2Index, sourceTable) => {
         const dataToTransfer = {
@@ -151,13 +123,10 @@ export default function Table() {
         });
     };
     
-      
-
     // Function to allow drop (prevent default behavior)
     const allowDrop = (event) => {
         event.preventDefault();
     };
-    
     
     console.log(selectedPokemon)
 
@@ -179,8 +148,6 @@ export default function Table() {
         storage: Array(60).fill('')
     });
     
-
-
     const handleAddButtonClick = (playerIndex, type) => {
         if (selectedPokemon[type][playerIndex]) {
             const spriteUrl = selectedPokemon[type][playerIndex].spriteUrl;
@@ -321,7 +288,7 @@ export default function Table() {
                         placeholder="enter player 1's name"
                         value={player1NameInput}
                         onChange={handleChange}
-                        onKeyPress={handleKeyPress}
+                        onKeyDown={handleKeyDown}
                     />
                 
                     <input
@@ -330,7 +297,7 @@ export default function Table() {
                         placeholder="enter player 2's name"
                         value={player2NameInput}
                         onChange={handleChange}
-                        onKeyPress={handleKeyPress}
+                        onKeyDown={handleKeyDown}
                     />
 
                 </div>

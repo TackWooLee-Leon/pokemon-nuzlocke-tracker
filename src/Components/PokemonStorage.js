@@ -170,6 +170,7 @@ export default function PokemonStorage ({
                 <td>
                     <input 
                         type="text" 
+                        value={selectedPokemon.storage[player1Index].location}
                         onChange={(e) => handleLocationChange(player1Index, player2Index, 'storage', e)}
                         placeholder='e.g. route 101' 
                         style={{
