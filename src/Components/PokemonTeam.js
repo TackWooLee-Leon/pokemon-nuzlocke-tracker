@@ -15,10 +15,10 @@ export default function PokemonTeam ( {
     }) {
     const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
-    const [duplicatedNicknames, setDuplicatedNicknames] = useState([]);
+    
+    const [ duplicatedNicknames, setDuplicatedNicknames ] = useState([]);
 
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
-    // const popupRefs = useRef([]);
 
     function togglePopUp(index) {
 
@@ -52,7 +52,6 @@ export default function PokemonTeam ( {
 
         console.log('Type counts:', typeCounts);
         let duplicatedFound = false;
-
         let allDuplicatednicknames = [];
 
         for (const type in typeCounts) {
@@ -60,12 +59,12 @@ export default function PokemonTeam ( {
                 const entry = typeCounts[type];
                 if (entry.count > 1) {
                     duplicatedFound = true;
+
                     allDuplicatednicknames = allDuplicatednicknames.concat(entry.nicknames);
                     const duplicatedType = type;
                     const duplicatedPokemon = entry.names.join(', ');
 
                     onDuplicatedType(duplicatedType, duplicatedPokemon);
-                    console.log(allDuplicatednicknames);
 
                 }
             }
@@ -78,7 +77,6 @@ export default function PokemonTeam ( {
         }
     }
     
-    console.log(`duplicated nickname = ${duplicatedNicknames}`)
 
     useEffect(() => {
         checkForDuplicatingTypes();
@@ -94,7 +92,6 @@ export default function PokemonTeam ( {
             <td className={styles.teamPokemonDisplay}>
                 <div 
                     className={styles.teamPopUpMenu} 
-                    // ref={el => popupRefs.current[player1Index] = el}
                     style={{ 
                         display: showPopUp[player1Index] ? "flex" : "none", 
                         position: "absolute", 
@@ -204,15 +201,25 @@ export default function PokemonTeam ( {
         )
     }
 
+    console.log('Duplicated Nicknames:', duplicatedNicknames);
+console.log('Player 1 Nickname:', selectedPokemon.team[player1Index]?.nickname);
+console.log('Player 2 Nickname:', selectedPokemon.team[player2Index]?.nickname);
+
     return(
             <tr
                 draggable
                 onDragStart={onDragStart}
                 onDrop={onDrop}
                 onDragOver={onDragOver}
-                style={{
-                    backgroundColor: duplicatedNicknames.includes(selectedPokemon.nickname) ? 'red' : '#0066a6'
-                }}
+                // style={{
+                //     backgroundColor: 
+                //     (selectedPokemon.team[player1Index]?.nickname && 
+                //         duplicatedNicknames.includes(selectedPokemon.team[player1Index]?.nickname)) ||
+                //        (selectedPokemon.team[player2Index]?.nickname && 
+                //         duplicatedNicknames.includes(selectedPokemon.team[player2Index]?.nickname))
+                //     ? 'red'
+                //     : '#0066a6'
+                // }}
             >
                 <td>
                     <input 

@@ -55,8 +55,8 @@ export default function Table() {
     ;
 
     // updating the state of duplicated type
-    const [duplicatedType, setDuplicatedType] = useState('');
-    const [duplicatedPokemon, setDuplicatedPokemon] = useState('');
+    const [duplicatedType, setDuplicatedType] = useState([]);
+    const [duplicatedPokemon, setDuplicatedPokemon] = useState([]);
 
     const handleDuplicatedTypes = (type, pokemonNames) => {
         setDuplicatedType(type);
@@ -178,7 +178,6 @@ export default function Table() {
             const player1Index = rowIndex * 2;
             const player2Index = player1Index + 1;
                 return (
-                    // <tr key={rowIndex}>
                         <PokemonTeam 
                             key={rowIndex}
                             playerProps={{
@@ -202,7 +201,6 @@ export default function Table() {
                         onDuplicatedType={handleDuplicatedTypes}
 
                     />
-                    // </tr>
                     
                 )
         })
@@ -217,7 +215,6 @@ export default function Table() {
             const player1Index = currentPage * 12 + rowIndex * 2;
             const player2Index = player1Index + 1;
                 return (
-                    // <tr key={rowIndex}>
                         <PokemonStorage 
                             key={rowIndex}
                             playerProps={{
@@ -238,10 +235,8 @@ export default function Table() {
                         onDragStart={(event) => handleDragStart(event, player1Index, player2Index, 'storage')}
                         onDrop={(event) => handleDrop(event, player1Index, player2Index, 'storage')}
                         onDragOver={allowDrop}
-                        // onSwap={(targetIndices) => handleSwap('storage', { player1: player1Index, player2: player1Index + 1 }, 'team', targetIndices)}
 
                     />
-                    // </tr>
                     
                 )
         })
@@ -286,7 +281,6 @@ export default function Table() {
         });
     };
     
-    // console.log(selectedPokemon.team[0].location);
 
     return(
         <div className={styles.tableContainer}>
