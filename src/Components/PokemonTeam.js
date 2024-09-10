@@ -202,7 +202,9 @@ export default function PokemonTeam ( {
                         onChange={(e) => handleLocationChange(player1Index, player2Index, 'team', e)}
                         placeholder='e.g. route 101' 
                         style={{
-                        fontSize: '0.9rem'
+                            width: '10rem',
+                            marginLeft: '0.7rem',
+                            fontSize: '0.9rem'
                     }}></input>
                 </td>
                 <Player1PokemonSelect

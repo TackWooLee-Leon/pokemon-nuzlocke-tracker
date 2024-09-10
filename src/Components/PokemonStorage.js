@@ -28,21 +28,6 @@ export default function PokemonStorage ({
         });
     };
 
-    // useEffect(() => {
-    //     function handleClickOutside(event) {
-    //         if (popupRefs.current.every(ref => ref && !ref.contains(event.target))) {
-    //             setShowPopUp(Array(2).fill(false));
-    //         }
-    //     }
-
-    //     document.addEventListener('mousedown', handleClickOutside);
-    //     return() => {
-    //         document.removeEventListener('mousedown', handleClickOutside);
-    //     };
-    // }, []);
-
-    
-
     const input1Ref = useRef(null);
     const input2Ref = useRef(null);
 
@@ -174,7 +159,9 @@ export default function PokemonStorage ({
                         onChange={(e) => handleLocationChange(player1Index, player2Index, 'storage', e)}
                         placeholder='e.g. route 101' 
                         style={{
-                        fontSize: '0.9rem'
+                            width: '10rem',
+                            marginLeft: '0.7rem',
+                            fontSize: '0.9rem'
                     }}></input>
                 </td>
                 <StoragePlayer1PokemonSelect/>

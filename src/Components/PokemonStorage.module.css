@@ -4,6 +4,7 @@
     /* display: flex;
     flex-direction: column;
     align-items: center; */
+    padding: 0.7rem;
 }
 
 .storagePopUpMenu{
@@ -20,12 +21,30 @@
     width: 80%;
     padding: 5px;
     margin: 5px;
+    border: 2px solid #433e84;
 }
 
 .storagePopUpMenuBtns {
     display: flex;
     gap: 25px;
     padding: 5px;
+}
+
+.storagePopUpMenuBtns button {
+    padding: 0.2rem 0.5rem;
+    min-width: 4.5rem;
+    font-size: 1rem;
+    border: 2px solid #433e84;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.storagePopUpMenuBtns button:first-child {
+    background-color: #ee6565;
+}
+
+.storagePopUpMenuBtns button:last-child {
+    background-color: #39c639;
 }
 
 .storageSelectWrapper {
