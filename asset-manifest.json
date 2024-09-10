@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/pokemon-soullocke-tracker/static/css/main.9327e872.css",
+    "main.js": "/pokemon-soullocke-tracker/static/js/main.fd7ffc44.js",
+    "index.html": "/pokemon-soullocke-tracker/index.html",
+    "main.9327e872.css.map": "/pokemon-soullocke-tracker/static/css/main.9327e872.css.map",
+    "main.fd7ffc44.js.map": "/pokemon-soullocke-tracker/static/js/main.fd7ffc44.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9327e872.css",
+    "static/js/main.fd7ffc44.js"
+  ]
+}
