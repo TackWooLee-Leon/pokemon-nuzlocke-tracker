@@ -63,6 +63,8 @@ export default function Table() {
         setDuplicatedPokemon(pokemonNames);
     };
 
+    console.log(duplicatedType, duplicatedPokemon)
+
     //  Function to start dragging
     
     const handleDragStart = (event, player1Index, player2Index, sourceTable) => {

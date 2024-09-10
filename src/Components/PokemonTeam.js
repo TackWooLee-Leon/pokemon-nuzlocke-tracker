@@ -15,7 +15,7 @@ export default function PokemonTeam ( {
     }) {
     const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
-
+    const [duplicatedNicknames, setDuplicatedNicknames] = useState([]);
 
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
     // const popupRefs = useRef([]);
@@ -41,41 +41,51 @@ export default function PokemonTeam ( {
                 if (!type) continue;
 
                 if (!typeCounts[type]) {
-                    typeCounts[type] = {count: 0, names: [] };
+                    typeCounts[type] = {count: 0, names: [], nicknames: [] };
                 }
 
                 typeCounts[type].count += 1;
                 typeCounts[type].names.push(pokemon.name);
+                typeCounts[type].nicknames.push(pokemon.nickname);
             }
         }
 
         console.log('Type counts:', typeCounts);
-        
         let duplicatedFound = false;
+
+        let allDuplicatednicknames = [];
 
         for (const type in typeCounts) {
             if (typeCounts.hasOwnProperty(type)) {
                 const entry = typeCounts[type];
                 if (entry.count > 1) {
                     duplicatedFound = true;
+                    allDuplicatednicknames = allDuplicatednicknames.concat(entry.nicknames);
                     const duplicatedType = type;
                     const duplicatedPokemon = entry.names.join(', ');
 
-                    onDuplicatedType(duplicatedType, duplicatedPokemon)
-                    // console.log(`Duplicates found for type: ${type}. Pokemon: ${entry.names.join(', ')}`);
+                    onDuplicatedType(duplicatedType, duplicatedPokemon);
+                    console.log(allDuplicatednicknames);
+
                 }
             }
         }
 
-        if (!duplicatedFound) {
-            console.log('no duplicated found');
-            onDuplicatedType('', '')
+        if (duplicatedFound) {
+            setDuplicatedNicknames(allDuplicatednicknames);
+        } else {
+            onDuplicatedType('', '');
         }
     }
+    
+    console.log(`duplicated nickname = ${duplicatedNicknames}`)
+
+    useEffect(() => {
+        checkForDuplicatingTypes();
+    },[selectedPokemon.team])
 
     const input1Ref = useRef(null);
     const input2Ref = useRef(null);
-    // console.log(showPopUp)
 
     function Player1PokemonSelect() {
 
@@ -118,7 +128,7 @@ export default function PokemonTeam ( {
                     <div className={styles.teamPopUpMenuBtns}>
                         <button onClick={() => {togglePopUp(player1Index)}}>Cancel</button>
                         <button 
-                        onClick={() => {togglePopUp(player1Index); handleNicknameChange(player1Index, input1Ref.current.value, 'team'); handleAddButtonClick(player1Index); checkForDuplicatingTypes()}}>Add</button>
+                        onClick={() => {togglePopUp(player1Index); handleNicknameChange(player1Index, input1Ref.current.value, 'team'); handleAddButtonClick(player1Index); }}>Add</button>
                     </div>
                 </div>
 
@@ -174,7 +184,7 @@ export default function PokemonTeam ( {
                     <div className={styles.teamPopUpMenuBtns}>
                         <button onClick={() => {togglePopUp(player2Index)}}>Cancel</button>
                         <button 
-                        onClick={() => {togglePopUp(player2Index); handleNicknameChange(player2Index, input2Ref.current.value, 'team'); handleAddButtonClick(player2Index); checkForDuplicatingTypes()}}>Add</button>
+                        onClick={() => {togglePopUp(player2Index); handleNicknameChange(player2Index, input2Ref.current.value, 'team'); handleAddButtonClick(player2Index);}}>Add</button>
                     </div>
                 </div>
 
@@ -200,6 +210,9 @@ export default function PokemonTeam ( {
                 onDragStart={onDragStart}
                 onDrop={onDrop}
                 onDragOver={onDragOver}
+                style={{
+                    backgroundColor: duplicatedNicknames.includes(selectedPokemon.nickname) ? 'red' : '#0066a6'
+                }}
             >
                 <td>
                     <input 
