@@ -70,6 +70,11 @@ button:hover {
     min-width: 13rem;
     color: #ffe604;
     font-size: 1.1rem;
+    text-shadow:
+        1px 1px 0 #000, /* Horizontal, Vertical, Blur radius, Color */
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000;
 }
 
 

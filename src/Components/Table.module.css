@@ -52,11 +52,21 @@ th, td{
     width: 10rem;
     font-size: 1.5rem;
     color: #ffe604;
+    text-shadow:
+        1px 1px 0 #000, /* Horizontal, Vertical, Blur radius, Color */
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000;
 }
 
 .nicknames {
     font-size: 1.5rem;
     color: #ffe604;
+    text-shadow:
+        1px 1px 0 #000, /* Horizontal, Vertical, Blur radius, Color */
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000;
 }
 
 tbody input {
@@ -88,3 +98,20 @@ tbody input {
 /* .pokemonSearch {
     width: 10rem;
 } */
+
+.duplicatedInfo {
+    margin: 1rem;
+}
+
+.duplicatedInfo span {
+    margin-left: 1rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #ffe604;
+    text-shadow:
+        1px 1px 0 #000, /* Horizontal, Vertical, Blur radius, Color */
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000;
+    /* padding: 1rem; */
+}

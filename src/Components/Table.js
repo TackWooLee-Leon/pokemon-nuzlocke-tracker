@@ -47,14 +47,22 @@ export default function Table() {
         }
     }
 
-
+    // state for players' selected pokemon 
     const [selectedPokemon, setSelectedPokemon] = useState({
         team: Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''}),
         storage: Array(5).fill().flatMap(() => Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''}))
         })
     ;
 
-    
+    // updating the state of duplicated type
+    const [duplicatedType, setDuplicatedType] = useState('');
+    const [duplicatedPokemon, setDuplicatedPokemon] = useState('');
+
+    const handleDuplicatedTypes = (type, pokemonNames) => {
+        setDuplicatedType(type);
+        setDuplicatedPokemon(pokemonNames);
+    };
+
     //  Function to start dragging
     
     const handleDragStart = (event, player1Index, player2Index, sourceTable) => {
@@ -189,7 +197,7 @@ export default function Table() {
                         onDragStart={(event) => handleDragStart(event, player1Index, player2Index, 'team')}
                         onDrop={(event) => handleDrop(event, player1Index, player2Index, 'team')}
                         onDragOver={allowDrop}
-                        // onSwap={(targetIndices) => handleSwap('team', { player1: player1Index, player2: player1Index + 1 }, 'storage', targetIndices)}
+                        onDuplicatedType={handleDuplicatedTypes}
 
                     />
                     // </tr>
@@ -281,6 +289,14 @@ export default function Table() {
     return(
         <div className={styles.tableContainer}>
             <div className={styles.team}>
+                <div className={styles.duplicatedInfo}>
+                    <span>Duplicated Type Found: 
+                        <span style={{ color: '#ff3939' }}>{duplicatedType}</span> 
+                    </span>
+                    <span>Duplicated Pokemon: 
+                        <span style={{ color: '#ff3939' }}>{duplicatedPokemon}</span>
+                    </span>
+                </div>
                 <div className={styles.playersNameInput}>
                     <input
                         type="text"

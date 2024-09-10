@@ -10,7 +10,8 @@ export default function PokemonTeam ( {
     handleLocationChange,
     onDragStart, 
     onDrop, 
-    onDragOver 
+    onDragOver,
+    onDuplicatedType
     }) {
     const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
@@ -57,13 +58,18 @@ export default function PokemonTeam ( {
                 const entry = typeCounts[type];
                 if (entry.count > 1) {
                     duplicatedFound = true;
-                    console.log(`Duplicates found for type: ${type}. Pokemon: ${entry.names.join(', ')}`);
+                    const duplicatedType = type;
+                    const duplicatedPokemon = entry.names.join(', ');
+
+                    onDuplicatedType(duplicatedType, duplicatedPokemon)
+                    // console.log(`Duplicates found for type: ${type}. Pokemon: ${entry.names.join(', ')}`);
                 }
             }
         }
 
         if (!duplicatedFound) {
             console.log('no duplicated found');
+            onDuplicatedType('', '')
         }
     }
 

@@ -70,5 +70,10 @@ button:hover {
     text-align: left;
     min-width: 13rem;
     color: #ffe604;
+    text-shadow:
+        1px 1px 0 #000, /* Horizontal, Vertical, Blur radius, Color */
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000;
 }
 
