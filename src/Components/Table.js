@@ -289,7 +289,7 @@ export default function Table() {
                     <span>Duplicated Type Found: 
                         <span style={{ color: '#ff3939' }}>{duplicatedType}</span> 
                     </span>
-                    <span>Duplicated Pokemon: 
+                    <span>Duplicated Pokémon: 
                         <span style={{ color: '#ff3939' }}>{duplicatedPokemon}</span>
                     </span>
                 </div>

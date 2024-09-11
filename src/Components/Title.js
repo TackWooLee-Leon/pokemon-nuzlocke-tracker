@@ -3,7 +3,7 @@ export default function Title (){
     return(
         <div className={styles.title}>
             <h1>
-                Pokemon Gen 3 Soullocke Tracker
+                Pokémon Gen 3 Soullocke Tracker
             </h1>
             <h2>
                 Left table is your team, right table is your PC. You can drag and drop pairs between tables.
