@@ -95,17 +95,15 @@ const handleDuplicatedTypes = (type, pokemonNames) => {
 };
 
 return (
-  ...
-    <div className={styles.duplicatedInfo}>
-      <span>
-        Duplicated Type Found: <span style={{ color: '#ff3939' }}>{duplicatedType}</span>
-      </span>
+  <div className={styles.duplicatedInfo}>
+    <span>
+      Duplicated Type Found: <span style={{ color: '#ff3939' }}>{duplicatedType}</span>
+    </span>
 
-      <span>
-        Duplicated Pokémon: <span style={{ color: '#ff3939' }}>{duplicatedPokemon}</span>
-      </span>
-    </div>
-  ...
+    <span>
+      Duplicated Pokémon: <span style={{ color: '#ff3939' }}>{duplicatedPokemon}</span>
+    </span>
+  </div>
 );
 ```
 
@@ -293,3 +291,13 @@ return pokemonData;
 
 - Stores the fetched Pokémon data in the browser's `localStorage`, this way the app doesn't have to fetch again from the API later.
 - Returns the fetched data from the function
+
+# Lessons Learned
+
+Pokémon Soullock Tracker was a bit challenging to build from the scratch due to several reasons:
+
+1. This project is one-of-its-own
+   - I couldn't find any tutorials online to help me build it. Whenever I got stuck building something, I had to write down the problems on my notebook, breaking down the problem into smaller chunks which allows me to focus on one problem at a time. Sometimes I needed to draw out components' structure to help me understand how child components and parent component interact with states.
+   - Althought I didn't have a tutorial to refer to, I was able to use my critical thinking skills to solve the problems. It pushed me and I struggled, but it allowed me to overcome a lot of challenges with coding and keep pusing forward.
+    
+2. 
