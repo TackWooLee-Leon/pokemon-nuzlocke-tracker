@@ -1,70 +1,29 @@
-# Getting Started with Create React App
+# Pokémon Soullocke Tracker 
+The Pokémon Soullocke Tracker is a web application designed to help players track Pokémon pairs during a Soullocke run, ensuring compliance with Soullocke rules such as type restrictions of Pokémon across pairs. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Here's a live demo: https://tackwoolee-leon.github.io/pokemon-soullocke-tracker/
 
-## Available Scripts
+![Screenshot 2024-09-11 at 15 28 24](https://github.com/user-attachments/assets/b6778d62-2be2-46d3-909e-59bbe4df65a5)
 
-In the project directory, you can run:
+# Why I made this
+As a fan of Pokémon Soullocke challenges, I've noticed a common issue amongst content creators who upload their gameplay on YouTube. These players often face difficulties keeping track of their Pokémon pairs, especially when their upload schedule is irregular. Since they may not film or play every day, it's easy for them to forget which Pokémon are paired together. This can lead to mistakes, where they inadvertently use the wrong Pokémon pairs, and these errors might only be discovered after the video is uploaded and viewers point them out in the comments.
 
-### `npm start`
+Many YouTubers rely on physical notebooks to manually track their Pokémon pairs, which can be both tedious and confusing. While there are existing trackers available, they often lack essential features like checking for duplicated pairings, a crucial aspect of Soullocke challenges.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To address this problem, I decided to create a Pokémon Soullocke Tracker. This tool helps players keep track of their Pokémon pairs efficiently and automatically detects duplicated pairings.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# How I made this
+## Tech used
 
-### `npm test`
+- HTML
+- CSS
+- JavaScript
+- React.js
+- PokiAPI
+- React-Select
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This project was built using React.js for its component-based architecture, which makes state management and UI updates efficient. I fetched data from the Poké API for all Generation 3 Pokémon, filtered out all unnecessary data for each Pokémon (abilities, Pokédex numbers, etc.), and then cached and stored the relevant data locally.
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 
