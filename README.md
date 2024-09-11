@@ -37,7 +37,7 @@ const [selectedPokemon, setSelectedPokemon] = useState({
 });
 ```
 
-- The `checkForDuplicatingTypes` function iterates through this state to count how many times each Pokémon type has been stored. If a type is stored more than once, the function triggers an event listener, `onDuplicatedType`, which is passed down from the parent component.
+- The `checkForDuplicatingTypes` function iterates through this state to count how many times each primary type has been stored. If a type is stored more than once, the function triggers an event listener, `onDuplicatedType`, which is passed down from the parent component.
 
 ```javascript
 function checkForDuplicatingTypes() {
@@ -112,7 +112,7 @@ return (
 ### Drag-and-Drop
 The drag-and-drop feature allows users to rearrange Pokémon entries within the application. This functionality enhances user experience by providing a more interactive and intuitive way to manage Pokémon data.
 
-1. Drag Initialization:
+**1. Drag Initialization:**
 - `handleDragStart`: When a drag operation starts, this function captures the Pokémon data from the source row (`player1` and `player2`) along with their indices and the source table (`team` or `storage`). This data is serialized into JSON and stored in the `dataTransfer` object of the event, which will be used during the drop operation.
 
 
@@ -131,7 +131,7 @@ The drag-and-drop feature allows users to rearrange Pokémon entries within the 
  ```
 
 
-2. Allowing Drop:
+**2. Allowing Drop:**
 - `allowDrop`: This function prevents the default browser behavior, which is required to enable dropping. It ensures that the drop action can be handled by your custom logic.
 
 ```javascript
@@ -140,7 +140,7 @@ const allowDrop = (event) => {
 };
 ```
 
-3. Handling Drop:
+**3. Handling Drop:**
 - `handleDrop`: When a dragged item is dropped onto a target row, this function retrieves the stored data from the `dataTransfer` object. It then updates the state to swap the Pokémon data and button background images between the source and target rows. This function ensures that the Pokémon and their associated background images are correctly swapped between the source and target tables.
 
 ```javascript
@@ -195,4 +195,101 @@ const handleDrop = (event, player1Index, player2Index, targetTable) => {
 };
 ```
 
+### Fetching Data From PokeAPI
+This feature involves fetching Pokémon data from the PokéAPI, a comprehensive and free API that provides information about Pokémon, their abilities, types, and other attributes. The data retrieved from the API is used to populate and manage Pokémon information within the application.
 
+The `PokemonInfo` component is responsible for fetching Pokémon data from the PokéAPI. 
+
+```javascript
+const PokemonInfo = () => {
+    const cachedData = localStorage.getItem('pokemonData');
+
+    if (cachedData) {
+        return Promise.resolve(JSON.parse(cachedData));
+    }
+
+    return fetch("https://pokeapi.co/api/v2/pokemon/?limit=135&offset=251")
+        .then(response => response.json())
+        .then(data => {
+            const pokemonUrls = data.results.map(pokemon => pokemon.url);
+            const pokemonDataPromises = pokemonUrls.map(url =>
+                fetch(url)
+                    .then(response => response.json())
+                    .then(pokemonData => {
+                        const { name, sprites, types } = pokemonData;
+                        const spriteUrl = sprites?.front_default;
+                        const pokemonTypes = types.map(type => type.type.name);
+                        return { name, spriteUrl, pokemonTypes };
+                    })
+            );
+            return Promise.all(pokemonDataPromises)
+                .then(pokemonData => {
+                    localStorage.setItem('pokemonData', JSON.stringify(pokemonData));
+                    return pokemonData;
+                });
+        });
+}
+
+export default PokemonInfo;
+
+```
+
+**1. Check Local Storage:**
+```javascript
+const cachedData = localStorage.getItem('pokemonData');
+
+if (cachedData) {
+  return Promise.resolve(JSON.parse(cachedData));
+```
+
+- The component first attempts to retrieve the Pokémon data from the browser's local storage using `localStorage.getItem('pokemonData')`
+
+- If cached data is found, it parses the JSON string and returns it as a resolved promise using `Promise.resolve()`. This avoids making unnecessary API requests and speeds up the loading time.
+
+**2. Fetch Data from PokéAPI:**
+```javascript
+return fetch("https://pokeapi.co/api/v2/pokemon/?limit=135&offset=251")
+    .then(response => response.json())
+```
+
+- If no cached data is found, the component proceeds to fetch data from PokéAPI.
+- It makes a network request to the endpoint `https://pokeapi.co/api/v2/pokemon/?limit=135&offset=251`, which retrieves a list of Generation 3 Pokémon URLs.
+  - `limit` is used to specify the maximum number of items to return. 135 is the total number of Generation 3 Pokémon which is why we set it to 135.
+  - `offset` is used to specify the number of items to skip before starting to collect the response data. Generation 1 and Generation 2 have a total of 251 Pokémon, therefore 251 Pokémon are skipped.
+
+**3. Extract Relevant Pokémon Information:**
+```javascript
+.then(pokemonData => {
+    const { name, sprites, types } = pokemonData;
+```
+
+- The code extracts only the relevant properties from the data:
+  - `name`: The Pokémon's name.
+  - `sprites`: An object containing image URLs of the Pokémon.
+  - `types`: An array of Pokémon types.
+
+**4. Filter Out Specific Data:**
+```javascript
+const spriteUrl = sprites?.front_default;
+const pokemonTypes = types.map(type => type.type.name);
+```
+
+- `spriteUrl`: Retrieves the URL for the Pokémon's default front sprite image (`sprites.front_default`). This ensures only the URL for the front sprite is included, filtering out other sprite variations (e.g., back, shiny).
+- `pokemonTypes`: Maps the `types` array to include only the type names (`type.type.name`), which filters out other type-related details such as type URLs.
+
+**5. Create a Clean Data Object:**
+```javascript
+return { name, spriteUrl, pokemonTypes };
+```
+
+- Constrcuts a new object containing only the essential properties: `name`, `spriteUrl`, and `pokemonTypes`.
+- This new object excludes all other properties and nested objects from the original Pokémon data, which are not needed for this application.
+
+**6. Cache and Return:**
+```javascript
+localStorage.setItem('pokemonData', JSON.stringify(pokemonData));
+return pokemonData;
+```
+
+- Stores the fetched Pokémon data in the browser's `localStorage`, this way the app doesn't have to fetch again from the API later.
+- Returns the fetched data from the function
