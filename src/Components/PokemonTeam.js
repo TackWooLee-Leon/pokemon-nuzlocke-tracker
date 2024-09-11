@@ -16,7 +16,6 @@ export default function PokemonTeam ( {
     const { player1Index, player2Index, selectedPokemon, buttonBackgroundImage, handleNicknameChange } = playerProps;
     const { handleSelectChange, handleAddButtonClick } = selectProps;
     
-    const [ duplicatedNicknames, setDuplicatedNicknames ] = useState([]);
 
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
 
@@ -52,7 +51,6 @@ export default function PokemonTeam ( {
 
         console.log('Type counts:', typeCounts);
         let duplicatedFound = false;
-        let allDuplicatednicknames = [];
 
         for (const type in typeCounts) {
             if (typeCounts.hasOwnProperty(type)) {
@@ -60,7 +58,6 @@ export default function PokemonTeam ( {
                 if (entry.count > 1) {
                     duplicatedFound = true;
 
-                    allDuplicatednicknames = allDuplicatednicknames.concat(entry.nicknames);
                     const duplicatedType = type;
                     const duplicatedPokemon = entry.names.join(', ');
 
@@ -70,9 +67,7 @@ export default function PokemonTeam ( {
             }
         }
 
-        if (duplicatedFound) {
-            setDuplicatedNicknames(allDuplicatednicknames);
-        } else {
+        if (!duplicatedFound) {
             onDuplicatedType('', '');
         }
     }
@@ -194,16 +189,12 @@ export default function PokemonTeam ( {
                     borderRadius: '15px',
                     border: '1px solid #071452'
                 }}
-                    // ref={el => popupRefs.current[player2Index] = el}
                     onClick={() => {togglePopUp(player2Index)}}>
                 +</button>
             </td>
         )
     }
 
-    console.log('Duplicated Nicknames:', duplicatedNicknames);
-console.log('Player 1 Nickname:', selectedPokemon.team[player1Index]?.nickname);
-console.log('Player 2 Nickname:', selectedPokemon.team[player2Index]?.nickname);
 
     return(
             <tr

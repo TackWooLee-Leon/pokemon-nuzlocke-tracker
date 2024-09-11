@@ -17,7 +17,6 @@ export default function PokemonStorage ({
     const { handleSelectChange, handleAddButtonClick } = selectProps;
 
     const [showPopUp, setShowPopUp] = useState(Array(2).fill(false));
-    // const popupRefs = useRef([]);
 
     function togglePopUp(index) {
 
@@ -81,7 +80,6 @@ export default function PokemonStorage ({
                 borderRadius: '15px',
                 border: '1px solid #071452'
             }}
-                // ref={el => popupRefs.current[player1Index] = el}
                 onClick={() => {togglePopUp(0)}}>
             +</button>
         </td>
@@ -138,7 +136,6 @@ export default function PokemonStorage ({
                 borderRadius: '15px',
                 border: '1px solid #071452'
             }}
-                // ref={el => popupRefs.current[player2Index] = el}
                 onClick={() => {togglePopUp(1)}}>
             +</button>
         </td>
