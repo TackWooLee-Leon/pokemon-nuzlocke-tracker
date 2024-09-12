@@ -179,7 +179,7 @@ const handleDrop = (event, player1Index, player2Index, targetTable) => {
 };
 ```
 
-### Fetching Data From PokeAPI
+### Fetching Data From PokéAPI
 This feature involves fetching Pokémon data from the PokéAPI, a comprehensive and free API that provides information about Pokémon, their abilities, types, and other attributes. The data retrieved from the API is used to populate and manage Pokémon information within the application.
 
 The `PokemonInfo` component is responsible for fetching Pokémon data from the PokéAPI. 
@@ -192,7 +192,7 @@ const PokemonInfo = () => {
         return Promise.resolve(JSON.parse(cachedData));
     }
 
-    return fetch("https://pokeapi.co/api/v2/pokemon/?limit=135&offset=251")
+    return fetch("https://PokéAPI.co/api/v2/pokemon/?limit=135&offset=251")
         .then(response => response.json())
         .then(data => {
             const pokemonUrls = data.results.map(pokemon => pokemon.url);
@@ -232,12 +232,12 @@ if (cachedData) {
 
 **2. Fetch Data from PokéAPI:**
 ```javascript
-return fetch("https://pokeapi.co/api/v2/pokemon/?limit=135&offset=251")
+return fetch("https://PokéAPI.co/api/v2/pokemon/?limit=135&offset=251")
     .then(response => response.json())
 ```
 
 - If no cached data is found, the component proceeds to fetch data from PokéAPI.
-- It makes a network request to the endpoint `https://pokeapi.co/api/v2/pokemon/?limit=135&offset=251`, which retrieves a list of Generation 3 Pokémon URLs.
+- It makes a network request to the endpoint `https://PokéAPI.co/api/v2/pokemon/?limit=135&offset=251`, which retrieves a list of Generation 3 Pokémon URLs.
   - `limit` is used to specify the maximum number of items to return. 135 is the total number of Generation 3 Pokémon which is why we set it to 135.
   - `offset` is used to specify the number of items to skip before starting to collect the response data. Generation 1 and Generation 2 have a total of 251 Pokémon, therefore 251 Pokémon are skipped.
 
@@ -287,7 +287,7 @@ Pokémon Soullock Tracker was a bit challenging to build from the scratch due to
    - Visualizing the component structure by sketching it out helped me understand how parent and child components interact, especially when it came to state management. Although I didn’t have a guide to refer to, I was able to rely on critical thinking to push through obstacles. The process was tough, but it helped me grow and develop resilience as a programmer, allowing me to overcome complex challenges and keep moving forward.
     
 2. The Importance of Data Caching
-   - Initially, I didn’t store the data retrieved from the PokeAPI locally. I quickly realized this was inefficient, as each time a user interacted with a Pokémon Select component, it triggered a new API call, slowing down the app.
+   - Initially, I didn’t store the data retrieved from the PokéAPI locally. I quickly realized this was inefficient, as each time a user interacted with a Pokémon Select component, it triggered a new API call, slowing down the app.
    - Through trial and error, I learned the value of caching data. Implementing local caching for Pokémon data significantly reduced unnecessary API requests, improving the app's performance and creating a more seamless user experience. This experience underscored the importance of efficiency in web development, especially when working with external APIs.
   
 3. State Management
