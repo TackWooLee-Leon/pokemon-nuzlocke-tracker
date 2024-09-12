@@ -39,84 +39,58 @@ This project was built using React.js for its component-based architecture, whic
 ## Features
 
 ### Pokémon Pair Tracking
+The purpose of the Pokémon pair tracking system, specifically through the checkForDuplicatingTypes function, is to ensure that no two Pokémon in a team share the same primary type. 
 
-- The `selectedPokemon` state stores the data of caught Pokémon. 
+**1. Iterate Over the Pokémon Team**
+- The funciton loops through each Pokémon in the `selectedPokemon.team`, checking for the priamry type (`pokemonTypes[0]`).
 
 ```javascript
 const [selectedPokemon, setSelectedPokemon] = useState({
-  team: Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''}),
-  storage: Array(5).fill().flatMap(() => Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''}))
+   team: Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''}),
+   storage: Array(5).fill().flatMap(() => Array(12).fill({ name: '', pokemonTypes: '', spriteUrl: '', nickname: '', location: ''}))
 });
 ```
 
-- The `checkForDuplicatingTypes` function iterates through this state to count how many times each primary type has been stored. If a type is stored more than once, the function triggers an event listener, `onDuplicatedType`, which is passed down from the parent component.
-
 ```javascript
-function checkForDuplicatingTypes() {
-  const typeCounts = {};
+for (let i in selectedPokemon.team) {
+  if (selectedPokemon.team.hasOwnProperty(i)) {
+    const pokemon = selectedPokemon.team[i];
 
-  for (let i in selectedPokemon.team) {
-    if (selectedPokemon.team.hasOwnProperty(i)) {
-      const pokemon = selectedPokemon.team[i];
-      const type = pokemon.pokemonTypes[0];
+    // Primary type
+    const type = pokemon.pokemonTypes[0]; 
 
-      if (!type) continue;
-
-      if (!typeCounts[type]) {
-        typeCounts[type] = { count: 0, names: [], nicknames: [] };
-      }
-
-      typeCounts[type].count += 1;
-      typeCounts[type].names.push(pokemon.name);
-      typeCounts[type].nicknames.push(pokemon.nickname);
-    }
-  }
-
-  let duplicatedFound = false;
-
-  for (const type in typeCounts) {
-    if (typeCounts.hasOwnProperty(type)) {
-      const entry = typeCounts[type];
-      if (entry.count > 1) {
-        duplicatedFound = true;
-
-        const duplicatedType = type;
-        const duplicatedPokemon = entry.names.join(', ');
-
-        onDuplicatedType(duplicatedType, duplicatedPokemon);
-      }
-    }
-  }
-
-  if (!duplicatedFound) {
-    onDuplicatedType('', '');
+    // Skip if there's no type 
+    if (!type) continue; 
   }
 }
-
-useEffect(() => {
-  checkForDuplicatingTypes();
-}, [selectedPokemon.team]);
 ```
 
-- The parent component then executes `handleDuplicatedTypes` triggered by the event listener, which updates the `duplicatedType` and `duplicatedPokemon` states. These states are subsequently rendered in the component's return statement, displaying the duplicated type and the Pokémon associated with it.
+**2. Track Type Occurrences**
+- The function uses a `typeCounts` object to keep track of how many times each type appears and stores Pokémon nmaes and nicknames.
 
 ```javascript
-const handleDuplicatedTypes = (type, pokemonNames) => {
-  setDuplicatedType(type);
-  setDuplicatedPokemon(pokemonNames);
-};
+if (!typeCounts[type]) {
+  typeCounts[type] = { count: 0, names: [], nicknames: [] };
+}
 
-return (
-  <div className={styles.duplicatedInfo}>
-    <span>
-      Duplicated Type Found: <span style={{ color: '#ff3939' }}>{duplicatedType}</span>
-    </span>
+typeCounts[type].count += 1;
+typeCounts[type].names.push(pokemon.name);
+typeCounts[type].nicknames.push(pokemon.nickname);
+```
 
-    <span>
-      Duplicated Pokémon: <span style={{ color: '#ff3939' }}>{duplicatedPokemon}</span>
-    </span>
-  </div>
-);
+**3. Check for Duplicates**
+- It checks if any type has a count greater than 1 (i.e., it's duplicated). It found, it passes the duplicated type and Pokémon names to the `onDuplicatedtype` function which the parent component will render the type and names.
+
+```javascript
+for (const type in typeCounts) {
+  if (typeCounts[type].count > 1) {
+    const duplicatedType = type;
+    const duplicatedPokemon = typeCounts[type].names.join(', ');
+
+    // Handle duplicate
+    onDuplicatedType(duplicatedType, duplicatedPokemon); 
+  }
+}
 ```
 
 ### Drag-and-Drop
