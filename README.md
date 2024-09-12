@@ -12,6 +12,18 @@ Many YouTubers rely on physical notebooks to manually track their Pokémon pairs
 
 To address this problem, I decided to create a Pokémon Soullocke Tracker. This tool helps players keep track of their Pokémon pairs efficiently and automatically detects duplicated pairings.
 
+# Soullocke Rules
+1. Each player can only catch 1 Pokémon per route/area.
+2. You can only catch the 1st wild encountered Pokemon per route/area.
+3. Caught Pokémon from the same route/area are linked, thus becomes a pair.
+4. When one player's Pokémon faints, the other one is considered fainted as well.
+5. Once a Pokémon is fainted, it's out of the challenge entirely. Which means the pair is no longer useable.
+6. Players must give a nickname to their caught Pokémon.
+7. Players can't have the same primary type Pokemon on their team.
+   
+   - Example: 1st pair has Treecko (grass) and Torchic (fire), this is a valid pair. 2nd pair has Mudkip (water) and Seedot (grass), which is also a valid pair, however, Seedot and Treecko both share the same primary Type (grass), therefore, one of the pairs have to be placed into PC.
+
+
 # How I Made This
 ## Tech used
 
@@ -290,14 +302,25 @@ return pokemonData;
 ```
 
 - Stores the fetched Pokémon data in the browser's `localStorage`, this way the app doesn't have to fetch again from the API later.
-- Returns the fetched data from the function
+- Returns the fetched data from the function.
 
 # Lessons Learned
 
 Pokémon Soullock Tracker was a bit challenging to build from the scratch due to several reasons:
 
-1. This project is one-of-its-own
-   - I couldn't find any tutorials online to help me build it. Whenever I got stuck building something, I had to write down the problems on my notebook, breaking down the problem into smaller chunks which allows me to focus on one problem at a time. Sometimes I needed to draw out components' structure to help me understand how child components and parent component interact with states.
-   - Althought I didn't have a tutorial to refer to, I was able to use my critical thinking skills to solve the problems. It pushed me and I struggled, but it allowed me to overcome a lot of challenges with coding and keep pusing forward.
+1. Overcoming Challenges Without Guidance
+   - This project is one-of-its-own, there aren't tutorials online to guide you through it. Whenever I encountered a challenge, I relied on my own problem-solving skills, often writing down issues in a notebook and breaking them down into smaller, more manageable tasks. This approach allowed me to focus on one problem at a time and find effective solutions.
+   - Visualizing the component structure by sketching it out helped me understand how parent and child components interact, especially when it came to state management. Although I didn’t have a guide to refer to, I was able to rely on critical thinking to push through obstacles. The process was tough, but it helped me grow and develop resilience as a programmer, allowing me to overcome complex challenges and keep moving forward.
     
-2. 
+2. The Importance of Data Caching
+   - Initially, I didn’t store the data retrieved from the PokeAPI locally. I quickly realized this was inefficient, as each time a user interacted with a Pokémon Select component, it triggered a new API call, slowing down the app.
+   - Through trial and error, I learned the value of caching data. Implementing local caching for Pokémon data significantly reduced unnecessary API requests, improving the app's performance and creating a more seamless user experience. This experience underscored the importance of efficiency in web development, especially when working with external APIs.
+  
+3. State Management
+   - In this project, I realized how essential it is to keep the state in the correct component. Moving from local state in individual rows to managing state in the parent component allowed me to track Pokémon selections across multiple rows and tables.
+
+
+# Contact
+Email: tackwlee01@gmail.com
+
+GitHub Repo: https://github.com/TackWooLee-Leon
