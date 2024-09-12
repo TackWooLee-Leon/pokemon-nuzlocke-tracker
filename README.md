@@ -192,7 +192,7 @@ const PokemonInfo = () => {
         return Promise.resolve(JSON.parse(cachedData));
     }
 
-    return fetch("https://PokéAPI.co/api/v2/pokemon/?limit=135&offset=251")
+    return fetch("https://pokeapi.co/api/v2/pokemon/?limit=135&offset=251")
         .then(response => response.json())
         .then(data => {
             const pokemonUrls = data.results.map(pokemon => pokemon.url);
@@ -232,12 +232,12 @@ if (cachedData) {
 
 **2. Fetch Data from PokéAPI:**
 ```javascript
-return fetch("https://PokéAPI.co/api/v2/pokemon/?limit=135&offset=251")
+return fetch("https://pokeapi.co/api/v2/pokemon/?limit=135&offset=251")
     .then(response => response.json())
 ```
 
 - If no cached data is found, the component proceeds to fetch data from PokéAPI.
-- It makes a network request to the endpoint `https://PokéAPI.co/api/v2/pokemon/?limit=135&offset=251`, which retrieves a list of Generation 3 Pokémon URLs.
+- It makes a network request to the endpoint `https://pokeapi.co/api/v2/pokemon/?limit=135&offset=251`, which retrieves a list of Generation 3 Pokémon URLs.
   - `limit` is used to specify the maximum number of items to return. 135 is the total number of Generation 3 Pokémon which is why we set it to 135.
   - `offset` is used to specify the number of items to skip before starting to collect the response data. Generation 1 and Generation 2 have a total of 251 Pokémon, therefore 251 Pokémon are skipped.
 
