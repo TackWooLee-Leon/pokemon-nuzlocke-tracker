@@ -1,10 +1,13 @@
 .storagePokemonDisplay {
-    /* border: 1px solid blue; */
     position: relative;
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
     padding: 0.7rem;
+}
+
+.storageLocationInput {
+    border: 2px solid #071452;
+    width: clamp(6rem, 15vw, 10rem);
+    margin-left: 0.7rem;
+    font-Size: 0.9rem;
 }
 
 .storagePopUpMenu{
@@ -12,7 +15,6 @@
     border: 2px solid #f4ecff;
     border-radius: 7px;
     background-color: #5171ca;
-    /* display: flex; */
     flex-direction: column;
     align-items: center;
 }
@@ -36,7 +38,6 @@
     font-size: 1rem;
     border: 2px solid #433e84;
     border-radius: 5px;
-    background-color: white;
 }
 
 .storagePopUpMenuBtns button:first-child {
@@ -68,8 +69,9 @@ button:hover {
 
 .storageNicknames {
     text-align: left;
-    min-width: 13rem;
+    min-width: 10rem;
     color: #ffe604;
+    font-size: 1.1rem;
     text-shadow:
         1px 1px 0 #000, /* Horizontal, Vertical, Blur radius, Color */
         -1px -1px 0 #000,
