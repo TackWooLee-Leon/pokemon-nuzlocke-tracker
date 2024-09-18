@@ -4,11 +4,14 @@
 
 body {
   background-color: #071452;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .centered {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
+  margin-top: 1rem;
 }

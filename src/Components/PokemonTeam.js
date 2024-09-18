@@ -214,16 +214,11 @@ export default function PokemonTeam ( {
             >
                 <td>
                     <input 
+                        className={styles.teamLocationInput}
                         type="text" 
                         value={selectedPokemon.team[player1Index].location}
                         onChange={(e) => handleLocationChange(player1Index, player2Index, 'team', e)}
-                        placeholder='e.g. route 101' 
-                        style={{
-                            border: '2px solid #071452',
-                            width: '10rem',
-                            marginLeft: '0.7rem',
-                            fontSize: '0.9rem'
-                    }}></input>
+                        ></input>
                 </td>
                 <Player1PokemonSelect
                     player1Index={player1Index}
