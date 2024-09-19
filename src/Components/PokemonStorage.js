@@ -75,8 +75,8 @@ export default function PokemonStorage ({
                 backgroundImage: `url(${buttonBackgroundImage.storage[player1Index]})`,
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
-                height: "4rem", 
-                width: "4rem",
+                height: "clamp(2rem, 8vw, 4rem)", 
+                width: "clamp(2rem, 8vw, 4rem)",
                 borderRadius: '15px',
                 border: '1px solid #071452'
             }}
@@ -131,8 +131,8 @@ export default function PokemonStorage ({
                 backgroundImage: `url(${buttonBackgroundImage.storage[player2Index]})`,
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
-                height: "4rem", 
-                width: "4rem",
+                height: "clamp(2rem, 8vw, 4rem)", 
+                width: "clamp(2rem, 8vw, 4rem)",
                 borderRadius: '15px',
                 border: '1px solid #071452'
             }}

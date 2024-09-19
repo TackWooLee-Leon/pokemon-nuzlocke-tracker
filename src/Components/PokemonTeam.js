@@ -128,8 +128,8 @@ export default function PokemonTeam ( {
                     backgroundImage: `url(${buttonBackgroundImage.team[player1Index]})`,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
-                    height: "4rem", 
-                    width: "4rem",
+                    height: "clamp(2rem, 8vw, 4rem)", 
+                    width: "clamp(2rem, 8vw, 4rem)",
                     borderRadius: '15px',
                     border: '1px solid #071452'
                 }}
@@ -184,8 +184,8 @@ export default function PokemonTeam ( {
                     backgroundImage: `url(${buttonBackgroundImage.team[player2Index]})`,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
-                    height: "4rem", 
-                    width: "4rem",
+                    height: "clamp(2rem, 8vw, 4rem)", 
+                    width: "clamp(2rem, 8vw, 4rem)",
                     borderRadius: '15px',
                     border: '1px solid #071452'
                 }}

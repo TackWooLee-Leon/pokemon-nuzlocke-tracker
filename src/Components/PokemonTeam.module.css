@@ -5,7 +5,7 @@
 
 .teamLocationInput{
     border: 2px solid #071452;
-    width: clamp(6rem, 15vw, 10rem);
+    width: clamp(4rem, 15vw, 10rem);
     margin-left: 0.7rem;
     font-Size: 0.9rem;
 }
@@ -36,7 +36,7 @@
 .teamPopUpMenuBtns button {
     font-size: 1rem;
     padding: 0.2rem 0.5rem;
-    min-width: 4.5rem;
+    min-width: 1.5rem;
     border: 2px solid #362153;
     border-radius: 5px;
 }
@@ -70,7 +70,7 @@ button:hover {
 
 .teamNicknames {
     text-align: left;
-    min-width: 10rem;
+    width: clamp(3rem, 10vw, 10rem);
     color: #ffe604;
     font-size: 1.1rem;
     text-shadow:

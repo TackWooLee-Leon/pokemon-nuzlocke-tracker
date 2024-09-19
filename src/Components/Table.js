@@ -338,15 +338,17 @@ export default function Table() {
                     <tbody>
                         {storageRenderRows()}
                     </tbody>
-                </table>
 
-                <div className={styles.pageBtns}>
+                    <div className={styles.pageBtns}>
                     {Array.from({ length: 5}, (_, i) => (
                         <button key={i} onClick={() => handlePageChange(i)}>
                             Page {i +1}
                         </button>
                     ))}
-                </div>
+                    </div>
+                </table>
+
+               
             </div>
         </div>
     )

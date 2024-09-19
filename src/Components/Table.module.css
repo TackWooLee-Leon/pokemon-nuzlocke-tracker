@@ -51,7 +51,7 @@ th, td{
 
 .location {
     width: 10rem;
-    font-size: 1.5rem;
+    font-size: clamp(0.8rem, 5vw, 1.5rem);
     color: #ffe604;
     text-shadow:
         1px 1px 0 #000, /* Horizontal, Vertical, Blur radius, Color */
@@ -61,7 +61,7 @@ th, td{
 }
 
 .nicknames {
-    font-size: 1.5rem;
+    font-size: clamp(0.8rem, 5vw, 1.5rem);
     color: #ffe604;
     text-shadow:
         1px 1px 0 #000, /* Horizontal, Vertical, Blur radius, Color */
@@ -94,6 +94,7 @@ tbody input {
 .pageBtns {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .pageBtns button{
@@ -103,7 +104,7 @@ tbody input {
     background-color: #0090ba;
     border: 2px solid #f4ecff;
     border-radius: 5px;
-    
+    font-size: clamp(0.4rem, 0.8vw, 2rem);
 }
 
 .duplicatedInfo {
@@ -136,9 +137,9 @@ tbody input {
         font-size: 0.9rem;
     }
     .playersNameInput input {
-        width: 11rem;
+        width: 7rem;
     }
     .playersNameInput input::placeholder {
-        font-size: 1rem;
+        font-size: 0.63rem;
     }
 }
