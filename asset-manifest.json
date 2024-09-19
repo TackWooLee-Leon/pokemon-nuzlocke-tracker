@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/pokemon-soullocke-tracker/static/css/main.33593052.css",
-    "main.js": "/pokemon-soullocke-tracker/static/js/main.495c3d57.js",
+    "main.css": "/pokemon-soullocke-tracker/static/css/main.40b9d354.css",
+    "main.js": "/pokemon-soullocke-tracker/static/js/main.4f784179.js",
     "index.html": "/pokemon-soullocke-tracker/index.html",
-    "main.33593052.css.map": "/pokemon-soullocke-tracker/static/css/main.33593052.css.map",
-    "main.495c3d57.js.map": "/pokemon-soullocke-tracker/static/js/main.495c3d57.js.map"
+    "main.40b9d354.css.map": "/pokemon-soullocke-tracker/static/css/main.40b9d354.css.map",
+    "main.4f784179.js.map": "/pokemon-soullocke-tracker/static/js/main.4f784179.js.map"
   },
   "entrypoints": [
-    "static/css/main.33593052.css",
-    "static/js/main.495c3d57.js"
+    "static/css/main.40b9d354.css",
+    "static/js/main.4f784179.js"
   ]
 }
